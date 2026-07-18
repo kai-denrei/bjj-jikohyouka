@@ -1,0 +1,109 @@
+{
+  "categories": [
+    {
+      "id": "takedowns",
+      "name": "Takedowns & Wrestling",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Standing grappling, throws, and takedown techniques"
+    },
+    {
+      "id": "guard_top",
+      "name": "Guard Passing (Top)",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Passing opponent's guard from top position"
+    },
+    {
+      "id": "guard_bottom",
+      "name": "Guard Retention (Bottom)",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Maintaining and recovering guard from bottom position"
+    },
+    {
+      "id": "closed_guard_top",
+      "name": "Closed Guard (Top)",
+      "axis": "positional",
+      "weight": 1,
+      "description": "Breaking and passing closed guard"
+    },
+    {
+      "id": "closed_guard_bottom",
+      "name": "Closed Guard (Bottom)",
+      "axis": "positional",
+      "weight": 1,
+      "description": "Attacking and controlling from closed guard"
+    },
+    {
+      "id": "open_guard_top",
+      "name": "Open Guard Passing (Top)",
+      "axis": "positional",
+      "weight": 1,
+      "description": "Passing various open guard styles"
+    },
+    {
+      "id": "open_guard_bottom",
+      "name": "Open Guard (Bottom)",
+      "axis": "positional",
+      "weight": 1,
+      "description": "Playing various open guard styles"
+    },
+    {
+      "id": "half_guard_top",
+      "name": "Half Guard (Top)",
+      "axis": "positional",
+      "weight": 1,
+      "description": "Passing and controlling from half guard top"
+    },
+    {
+      "id": "half_guard_bottom",
+      "name": "Half Guard (Bottom)",
+      "axis": "positional",
+      "weight": 1,
+      "description": "Playing and attacking from half guard bottom"
+    },
+    {
+      "id": "mount_top",
+      "name": "Mount (Top)",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Controlling and attacking from mount"
+    },
+    {
+      "id": "mount_bottom",
+      "name": "Mount (Bottom)",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Escaping and defending from mount bottom"
+    },
+    {
+      "id": "back_mount_top",
+      "name": "Back Mount (Top)",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Controlling and attacking from back mount"
+    },
+    {
+      "id": "back_mount_bottom",
+      "name": "Back Mount (Bottom)",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Escaping and defending from back mount bottom"
+    },
+    {
+      "id": "leg_locks",
+      "name": "Leg Locks (Attack/Defense)",
+      "axis": "positional",
+      "weight": 0.8,
+      "description": "Attacking with and defending against leg locks"
+    },
+    {
+      "id": "wrist_locks",
+      "name": "Wrist Locks",
+      "axis": "positional",
+      "weight": 0.5,
+      "description": "Attacking with and defending against wrist locks"
+    }
+  ]
+}
