@@ -15,7 +15,7 @@ Question content is iterated by Gerald; all drafted content ships as
 
 - `skill-check-v0.2-build-brief.md` — the working brief (Appendix B is the running brainstorm log; keep appending)
 - `src/data/legacy/skill-assessment.v0.1.json` — frozen v0.1 content (173 questions, 15 categories), vendored from upstream `main` on 2026-07-18; conversion source for bank 1.0.0. Note its internal `metadata` block is stale (says 126/11) — trust the records.
-- `src/data/question-bank/` — the v0.2 bank lives here (layout per brief §4.1); not yet built
+- `src/data/question-bank/` — the v0.2 bank lives here (layout per brief §4.1); bank 1.0.0 (173 active questions) with the 1.0.0 snapshot in `archive/`
 
 ## Dev
 

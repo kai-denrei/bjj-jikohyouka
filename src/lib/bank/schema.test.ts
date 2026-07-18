@@ -23,7 +23,7 @@ describe('QuestionSchema', () => {
   it('rejects unknown keys (strict)', () => {
     expect(() => QuestionSchema.parse({ ...validQuestion, weight: 2 })).toThrow()
   })
-  it('rejects psychological axis counting toward skill? no — schema allows it; validate.ts warns. Axis enum enforced:', () => {
+  it('rejects unknown axis values', () => {
     expect(() => QuestionSchema.parse({ ...validQuestion, axis: 'vibes' })).toThrow()
   })
   it('rejects non-slug qid', () => {

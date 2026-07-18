@@ -18,7 +18,7 @@ const ScalesFile = z.object({ scales: z.array(ScaleSchema) }).strict()
 const QuestionsFile = z.object({ questions: z.array(z.unknown()) }).strict()
 const ArchiveFile = z.object({ questions: z.array(z.unknown()) }).passthrough()
 
-export function validateBank(raw: RawBank, archives: unknown[]): ValidationResult {
+export function validateBank(raw: RawBank, archives: Array<{ file: string; data: unknown }>): ValidationResult {
   const errors: string[] = []
   const warnings: LintWarning[] = []
 
@@ -54,17 +54,22 @@ export function validateBank(raw: RawBank, archives: unknown[]): ValidationResul
 
   // archive lineage
   const archived = new Map<string, Question>()
-  for (const a of archives) {
-    const parsed = ArchiveFile.safeParse(a)
-    if (!parsed.success) { errors.push(`archive snapshot unreadable`); continue }
+  for (const { file, data } of archives) {
+    const parsed = ArchiveFile.safeParse(data)
+    if (!parsed.success) { errors.push(`${file}: archive snapshot unreadable`); continue }
+    let badRecords = 0
     for (const rec of parsed.data.questions) {
       const res = QuestionSchema.safeParse(rec)
       if (res.success) archived.set(res.data.qid, res.data)
+      else badRecords++
     }
+    if (badRecords > 0) errors.push(`${file}: ${badRecords} archive record(s) failed schema parse — lineage checks incomplete`)
   }
   const knownQids = new Set([...seen.keys(), ...archived.keys()])
 
   for (const q of questions) {
+    if (q.axis === 'psychological' && q.scoring.countsToward === 'skill')
+      errors.push(`${q.qid}: psychological items must not count toward skill (countsToward must be "context" or "none")`)
     if (!categoryIds.has(q.category)) errors.push(`${q.qid}: unknown category "${q.category}"`)
     if (!scaleById.has(q.input)) errors.push(`${q.qid}: input "${q.input}" not in scales.json`)
     if (q.replaces && !knownQids.has(q.replaces)) errors.push(`${q.qid}: replaces "${q.replaces}" not found in bank or archive`)

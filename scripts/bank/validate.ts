@@ -6,7 +6,7 @@ import { validateBank } from '../../src/lib/bank/validate'
 const archDir = join(BANK_DIR, 'archive')
 const archives = existsSync(archDir)
   ? readdirSync(archDir).filter(f => f.endsWith('.json')).sort()
-      .map(f => JSON.parse(readFileSync(join(archDir, f), 'utf8')))
+      .map(f => ({ file: f, data: JSON.parse(readFileSync(join(archDir, f), 'utf8')) }))
   : []
 
 const { errors, warnings, report } = validateBank(loadRawBank(), archives)

@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest'
+import { readdirSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { validateBank } from './validate'
-import { loadRawBank, type RawBank } from './load'
+import { loadRawBank, BANK_DIR, type RawBank } from './load'
 
 const scales = { scales: [
   { id: 'ladder6', kind: 'tap', label: 'L', secondsPerItem: 6,
@@ -38,11 +40,11 @@ describe('validateBank', () => {
   })
   it('replaces target must exist in current bank or archive', () => {
     expect(validateBank(raw([q({ replaces: 'ghost_001' })]), []).errors.join()).toMatch(/ghost_001/)
-    const archive = [{ questions: [q({ qid: 'ghost_001' })] }]
+    const archive = [{ file: 'bank-1.0.0.json', data: { questions: [q({ qid: 'ghost_001' })] } }]
     expect(validateBank(raw([q({ replaces: 'ghost_001' })]), archive).errors).toEqual([])
   })
   it('qid reuse from archive under a different category → error (qids are never recycled)', () => {
-    const archive = [{ questions: [q({ qid: 'td_x', category: 'mount_top' })] }]
+    const archive = [{ file: 'bank-1.0.0.json', data: { questions: [q({ qid: 'td_x', category: 'mount_top' })] } }]
     expect(validateBank(raw([q({})]), archive).errors.join()).toMatch(/recycl|reuse/i)
   })
   it('wording warnings surface but are not errors; retired questions are not linted', () => {
@@ -56,8 +58,15 @@ describe('validateBank', () => {
     const r = validateBank(raw([q({}), q({ qid: 'td_c', tier: 'drilldown', input: 'belt_curve', flags: ['showcase_curve'] })]), [])
     expect(r.report.estimatedSeconds).toEqual({ sweep: 6, full: 18 })
   })
+  it('psychological item counting toward skill → error', () => {
+    const r = validateBank(raw([q({ qid: 'psych_x', axis: 'psychological', scoring: { weight: 1, countsToward: 'skill' } })]), [])
+    expect(r.errors.join()).toMatch(/psychological/)
+  })
   it('the real bank on disk validates with zero errors', () => {
-    const r = validateBank(loadRawBank(), [])
+    const archDir = join(BANK_DIR, 'archive')
+    const archives = readdirSync(archDir).filter(f => f.endsWith('.json')).sort()
+      .map(f => ({ file: f, data: JSON.parse(readFileSync(join(archDir, f), 'utf8')) }))
+    const r = validateBank(loadRawBank(), archives)
     expect(r.errors).toEqual([])
     expect(r.report.totalActive).toBe(173)
   })

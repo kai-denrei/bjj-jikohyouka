@@ -6,7 +6,7 @@ import { bumpVersion, snapshot } from '../../src/lib/bank/release'
 
 const archDir = join(BANK_DIR, 'archive')
 const archives = readdirSync(archDir).filter(f => f.endsWith('.json')).sort()
-  .map(f => JSON.parse(readFileSync(join(archDir, f), 'utf8')))
+  .map(f => ({ file: f, data: JSON.parse(readFileSync(join(archDir, f), 'utf8')) }))
 
 const { errors } = validateBank(loadRawBank(), archives)
 if (errors.length) {
