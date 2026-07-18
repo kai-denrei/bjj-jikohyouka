@@ -24,4 +24,4 @@ npm install
 npm run dev
 ```
 
-Planned bank commands (brief §4.4, not yet implemented): `bank:validate`, `bank:release`, `bank:review`.
+Bank commands (brief §4.4): `npm run bank:validate`, `npm run bank:release -- --patch|--minor|--major` (initial release takes no flag), `npm run bank:review` (not yet implemented).

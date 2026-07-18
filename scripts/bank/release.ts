@@ -18,8 +18,15 @@ let bank = loadBank()
 const today = new Date().toISOString().slice(0, 10)
 const initial = !existsSync(join(archDir, `bank-${bank.meta.bankVersion}.json`))
 
-if (!initial) {
+if (initial) {
+  const meta = { ...bank.meta, releasedAt: today }
+  writeFileSync(join(BANK_DIR, 'bank.meta.json'), JSON.stringify(meta, null, 2) + '\n')
+  bank = loadBank()
+} else {
   const part = (['--major', '--minor', '--patch'].find(f => process.argv.includes(f)) ?? '--minor').slice(2) as 'major' | 'minor' | 'patch'
+  if (process.env.npm_lifecycle_event && !['--major', '--minor', '--patch'].some(f => process.argv.includes(f))) {
+    console.log('info: using default --minor; to override, run: npm run bank:release -- --patch|--minor|--major')
+  }
   const next = bumpVersion(bank.meta.bankVersion, part)
   const meta = { ...bank.meta, bankVersion: next, releasedAt: today }
   writeFileSync(join(BANK_DIR, 'bank.meta.json'), JSON.stringify(meta, null, 2) + '\n')
