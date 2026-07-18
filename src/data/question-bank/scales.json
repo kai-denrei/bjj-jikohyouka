@@ -1,0 +1,42 @@
+{
+  "scales": [
+    { "id": "ladder6", "kind": "tap", "label": "Execution ladder", "secondsPerItem": 6,
+      "anchors": [
+        { "value": 0, "label": "I don't know what to do here" },
+        { "value": 1, "label": "I know the steps, haven't drilled much" },
+        { "value": 2, "label": "Works in drilling / cooperative" },
+        { "value": 3, "label": "Works in positional sparring vs less experienced" },
+        { "value": 4, "label": "Works in free rolling vs same rank" },
+        { "value": 5, "label": "Works vs bigger/higher rank — could teach it" } ] },
+    { "id": "belt_threshold", "kind": "tap", "label": "Works reliably against opponents up to", "secondsPerItem": 6, "na": true,
+      "anchors": [
+        { "value": 0, "label": "Untrained" }, { "value": 1, "label": "White" },
+        { "value": 2, "label": "Blue" }, { "value": 3, "label": "Purple" },
+        { "value": 4, "label": "Brown" }, { "value": 5, "label": "Black" } ] },
+    { "id": "frequency10", "kind": "tap", "label": "In my last 10 rolls", "secondsPerItem": 6,
+      "anchors": [
+        { "value": 0, "label": "0" }, { "value": 1, "label": "1–2" },
+        { "value": 2, "label": "3–5" }, { "value": 3, "label": "6+" } ] },
+    { "id": "received_feedback", "kind": "tap", "label": "Training partners or coaches have told me", "secondsPerItem": 6,
+      "anchors": [
+        { "value": 0, "label": "Never" }, { "value": 1, "label": "Once or twice" },
+        { "value": 2, "label": "Several times, several people" } ] },
+    { "id": "know_check", "kind": "tap", "label": "Knowledge check", "secondsPerItem": 6,
+      "anchors": [
+        { "value": 0, "label": "No" }, { "value": 1, "label": "Roughly" },
+        { "value": 2, "label": "Yes, incl. grips/details" } ] },
+    { "id": "agree3", "kind": "tap", "label": "Agreement", "secondsPerItem": 6,
+      "anchors": [
+        { "value": 0, "label": "Not really" }, { "value": 1, "label": "Somewhat" },
+        { "value": 2, "label": "Definitely" } ] },
+    { "id": "belt_curve", "kind": "curve", "label": "Effectiveness across belt levels", "secondsPerItem": 12,
+      "anchors": [
+        { "value": 1, "label": "White" }, { "value": 2, "label": "Blue" },
+        { "value": 3, "label": "Purple" }, { "value": 4, "label": "Brown" },
+        { "value": 5, "label": "Black" } ] },
+    { "id": "slider10", "kind": "slider", "label": "Confidence (v0.1 legacy)", "secondsPerItem": 6, "legacy": true,
+      "anchors": [
+        { "value": 1, "label": "1 — lowest confidence" },
+        { "value": 10, "label": "10 — highest confidence" } ] }
+  ]
+}
