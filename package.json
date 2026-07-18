@@ -8,6 +8,7 @@
     "build": "npm run bank:validate && tsc -b && vite build",
     "bank:validate": "tsx scripts/bank/validate.ts",
     "bank:review": "tsx scripts/bank/review.ts",
+    "bank:release": "tsx scripts/bank/release.ts",
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest run"

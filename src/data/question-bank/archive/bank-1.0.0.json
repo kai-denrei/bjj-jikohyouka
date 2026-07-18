@@ -1,0 +1,4037 @@
+{
+  "bankVersion": "1.0.0",
+  "releasedAt": "2026-07-18",
+  "categories": [
+    {
+      "id": "takedowns",
+      "name": "Takedowns & Wrestling",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Standing grappling, throws, and takedown techniques"
+    },
+    {
+      "id": "guard_top",
+      "name": "Guard Passing (Top)",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Passing opponent's guard from top position"
+    },
+    {
+      "id": "guard_bottom",
+      "name": "Guard Retention (Bottom)",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Maintaining and recovering guard from bottom position"
+    },
+    {
+      "id": "closed_guard_top",
+      "name": "Closed Guard (Top)",
+      "axis": "positional",
+      "weight": 1,
+      "description": "Breaking and passing closed guard"
+    },
+    {
+      "id": "closed_guard_bottom",
+      "name": "Closed Guard (Bottom)",
+      "axis": "positional",
+      "weight": 1,
+      "description": "Attacking and controlling from closed guard"
+    },
+    {
+      "id": "open_guard_top",
+      "name": "Open Guard Passing (Top)",
+      "axis": "positional",
+      "weight": 1,
+      "description": "Passing various open guard styles"
+    },
+    {
+      "id": "open_guard_bottom",
+      "name": "Open Guard (Bottom)",
+      "axis": "positional",
+      "weight": 1,
+      "description": "Playing various open guard styles"
+    },
+    {
+      "id": "half_guard_top",
+      "name": "Half Guard (Top)",
+      "axis": "positional",
+      "weight": 1,
+      "description": "Passing and controlling from half guard top"
+    },
+    {
+      "id": "half_guard_bottom",
+      "name": "Half Guard (Bottom)",
+      "axis": "positional",
+      "weight": 1,
+      "description": "Playing and attacking from half guard bottom"
+    },
+    {
+      "id": "mount_top",
+      "name": "Mount (Top)",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Controlling and attacking from mount"
+    },
+    {
+      "id": "mount_bottom",
+      "name": "Mount (Bottom)",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Escaping and defending from mount bottom"
+    },
+    {
+      "id": "back_mount_top",
+      "name": "Back Mount (Top)",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Controlling and attacking from back mount"
+    },
+    {
+      "id": "back_mount_bottom",
+      "name": "Back Mount (Bottom)",
+      "axis": "positional",
+      "weight": 1.2,
+      "description": "Escaping and defending from back mount bottom"
+    },
+    {
+      "id": "leg_locks",
+      "name": "Leg Locks (Attack/Defense)",
+      "axis": "positional",
+      "weight": 0.8,
+      "description": "Attacking with and defending against leg locks"
+    },
+    {
+      "id": "wrist_locks",
+      "name": "Wrist Locks",
+      "axis": "positional",
+      "weight": 0.5,
+      "description": "Attacking with and defending against wrist locks"
+    }
+  ],
+  "scales": [
+    {
+      "id": "ladder6",
+      "kind": "tap",
+      "label": "Execution ladder",
+      "anchors": [
+        {
+          "value": 0,
+          "label": "I don't know what to do here"
+        },
+        {
+          "value": 1,
+          "label": "I know the steps, haven't drilled much"
+        },
+        {
+          "value": 2,
+          "label": "Works in drilling / cooperative"
+        },
+        {
+          "value": 3,
+          "label": "Works in positional sparring vs less experienced"
+        },
+        {
+          "value": 4,
+          "label": "Works in free rolling vs same rank"
+        },
+        {
+          "value": 5,
+          "label": "Works vs bigger/higher rank — could teach it"
+        }
+      ],
+      "secondsPerItem": 6
+    },
+    {
+      "id": "belt_threshold",
+      "kind": "tap",
+      "label": "Works reliably against opponents up to",
+      "anchors": [
+        {
+          "value": 0,
+          "label": "Untrained"
+        },
+        {
+          "value": 1,
+          "label": "White"
+        },
+        {
+          "value": 2,
+          "label": "Blue"
+        },
+        {
+          "value": 3,
+          "label": "Purple"
+        },
+        {
+          "value": 4,
+          "label": "Brown"
+        },
+        {
+          "value": 5,
+          "label": "Black"
+        }
+      ],
+      "na": true,
+      "secondsPerItem": 6
+    },
+    {
+      "id": "frequency10",
+      "kind": "tap",
+      "label": "In my last 10 rolls",
+      "anchors": [
+        {
+          "value": 0,
+          "label": "0"
+        },
+        {
+          "value": 1,
+          "label": "1–2"
+        },
+        {
+          "value": 2,
+          "label": "3–5"
+        },
+        {
+          "value": 3,
+          "label": "6+"
+        }
+      ],
+      "secondsPerItem": 6
+    },
+    {
+      "id": "received_feedback",
+      "kind": "tap",
+      "label": "Training partners or coaches have told me",
+      "anchors": [
+        {
+          "value": 0,
+          "label": "Never"
+        },
+        {
+          "value": 1,
+          "label": "Once or twice"
+        },
+        {
+          "value": 2,
+          "label": "Several times, several people"
+        }
+      ],
+      "secondsPerItem": 6
+    },
+    {
+      "id": "know_check",
+      "kind": "tap",
+      "label": "Knowledge check",
+      "anchors": [
+        {
+          "value": 0,
+          "label": "No"
+        },
+        {
+          "value": 1,
+          "label": "Roughly"
+        },
+        {
+          "value": 2,
+          "label": "Yes, incl. grips/details"
+        }
+      ],
+      "secondsPerItem": 6
+    },
+    {
+      "id": "agree3",
+      "kind": "tap",
+      "label": "Agreement",
+      "anchors": [
+        {
+          "value": 0,
+          "label": "Not really"
+        },
+        {
+          "value": 1,
+          "label": "Somewhat"
+        },
+        {
+          "value": 2,
+          "label": "Definitely"
+        }
+      ],
+      "secondsPerItem": 6
+    },
+    {
+      "id": "belt_curve",
+      "kind": "curve",
+      "label": "Effectiveness across belt levels",
+      "anchors": [
+        {
+          "value": 1,
+          "label": "White"
+        },
+        {
+          "value": 2,
+          "label": "Blue"
+        },
+        {
+          "value": 3,
+          "label": "Purple"
+        },
+        {
+          "value": 4,
+          "label": "Brown"
+        },
+        {
+          "value": 5,
+          "label": "Black"
+        }
+      ],
+      "secondsPerItem": 12
+    },
+    {
+      "id": "slider10",
+      "kind": "slider",
+      "label": "Confidence (v0.1 legacy)",
+      "anchors": [
+        {
+          "value": 1,
+          "label": "1 — lowest confidence"
+        },
+        {
+          "value": 10,
+          "label": "10 — highest confidence"
+        }
+      ],
+      "legacy": true,
+      "secondsPerItem": 6
+    }
+  ],
+  "questions": [
+    {
+      "qid": "td_001",
+      "v": 1,
+      "status": "active",
+      "category": "takedowns",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can name and effectively use more than 5 takedowns",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true
+      }
+    },
+    {
+      "qid": "td_002",
+      "v": 1,
+      "status": "active",
+      "category": "takedowns",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can take down opponents reliably",
+      "tier": "core",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "basic",
+        "subcategory": "execution",
+        "required": true,
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "td_003",
+      "v": 1,
+      "status": "active",
+      "category": "takedowns",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can take down a bigger, less-trained opponent",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "application",
+        "level": "intermediate",
+        "subcategory": "execution"
+      }
+    },
+    {
+      "qid": "td_004",
+      "v": 1,
+      "status": "active",
+      "category": "takedowns",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "From a failed Uchimata, I can think of at least 3 follow-ups",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "combinations"
+      }
+    },
+    {
+      "qid": "td_005",
+      "v": 1,
+      "status": "active",
+      "category": "takedowns",
+      "axis": "psychological",
+      "input": "slider10",
+      "text": "I enjoy training takedowns",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "psychological",
+        "level": "basic",
+        "subcategory": "motivation"
+      }
+    },
+    {
+      "qid": "td_006",
+      "v": 1,
+      "status": "active",
+      "category": "takedowns",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I have several favorite ways to initiate kuzushi from standing",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "setups"
+      }
+    },
+    {
+      "qid": "td_007",
+      "v": 1,
+      "status": "active",
+      "category": "takedowns",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "In my last 10 sessions, I completed takedowns consistently",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "intermediate",
+        "subcategory": "consistency"
+      }
+    },
+    {
+      "qid": "td_008",
+      "v": 1,
+      "status": "active",
+      "category": "takedowns",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I'm confident I can initiate weight transfer in my opponent",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "fundamentals"
+      }
+    },
+    {
+      "qid": "td_009",
+      "v": 1,
+      "status": "active",
+      "category": "takedowns",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can execute a double-leg with proper technique against a non-resisting partner",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "basic",
+        "subcategory": "execution"
+      }
+    },
+    {
+      "qid": "td_010",
+      "v": 1,
+      "status": "active",
+      "category": "takedowns",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can hit double-legs in live rolling",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "intermediate",
+        "subcategory": "execution"
+      }
+    },
+    {
+      "qid": "td_011",
+      "v": 1,
+      "status": "active",
+      "category": "takedowns",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can defend and counter takedown attempts",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "defensive",
+        "level": "intermediate",
+        "subcategory": "defense"
+      }
+    },
+    {
+      "qid": "td_012",
+      "v": 1,
+      "status": "active",
+      "category": "takedowns",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can create takedown opportunities from clinch positions",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "setups"
+      }
+    },
+    {
+      "qid": "td_013",
+      "v": 1,
+      "status": "active",
+      "category": "takedowns",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand how my takedown game connects to my ground game",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "advanced",
+        "subcategory": "transitions"
+      }
+    },
+    {
+      "qid": "gt_001",
+      "v": 1,
+      "status": "active",
+      "category": "guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can name and effectively use 5+ guard passing principles",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true
+      }
+    },
+    {
+      "qid": "gt_002",
+      "v": 1,
+      "status": "active",
+      "category": "guard_top",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can pass guard consistently",
+      "tier": "core",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "basic",
+        "subcategory": "execution",
+        "required": true,
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "gt_003",
+      "v": 1,
+      "status": "active",
+      "category": "guard_top",
+      "axis": "psychological",
+      "input": "slider10",
+      "text": "I enjoy working on guard passing",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "psychological",
+        "level": "basic",
+        "subcategory": "motivation"
+      }
+    },
+    {
+      "qid": "gt_004",
+      "v": 1,
+      "status": "active",
+      "category": "guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can execute knee-slice passes with proper technique",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "execution"
+      }
+    },
+    {
+      "qid": "gt_005",
+      "v": 1,
+      "status": "active",
+      "category": "guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can pass guard against bigger opponents",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "application",
+        "level": "intermediate",
+        "subcategory": "execution"
+      }
+    },
+    {
+      "qid": "gt_006",
+      "v": 1,
+      "status": "active",
+      "category": "guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "From failed knee-slice attempts, I know multiple backup options",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "combinations"
+      }
+    },
+    {
+      "qid": "gt_007",
+      "v": 1,
+      "status": "active",
+      "category": "guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand how to deal with different guard styles (open, closed, butterfly)",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "intermediate",
+        "subcategory": "adaptability"
+      }
+    },
+    {
+      "qid": "gt_008",
+      "v": 1,
+      "status": "active",
+      "category": "guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can maintain pressure while passing without getting swept",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "fundamentals"
+      }
+    },
+    {
+      "qid": "gt_009",
+      "v": 1,
+      "status": "active",
+      "category": "guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I have multiple ways to establish initial grips for passing",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "setups"
+      }
+    },
+    {
+      "qid": "gt_010",
+      "v": 1,
+      "status": "active",
+      "category": "guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can chain 3+ different guard passes in sequence",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "combinations"
+      }
+    },
+    {
+      "qid": "gt_011",
+      "v": 1,
+      "status": "active",
+      "category": "guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand timing for when to abandon a pass and reset",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "advanced",
+        "subcategory": "decision_making"
+      }
+    },
+    {
+      "qid": "gt_012",
+      "v": 1,
+      "status": "active",
+      "category": "guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can pass guard while avoiding leg entanglements",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "intermediate",
+        "subcategory": "safety"
+      }
+    },
+    {
+      "qid": "gb_001",
+      "v": 1,
+      "status": "active",
+      "category": "guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can name and effectively use 5+ guard retention principles",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true
+      }
+    },
+    {
+      "qid": "gb_002",
+      "v": 1,
+      "status": "active",
+      "category": "guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "When my guard gets broken, I have 3+ immediate reactions",
+      "tier": "core",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "recovery",
+        "required": true,
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "gb_003",
+      "v": 1,
+      "status": "active",
+      "category": "guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can maintain my guard against bigger opponents for entire rounds",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "performance",
+        "level": "intermediate",
+        "subcategory": "durability"
+      }
+    },
+    {
+      "qid": "gb_004",
+      "v": 1,
+      "status": "active",
+      "category": "guard_bottom",
+      "axis": "psychological",
+      "input": "slider10",
+      "text": "I enjoy playing guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "psychological",
+        "level": "basic",
+        "subcategory": "motivation"
+      }
+    },
+    {
+      "qid": "gb_005",
+      "v": 1,
+      "status": "active",
+      "category": "guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand how to use my legs as frames and barriers",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "basic",
+        "subcategory": "fundamentals"
+      }
+    },
+    {
+      "qid": "gb_006",
+      "v": 1,
+      "status": "active",
+      "category": "guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can recover guard from bad positions (almost passed)",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "intermediate",
+        "subcategory": "recovery"
+      }
+    },
+    {
+      "qid": "gb_007",
+      "v": 1,
+      "status": "active",
+      "category": "guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can create angles and off-balance my opponent while on bottom",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "disruption"
+      }
+    },
+    {
+      "qid": "gb_008",
+      "v": 1,
+      "status": "active",
+      "category": "guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand when to be offensive vs defensive from guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "advanced",
+        "subcategory": "decision_making"
+      }
+    },
+    {
+      "qid": "gb_009",
+      "v": 1,
+      "status": "active",
+      "category": "guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can transition between different guard types fluidly",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "transitions"
+      }
+    },
+    {
+      "qid": "gb_010",
+      "v": 1,
+      "status": "active",
+      "category": "guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I have multiple ways to break my opponent's posture",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "control"
+      }
+    },
+    {
+      "qid": "gb_011",
+      "v": 1,
+      "status": "active",
+      "category": "guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can sweep from guard retention scenarios",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "offense"
+      }
+    },
+    {
+      "qid": "gb_012",
+      "v": 1,
+      "status": "active",
+      "category": "guard_bottom",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can prevent my guard from being passed",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "advanced",
+        "subcategory": "consistency"
+      }
+    },
+    {
+      "qid": "cgt_001",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can name and effectively use 3+ ways to break closed guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true
+      }
+    },
+    {
+      "qid": "cgt_002",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_top",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can break closed guard consistently",
+      "tier": "core",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "basic",
+        "subcategory": "execution",
+        "required": true,
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "cgt_003",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand proper posture in closed guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "basic",
+        "subcategory": "fundamentals"
+      }
+    },
+    {
+      "qid": "cgt_004",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can avoid most submission attempts from closed guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "intermediate",
+        "subcategory": "safety"
+      }
+    },
+    {
+      "qid": "cgt_005",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I have multiple hand placement strategies for breaking guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "setups"
+      }
+    },
+    {
+      "qid": "cgt_006",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can break guard against bigger, stronger opponents",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "application",
+        "level": "intermediate",
+        "subcategory": "technique_over_strength"
+      }
+    },
+    {
+      "qid": "cgt_007",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand when to stand vs stay kneeling to break guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "intermediate",
+        "subcategory": "decision_making"
+      }
+    },
+    {
+      "qid": "cgt_008",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "Once I break guard, I can immediately begin passing",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "transitions"
+      }
+    },
+    {
+      "qid": "cgt_009",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can deal with different closed guard grips (collar, sleeve, etc.)",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "advanced",
+        "subcategory": "adaptability"
+      }
+    },
+    {
+      "qid": "cgt_010",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_top",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can avoid being swept from inside closed guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "intermediate",
+        "subcategory": "stability"
+      }
+    },
+    {
+      "qid": "cgt_011",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can pressure fight effectively in closed guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "pressure"
+      }
+    },
+    {
+      "qid": "cgb_001",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_bottom",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can break posture from closed guard",
+      "tier": "core",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "technical",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true,
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "cgb_002",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I have 3+ high-percentage submissions from closed guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "offense",
+        "required": true
+      }
+    },
+    {
+      "qid": "cgb_003",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_bottom",
+      "axis": "psychological",
+      "input": "slider10",
+      "text": "I enjoy playing closed guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "psychological",
+        "level": "basic",
+        "subcategory": "motivation"
+      }
+    },
+    {
+      "qid": "cgb_004",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can transition smoothly between attack systems (armbar to triangle to omoplata)",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "combinations"
+      }
+    },
+    {
+      "qid": "cgb_005",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand how to use my hips effectively in closed guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "fundamentals"
+      }
+    },
+    {
+      "qid": "cgb_006",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can sweep from closed guard when submissions aren't available",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "sweeps"
+      }
+    },
+    {
+      "qid": "cgb_007",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_bottom",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can maintain closed guard against opponents",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "defensive",
+        "level": "intermediate",
+        "subcategory": "retention"
+      }
+    },
+    {
+      "qid": "cgb_008",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand different grip strategies in closed guard (collar, sleeve, wrist)",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "intermediate",
+        "subcategory": "grips"
+      }
+    },
+    {
+      "qid": "cgb_009",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can attack effectively even against postured opponents",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "advanced",
+        "subcategory": "advanced_attacks"
+      }
+    },
+    {
+      "qid": "cgb_010",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can create angles for attacks from closed guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "positioning"
+      }
+    },
+    {
+      "qid": "cgb_011",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I have multiple ways to re-break posture once opponent stands",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "adaptability"
+      }
+    },
+    {
+      "qid": "cgb_012",
+      "v": 1,
+      "status": "active",
+      "category": "closed_guard_bottom",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can finish submissions from closed guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "advanced",
+        "subcategory": "finishing"
+      }
+    },
+    {
+      "qid": "ogt_001",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can identify 5+ different open guard styles",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "recognition",
+        "required": true
+      }
+    },
+    {
+      "qid": "ogt_002",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_top",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can pass butterfly guard",
+      "tier": "core",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "basic",
+        "subcategory": "execution",
+        "required": true,
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "ogt_003",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand the key principles for passing each open guard type",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "intermediate",
+        "subcategory": "strategy"
+      }
+    },
+    {
+      "qid": "ogt_004",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can deal with De La Riva guard effectively",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "specific_guards"
+      }
+    },
+    {
+      "qid": "ogt_005",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can pass spider guard without getting swept",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "specific_guards"
+      }
+    },
+    {
+      "qid": "ogt_006",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand how to control distance against open guard players",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "intermediate",
+        "subcategory": "distance_management"
+      }
+    },
+    {
+      "qid": "ogt_007",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can adapt my passing style based on opponent's open guard preference",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "advanced",
+        "subcategory": "adaptability"
+      }
+    },
+    {
+      "qid": "ogt_008",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can deal with inverted guard attacks",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "advanced",
+        "subcategory": "modern_guards"
+      }
+    },
+    {
+      "qid": "ogt_009",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I have specific strategies for dealing with berimbolo attempts",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "advanced",
+        "subcategory": "modern_guards"
+      }
+    },
+    {
+      "qid": "ogt_010",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can pressure pass against technical open guard players",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "pressure_passing"
+      }
+    },
+    {
+      "qid": "ogt_011",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand when to disengage and reset against complex open guards",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "advanced",
+        "subcategory": "decision_making"
+      }
+    },
+    {
+      "qid": "ogb_001",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can play at least 3 different open guard styles",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "variety",
+        "required": true
+      }
+    },
+    {
+      "qid": "ogb_002",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_bottom",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can sweep from butterfly guard",
+      "tier": "core",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "basic",
+        "subcategory": "sweeps",
+        "required": true,
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "ogb_003",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_bottom",
+      "axis": "psychological",
+      "input": "slider10",
+      "text": "I enjoy playing open guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "psychological",
+        "level": "basic",
+        "subcategory": "motivation"
+      }
+    },
+    {
+      "qid": "ogb_004",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can create angles and off-balance from open guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "fundamentals"
+      }
+    },
+    {
+      "qid": "ogb_005",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I have a go-to open guard style that works against most opponents",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "intermediate",
+        "subcategory": "specialization"
+      }
+    },
+    {
+      "qid": "ogb_006",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can transition between different open guard styles fluidly",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "transitions"
+      }
+    },
+    {
+      "qid": "ogb_007",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand how to use grips effectively in each open guard type",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "grips"
+      }
+    },
+    {
+      "qid": "ogb_008",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can attack submissions from multiple open guard positions",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "submissions"
+      }
+    },
+    {
+      "qid": "ogb_009",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can play inverted guard effectively",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "advanced",
+        "subcategory": "modern_guards"
+      }
+    },
+    {
+      "qid": "ogb_010",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can recover open guard when opponent starts to pass",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "intermediate",
+        "subcategory": "retention"
+      }
+    },
+    {
+      "qid": "ogb_011",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand timing for when to be offensive vs defensive in open guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "advanced",
+        "subcategory": "decision_making"
+      }
+    },
+    {
+      "qid": "ogb_012",
+      "v": 1,
+      "status": "active",
+      "category": "open_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can execute berimbolo or back-take sequences from open guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "modern_attacks"
+      }
+    },
+    {
+      "qid": "hgt_001",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can name and effectively use 3+ ways to pass half guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true
+      }
+    },
+    {
+      "qid": "hgt_002",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_top",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can pass half guard consistently",
+      "tier": "core",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "basic",
+        "subcategory": "execution",
+        "required": true,
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "hgt_003",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand proper weight distribution in half guard top",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "basic",
+        "subcategory": "fundamentals"
+      }
+    },
+    {
+      "qid": "hgt_004",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can avoid getting swept from half guard top",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "intermediate",
+        "subcategory": "stability"
+      }
+    },
+    {
+      "qid": "hgt_005",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can deal with underhooks from half guard bottom",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "control"
+      }
+    },
+    {
+      "qid": "hgt_006",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can pass half guard against larger opponents",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "application",
+        "level": "intermediate",
+        "subcategory": "technique_over_strength"
+      }
+    },
+    {
+      "qid": "hgt_007",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand when to go for knee-slide vs other half guard passes",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "intermediate",
+        "subcategory": "decision_making"
+      }
+    },
+    {
+      "qid": "hgt_008",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can submit from half guard top position",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "submissions"
+      }
+    },
+    {
+      "qid": "hgt_009",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can deal with deep half guard effectively",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "advanced",
+        "subcategory": "specialized_positions"
+      }
+    },
+    {
+      "qid": "hgt_010",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can chain multiple half guard passing attempts together",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "combinations"
+      }
+    },
+    {
+      "qid": "hgt_011",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand how to use crossface effectively in half guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "control"
+      }
+    },
+    {
+      "qid": "hgb_001",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can name and effectively use 3+ sweeps from half guard bottom",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true
+      }
+    },
+    {
+      "qid": "hgb_002",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can get to half guard from various positions",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "basic",
+        "subcategory": "entries",
+        "required": true
+      }
+    },
+    {
+      "qid": "hgb_003",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_bottom",
+      "axis": "psychological",
+      "input": "slider10",
+      "text": "I enjoy playing half guard bottom",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "psychological",
+        "level": "basic",
+        "subcategory": "motivation"
+      }
+    },
+    {
+      "qid": "hgb_004",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand how to get underhooks effectively from half guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "fundamentals"
+      }
+    },
+    {
+      "qid": "hgb_005",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_bottom",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can sweep from half guard",
+      "tier": "core",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "intermediate",
+        "subcategory": "sweeps",
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "hgb_006",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can prevent my guard from being passed when in half guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "intermediate",
+        "subcategory": "retention"
+      }
+    },
+    {
+      "qid": "hgb_007",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand how to create space and recover full guard from half guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "recovery"
+      }
+    },
+    {
+      "qid": "hgb_008",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can attack submissions from half guard bottom",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "submissions"
+      }
+    },
+    {
+      "qid": "hgb_009",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can play deep half guard effectively",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "advanced",
+        "subcategory": "specialized_positions"
+      }
+    },
+    {
+      "qid": "hgb_010",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can transition from half guard to other guard positions",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "transitions"
+      }
+    },
+    {
+      "qid": "hgb_011",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand timing for when to attack vs when to recover in half guard",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "advanced",
+        "subcategory": "decision_making"
+      }
+    },
+    {
+      "qid": "hgb_012",
+      "v": 1,
+      "status": "active",
+      "category": "half_guard_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can deal with crossface pressure effectively",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "defense"
+      }
+    },
+    {
+      "qid": "mt_001",
+      "v": 1,
+      "status": "active",
+      "category": "mount_top",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can maintain mount for 30+ seconds",
+      "tier": "core",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "basic",
+        "subcategory": "control",
+        "required": true,
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "mt_002",
+      "v": 1,
+      "status": "active",
+      "category": "mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can name and effectively use 3+ submissions from mount",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true
+      }
+    },
+    {
+      "qid": "mt_003",
+      "v": 1,
+      "status": "active",
+      "category": "mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand proper weight distribution in mount",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "basic",
+        "subcategory": "fundamentals"
+      }
+    },
+    {
+      "qid": "mt_004",
+      "v": 1,
+      "status": "active",
+      "category": "mount_top",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can finish submissions from mount",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "intermediate",
+        "subcategory": "finishing"
+      }
+    },
+    {
+      "qid": "mt_005",
+      "v": 1,
+      "status": "active",
+      "category": "mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can maintain mount against bigger opponents",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "application",
+        "level": "intermediate",
+        "subcategory": "control"
+      }
+    },
+    {
+      "qid": "mt_006",
+      "v": 1,
+      "status": "active",
+      "category": "mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can transition to high mount when needed",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "positioning"
+      }
+    },
+    {
+      "qid": "mt_007",
+      "v": 1,
+      "status": "active",
+      "category": "mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand when to stay heavy vs when to be mobile in mount",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "intermediate",
+        "subcategory": "decision_making"
+      }
+    },
+    {
+      "qid": "mt_008",
+      "v": 1,
+      "status": "active",
+      "category": "mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can chain different mount attacks together",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "combinations"
+      }
+    },
+    {
+      "qid": "mt_009",
+      "v": 1,
+      "status": "active",
+      "category": "mount_top",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can counter mount escape attempts",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "defensive",
+        "level": "intermediate",
+        "subcategory": "counter_defense"
+      }
+    },
+    {
+      "qid": "mt_010",
+      "v": 1,
+      "status": "active",
+      "category": "mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can transition from mount to other dominant positions",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "transitions"
+      }
+    },
+    {
+      "qid": "mt_011",
+      "v": 1,
+      "status": "active",
+      "category": "mount_top",
+      "axis": "psychological",
+      "input": "slider10",
+      "text": "I enjoy fighting from mount position",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "psychological",
+        "level": "basic",
+        "subcategory": "motivation"
+      }
+    },
+    {
+      "qid": "mt_012",
+      "v": 1,
+      "status": "active",
+      "category": "mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can attack the back from mount when opponent turns away",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "transitions"
+      }
+    },
+    {
+      "qid": "mb_001",
+      "v": 1,
+      "status": "active",
+      "category": "mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can name and effectively use 3+ mount escapes",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true
+      }
+    },
+    {
+      "qid": "mb_002",
+      "v": 1,
+      "status": "active",
+      "category": "mount_bottom",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can escape mount consistently",
+      "tier": "core",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "basic",
+        "subcategory": "escapes",
+        "required": true,
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "mb_003",
+      "v": 1,
+      "status": "active",
+      "category": "mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand proper defensive posture under mount",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "basic",
+        "subcategory": "fundamentals"
+      }
+    },
+    {
+      "qid": "mb_004",
+      "v": 1,
+      "status": "active",
+      "category": "mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can prevent most submission attempts from mount bottom",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "intermediate",
+        "subcategory": "submission_defense"
+      }
+    },
+    {
+      "qid": "mb_005",
+      "v": 1,
+      "status": "active",
+      "category": "mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can create enough space to begin escape sequences",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "space_creation"
+      }
+    },
+    {
+      "qid": "mb_006",
+      "v": 1,
+      "status": "active",
+      "category": "mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can escape mount from bigger opponents",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "application",
+        "level": "intermediate",
+        "subcategory": "technique_over_strength"
+      }
+    },
+    {
+      "qid": "mb_007",
+      "v": 1,
+      "status": "active",
+      "category": "mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand when to bridge vs when to shrimp for escapes",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "intermediate",
+        "subcategory": "decision_making"
+      }
+    },
+    {
+      "qid": "mb_008",
+      "v": 1,
+      "status": "active",
+      "category": "mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can defend against high mount attacks",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "advanced",
+        "subcategory": "specialized_defense"
+      }
+    },
+    {
+      "qid": "mb_009",
+      "v": 1,
+      "status": "active",
+      "category": "mount_bottom",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can avoid getting stuck in mount",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "intermediate",
+        "subcategory": "prevention"
+      }
+    },
+    {
+      "qid": "mb_010",
+      "v": 1,
+      "status": "active",
+      "category": "mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can sweep from mount bottom when escape isn't available",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "sweeps"
+      }
+    },
+    {
+      "qid": "mb_011",
+      "v": 1,
+      "status": "active",
+      "category": "mount_bottom",
+      "axis": "psychological",
+      "input": "slider10",
+      "text": "I stay calm and don't panic when mounted",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "psychological",
+        "level": "basic",
+        "subcategory": "composure"
+      }
+    },
+    {
+      "qid": "bmt_001",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_top",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can maintain back control for 30+ seconds",
+      "tier": "core",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "basic",
+        "subcategory": "control",
+        "required": true,
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "bmt_002",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand proper hook placement for back control",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true
+      }
+    },
+    {
+      "qid": "bmt_003",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_top",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can finish rear naked chokes",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "intermediate",
+        "subcategory": "submissions"
+      }
+    },
+    {
+      "qid": "bmt_004",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can maintain back control against bigger opponents",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "application",
+        "level": "intermediate",
+        "subcategory": "control"
+      }
+    },
+    {
+      "qid": "bmt_005",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I have multiple finishing sequences beyond RNC from back mount",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "submissions"
+      }
+    },
+    {
+      "qid": "bmt_006",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand how to use my legs/hooks to control different body types",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "advanced",
+        "subcategory": "adaptability"
+      }
+    },
+    {
+      "qid": "bmt_007",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can deal with opponent's hand fighting effectively",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "control"
+      }
+    },
+    {
+      "qid": "bmt_008",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can transition between different back attack systems",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "combinations"
+      }
+    },
+    {
+      "qid": "bmt_009",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand when to stay on the back vs transition to mount",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "intermediate",
+        "subcategory": "decision_making"
+      }
+    },
+    {
+      "qid": "bmt_010",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_top",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can get to back control from various positions",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "entries"
+      }
+    },
+    {
+      "qid": "bmt_011",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_top",
+      "axis": "psychological",
+      "input": "slider10",
+      "text": "I enjoy fighting from back control position",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "psychological",
+        "level": "basic",
+        "subcategory": "motivation"
+      }
+    },
+    {
+      "qid": "bmb_001",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can name and effectively use 3+ back escape techniques",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true
+      }
+    },
+    {
+      "qid": "bmb_002",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand proper hand placement to defend chokes",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true
+      }
+    },
+    {
+      "qid": "bmb_003",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_bottom",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can escape back control consistently",
+      "tier": "core",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "basic",
+        "subcategory": "escapes",
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "bmb_004",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_bottom",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can defend submissions from back control",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "performance",
+        "level": "intermediate",
+        "subcategory": "survival"
+      }
+    },
+    {
+      "qid": "bmb_005",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can prevent hooks from being established",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "intermediate",
+        "subcategory": "prevention"
+      }
+    },
+    {
+      "qid": "bmb_006",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can create enough movement to begin escape sequences",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "movement"
+      }
+    },
+    {
+      "qid": "bmb_007",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand when to focus on removing hooks vs hand fighting",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "intermediate",
+        "subcategory": "decision_making"
+      }
+    },
+    {
+      "qid": "bmb_008",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can escape back control from larger opponents",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "application",
+        "level": "advanced",
+        "subcategory": "technique_over_strength"
+      }
+    },
+    {
+      "qid": "bmb_009",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_bottom",
+      "axis": "psychological",
+      "input": "slider10",
+      "text": "I stay calm and don't panic when back is taken",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "psychological",
+        "level": "basic",
+        "subcategory": "composure"
+      }
+    },
+    {
+      "qid": "bmb_010",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can counter-attack when opponent makes mistakes from back control",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "counter_attack"
+      }
+    },
+    {
+      "qid": "bmb_011",
+      "v": 1,
+      "status": "active",
+      "category": "back_mount_bottom",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand different escape routes based on opponent's grip configuration",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "advanced",
+        "subcategory": "adaptability"
+      }
+    },
+    {
+      "qid": "ll_001",
+      "v": 1,
+      "status": "active",
+      "category": "leg_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can name and effectively use 5+ different leg lock submissions",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true
+      }
+    },
+    {
+      "qid": "ll_002",
+      "v": 1,
+      "status": "active",
+      "category": "leg_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand basic leg lock defense principles",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "defense",
+        "required": true
+      }
+    },
+    {
+      "qid": "ll_003",
+      "v": 1,
+      "status": "active",
+      "category": "leg_locks",
+      "axis": "positional",
+      "input": "belt_curve",
+      "text": "I can finish straight ankle locks",
+      "tier": "core",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [
+        "showcase_curve"
+      ],
+      "legacy": {
+        "type": "technical",
+        "level": "basic",
+        "subcategory": "execution",
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "ll_004",
+      "v": 1,
+      "status": "active",
+      "category": "leg_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can escape from basic leg lock attacks",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "intermediate",
+        "subcategory": "escapes"
+      }
+    },
+    {
+      "qid": "ll_005",
+      "v": 1,
+      "status": "active",
+      "category": "leg_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand ashi garami and basic leg entanglement positions",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "positions"
+      }
+    },
+    {
+      "qid": "ll_006",
+      "v": 1,
+      "status": "active",
+      "category": "leg_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can attack heel hooks safely in training",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "advanced",
+        "subcategory": "advanced_attacks"
+      }
+    },
+    {
+      "qid": "ll_007",
+      "v": 1,
+      "status": "active",
+      "category": "leg_locks",
+      "axis": "psychological",
+      "input": "slider10",
+      "text": "I enjoy training leg locks",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "psychological",
+        "level": "basic",
+        "subcategory": "motivation"
+      }
+    },
+    {
+      "qid": "ll_008",
+      "v": 1,
+      "status": "active",
+      "category": "leg_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can transition between different leg lock positions",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "transitions"
+      }
+    },
+    {
+      "qid": "ll_009",
+      "v": 1,
+      "status": "active",
+      "category": "leg_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand leg lock entries from various positions",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "entries"
+      }
+    },
+    {
+      "qid": "ll_010",
+      "v": 1,
+      "status": "active",
+      "category": "leg_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can defend against heel hooks effectively",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "advanced",
+        "subcategory": "advanced_defense"
+      }
+    },
+    {
+      "qid": "ll_011",
+      "v": 1,
+      "status": "active",
+      "category": "leg_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand the mechanics of knee line attacks",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "advanced",
+        "subcategory": "advanced_attacks"
+      }
+    },
+    {
+      "qid": "ll_012",
+      "v": 1,
+      "status": "active",
+      "category": "leg_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can use leg locks as a complement to my overall game",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "strategic",
+        "level": "intermediate",
+        "subcategory": "integration"
+      }
+    },
+    {
+      "qid": "wl_001",
+      "v": 1,
+      "status": "active",
+      "category": "wrist_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can name and effectively use 3+ different wrist lock variations",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "knowledge",
+        "level": "basic",
+        "subcategory": "fundamentals",
+        "required": true
+      }
+    },
+    {
+      "qid": "wl_002",
+      "v": 1,
+      "status": "active",
+      "category": "wrist_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand when wrist lock opportunities present themselves",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "recognition",
+        "required": true
+      }
+    },
+    {
+      "qid": "wl_003",
+      "v": 1,
+      "status": "active",
+      "category": "wrist_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can execute basic wrist locks with proper technique",
+      "tier": "core",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "basic",
+        "subcategory": "execution",
+        "diagnostic": true
+      }
+    },
+    {
+      "qid": "wl_004",
+      "v": 1,
+      "status": "active",
+      "category": "wrist_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can defend against wrist lock attacks",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "defensive",
+        "level": "basic",
+        "subcategory": "defense"
+      }
+    },
+    {
+      "qid": "wl_005",
+      "v": 1,
+      "status": "active",
+      "category": "wrist_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can set up wrist locks from guard positions",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "setups"
+      }
+    },
+    {
+      "qid": "wl_006",
+      "v": 1,
+      "status": "active",
+      "category": "wrist_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand wrist lock entries from standing positions",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "intermediate",
+        "subcategory": "standing"
+      }
+    },
+    {
+      "qid": "wl_007",
+      "v": 1,
+      "status": "active",
+      "category": "wrist_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can use wrist locks as transitions to other submissions",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "combinations"
+      }
+    },
+    {
+      "qid": "wl_008",
+      "v": 1,
+      "status": "active",
+      "category": "wrist_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I understand the mechanics of different wrist lock angles",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1.5,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "technical",
+        "level": "intermediate",
+        "subcategory": "mechanics"
+      }
+    },
+    {
+      "qid": "wl_009",
+      "v": 1,
+      "status": "active",
+      "category": "wrist_locks",
+      "axis": "positional",
+      "input": "slider10",
+      "text": "I can catch wrist locks opportunistically during scrambles",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 2,
+        "countsToward": "skill"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "tactical",
+        "level": "advanced",
+        "subcategory": "opportunistic"
+      }
+    },
+    {
+      "qid": "wl_010",
+      "v": 1,
+      "status": "active",
+      "category": "wrist_locks",
+      "axis": "psychological",
+      "input": "slider10",
+      "text": "I enjoy training wrist locks",
+      "tier": "drilldown",
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
+      "rationale": "Converted verbatim from v0.1 skill-assessment.json",
+      "flags": [],
+      "legacy": {
+        "type": "psychological",
+        "level": "basic",
+        "subcategory": "motivation"
+      }
+    }
+  ]
+}
