@@ -1,0 +1,7 @@
+# deban decision log — private working memory, local by default
+.deban/
+
+node_modules/
+dist/
+.DS_Store
+*.local
