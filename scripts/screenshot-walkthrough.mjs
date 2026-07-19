@@ -16,9 +16,9 @@ const OUT_DIR = resolve(__dirname, '../docs/screenshots')
 const BASE_URL = 'http://localhost:5173'
 const TOTAL_SWEEP = 15
 
-async function save(page, name) {
+async function save(page, name, fullPage = false) {
   const path = resolve(OUT_DIR, `${name}.png`)
-  await page.screenshot({ path, fullPage: false })
+  await page.screenshot({ path, fullPage })
   console.log(`  ✓ saved ${name}.png`)
 }
 
@@ -111,8 +111,8 @@ async function runMainFlow(browser) {
   // Give radar SVG time to paint
   await page.waitForTimeout(600)
 
-  // 05-results
-  await save(page, '05-results')
+  // 05-results (full-page to capture bands, radar, epigraph, and footer buttons)
+  await save(page, '05-results', true)
 
   await ctx.close()
   return q1Text
