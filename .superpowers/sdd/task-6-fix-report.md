@@ -28,3 +28,38 @@
 Tests  72 passed (72)   — 14 test files
 Build  ✓ built in 80ms  — no TS errors, no lint failures
 ```
+
+## Fix Wave 2
+
+### Regression — sweepStartIndex stabilization (src/App.tsx)
+
+Root cause: the sweep screen's `initialIndex` was computed from live `session.answers` inside a per-render IIFE (`firstUnanswered`). Each answer triggered `handleAnswer` → `setSession` → App re-render → new `firstUnanswered` value (i+1) → `initialIndex` prop changed → `QuestionScreen` effect fired → cleared the pending 250ms `setTimeout` and jumped instantly. The spec-mandated 250ms auto-advance beat was silently defeated for questions 1–14.
+
+Fix: added `sweepStartIndex` state (initially `0`). Set in:
+- `startNewSession` → `0`
+- `handleResume` (non-all-answered branch) → `firstUnanswered` (computed once)
+- `handleStartOver` → `0`
+
+The sweep render JSX now passes `initialIndex={sweepStartIndex}` directly (no IIFE). The `QuestionScreen` initialIndex-sync effect only fires on genuine entry/resume changes, not on every answer.
+
+### Regression test added (src/App.flow.test.tsx)
+
+`answering sweep Q1 does not immediately advance before 250ms (sweepStartIndex regression)`:
+- Mocks `window.matchMedia` to return `matches: false` for `prefers-reduced-motion: reduce` → timer path active
+- Uses `vi.useFakeTimers()`
+- Renders App, navigates to sweep, answers Q1 with "White: 10 of 10"
+- Asserts Q1 heading still visible (timer not yet fired — App re-render did not kill the timer)
+- Wraps `vi.advanceTimersByTime(250)` in `act()` to flush React state
+- Asserts Q2 heading now visible
+- Restores real timers and original matchMedia in `finally` block
+
+### Commit
+
+`da679c6` — fix(app): stabilize sweepStartIndex to preserve 250ms auto-advance timer
+
+### Test output
+
+```
+Tests  73 passed (73)   — 14 test files (+1 regression test)
+Build  ✓ built in 83ms  — no TS errors, no lint failures
+```
