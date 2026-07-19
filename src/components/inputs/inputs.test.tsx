@@ -277,4 +277,47 @@ describe('BellCurveAxis', () => {
     // Staged line should be gone
     expect(document.querySelector('[data-testid="axis-line-staged"]')).toBeNull()
   })
+
+  it('intersection dots appear when value is 62 — 2 to 5 dots with data-belt, white absent', () => {
+    render(<BellCurveAxis scale={axis()} value={62} onChange={() => {}} />)
+    const dots = document.querySelectorAll('[data-testid="curve-dot"]')
+    // At axis 62: white (mean=12, sd=7, height=1.0) → exponent ≈ -25.5 → ~0 → suppressed
+    // black (mean=74, sd=14, height=0.34) → some height → present
+    // At least 2 and at most 5 curves should show
+    expect(dots.length).toBeGreaterThanOrEqual(2)
+    expect(dots.length).toBeLessThanOrEqual(5)
+    // Each dot has data-belt
+    for (const dot of Array.from(dots)) {
+      expect(dot.getAttribute('data-belt')).toBeTruthy()
+    }
+    // White dot should be absent (height ≈ 0 at 62)
+    expect(document.querySelector('[data-testid="curve-dot"][data-belt="white"]')).toBeNull()
+  })
+
+  it('intersection dots: each visible dot has a different cy (heights differ)', () => {
+    render(<BellCurveAxis scale={axis()} value={45} onChange={() => {}} />)
+    const dots = document.querySelectorAll('[data-testid="curve-dot"]')
+    const cys = Array.from(dots).map(d => d.getAttribute('cy'))
+    // All cy values should be unique (different belt heights at axis=45)
+    const unique = new Set(cys)
+    expect(unique.size).toBe(cys.length)
+  })
+
+  it('dots ride the hover ghost line when mouse pointer moves', () => {
+    render(<BellCurveAxis scale={axis()} value={null} onChange={() => {}} />)
+    const svg = document.querySelector('svg[role="slider"]')!
+    // No dots before hover
+    expect(document.querySelectorAll('[data-testid="curve-dot"]')).toHaveLength(0)
+    // Simulate mouse hover (pointerMove with mouse pointerType)
+    fireEvent.pointerMove(svg, { pointerType: 'mouse', clientX: 200 })
+    // Dots should appear (ghostX set)
+    const dots = document.querySelectorAll('[data-testid="curve-dot"]')
+    expect(dots.length).toBeGreaterThan(0)
+  })
+
+  it('black dot absent at axis value 12 (suppressed — height < 2% of plot)', () => {
+    render(<BellCurveAxis scale={axis()} value={12} onChange={() => {}} />)
+    // black: mean=74, sd=14, height=0.34 → exponent = -((12-74)^2)/(2*196) ≈ -9.7 → ~0
+    expect(document.querySelector('[data-testid="curve-dot"][data-belt="black"]')).toBeNull()
+  })
 })

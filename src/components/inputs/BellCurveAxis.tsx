@@ -79,16 +79,27 @@ function axisToSvgX(v: number): number {
   return PLOT_X0 + (v / 100) * PLOT_W
 }
 
-/** Evaluate gaussian at SVG x for one curve */
-function gaussianY(
+// EXPORTED — used by both path builder and dot renderer
+// Returns normalized height in PLOT_H units (same as before: 0..height)
+export function gaussianAxisHeight(
+  axisVal: number,
+  mean: number,
+  sd: number,
+  height: number
+): number {
+  const exponent = -((axisVal - mean) ** 2) / (2 * sd ** 2)
+  return height * Math.exp(exponent)
+}
+
+/** Evaluate gaussian at SVG x for one curve — internal use for path builder */
+function gaussianAtSvgX(
   svgX: number,
   mean: number,
   sd: number,
   height: number
 ): number {
   const axisVal = ((svgX - PLOT_X0) / PLOT_W) * 100
-  const exponent = -((axisVal - mean) ** 2) / (2 * sd ** 2)
-  return height * Math.exp(exponent)
+  return gaussianAxisHeight(axisVal, mean, sd, height)
 }
 
 /** Build a smooth SVG path for a gaussian curve */
@@ -97,7 +108,7 @@ function buildGaussianPath(mean: number, sd: number, height: number): string {
   const points: [number, number][] = []
   for (let i = 0; i <= STEPS; i++) {
     const svgX = PLOT_X0 + (i / STEPS) * PLOT_W
-    const normalised = gaussianY(svgX, mean, sd, height)
+    const normalised = gaussianAtSvgX(svgX, mean, sd, height)
     const svgY = AXIS_Y - normalised * PLOT_H
     points.push([svgX, svgY])
   }
@@ -164,6 +175,13 @@ export function BellCurveAxis({ scale, value, onChange, resetKey }: BellCurveAxi
   // Hover ghost: only when no staged line and not committed (or could show over committed too)
   const hoverLineX = ghostX !== null && !showStagedLine ? axisToSvgX(ghostX) : null
   const washLineX = washValue !== null ? axisToSvgX(washValue) : null
+
+  // The value at which to render intersection dots.
+  // Priority: staged > hover ghost > committed (same as displayValue but also includes ghostX)
+  const dotsAxisValue: number | null =
+    staged !== null ? staged
+    : ghostX !== null ? ghostX
+    : (value !== null && value > 0 ? value : null)
 
   // ── Pointer helpers ──────────────────────────────────────────────────────
 
@@ -465,6 +483,34 @@ export function BellCurveAxis({ scale, value, onChange, resetKey }: BellCurveAxi
             )}
           </>
         )}
+
+        {/* Intersection dots — one per belt curve at the active line position */}
+        {dotsAxisValue !== null && (() => {
+          const lineX = axisToSvgX(dotsAxisValue)
+          return curves
+            .filter(curve => {
+              const h = gaussianAxisHeight(dotsAxisValue, curve.mean, curve.sd, curve.height)
+              return h * PLOT_H >= PLOT_H * 0.02  // suppress if < 2% of plot height
+            })
+            .map(curve => {
+              const h = gaussianAxisHeight(dotsAxisValue, curve.mean, curve.sd, curve.height)
+              const cy = AXIS_Y - h * PLOT_H
+              const isWhite = curve.belt === 'white'
+              return (
+                <circle
+                  key={curve.belt}
+                  data-testid="curve-dot"
+                  data-belt={curve.belt}
+                  cx={lineX}
+                  cy={cy}
+                  r={4.5}
+                  fill={`var(--belt-${curve.belt})`}
+                  stroke={isWhite ? 'var(--line)' : 'white'}
+                  strokeWidth={1}
+                />
+              )
+            })
+        })()}
       </svg>
 
       {/* Confirm button — touch only, visible while staged !== null */}
