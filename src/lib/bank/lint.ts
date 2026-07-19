@@ -12,3 +12,13 @@ const RULES: Array<{ kind: LintWarning['kind']; phrase: string; re: RegExp }> = 
 export function lintText(qid: string, text: string): LintWarning[] {
   return RULES.filter(r => r.re.test(text)).map(r => ({ qid, kind: r.kind, match: r.phrase }))
 }
+
+export function lintQuestion(q: { qid: string; text: string; slots?: { who: string; what: string; problem: string } }): LintWarning[] {
+  const warnings: LintWarning[] = [...lintText(q.qid, q.text)]
+  if (q.slots) {
+    for (const str of [q.slots.who, q.slots.what, q.slots.problem]) {
+      warnings.push(...lintText(q.qid, str))
+    }
+  }
+  return warnings
+}

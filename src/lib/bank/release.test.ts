@@ -15,7 +15,7 @@ describe('snapshot', () => {
     const s = snapshot(loadBank())
     expect(s.bankVersion).toBe('1.0.0')
     expect(s.questions.filter(q => q.status === 'active')).toHaveLength(173)
-    expect(s.scales.length).toBe(8)
+    expect(s.scales.length).toBe(9)
     expect(s.categories.length).toBe(17)
   })
 })

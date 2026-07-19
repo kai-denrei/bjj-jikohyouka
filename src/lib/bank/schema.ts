@@ -2,12 +2,20 @@ import { z } from 'zod'
 
 export const ScaleSchema = z.object({
   id: z.string().regex(/^[a-z0-9_]+$/),
-  kind: z.enum(['tap', 'curve', 'slider']),
+  kind: z.enum(['tap', 'curve', 'slider', 'axis']),
   label: z.string(),
   anchors: z.array(z.object({ value: z.number(), label: z.string() }).strict()).min(2),
   na: z.boolean().optional(),        // scale offers an N/A chip (belt_threshold)
   legacy: z.boolean().optional(),    // v0.1-only scale, not for new content
   secondsPerItem: z.number().positive(),
+  // floor stores raw 0 (scored floor rung) — distinct from belt_threshold's na (null = skipped as not-applicable)
+  floor: z.boolean().optional(),
+  curves: z.array(z.object({
+    belt: z.enum(['white', 'blue', 'purple', 'brown', 'black']),
+    mean: z.number().min(0).max(100),
+    sd: z.number().positive(),
+    height: z.number().positive(),
+  }).strict()).length(5).optional(),
 }).strict()
 
 export const CategorySchema = z.object({
@@ -39,6 +47,11 @@ export const QuestionSchema = z.object({
   difficulty: z.number().optional(),
   abTestGroup: z.string().optional(),
   raterMode: z.enum(['self', 'observer']).optional(),
+  slots: z.object({
+    who: z.string().min(1),
+    what: z.string().min(1),
+    problem: z.string().min(1),
+  }).strict().optional(),
   // provenance passthrough from v0.1 conversion
   legacy: z.object({
     type: z.string().optional(),

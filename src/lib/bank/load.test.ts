@@ -8,7 +8,7 @@ describe('scales.json', () => {
   it('every scale parses and ids are the brief §5 set + legacy slider10', () => {
     const scales = z.array(ScaleSchema).parse(raw.scales)
     expect(scales.map(s => s.id).sort()).toEqual(
-      ['agree3', 'belt_curve', 'belt_threshold', 'frequency10', 'know_check', 'ladder6', 'received_feedback', 'slider10'])
+      ['ability_axis', 'agree3', 'belt_curve', 'belt_threshold', 'frequency10', 'know_check', 'ladder6', 'received_feedback', 'slider10'])
   })
   it('ladder6 has 6 fully-labeled rungs starting at 0 unknown-floor', () => {
     const l = raw.scales.find((s: { id: string }) => s.id === 'ladder6')

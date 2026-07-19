@@ -46,3 +46,29 @@ describe('BankMetaSchema', () => {
     expect(BankMetaSchema.parse({ bankVersion: '1.0.0', releasedAt: '2026-07-18', changelog: './CHANGELOG.md' }).bankVersion).toBe('1.0.0')
   })
 })
+
+describe('axis scale + slots (phase 3)', () => {
+  it('accepts an axis scale with five belt curves and floor', () => {
+    const s = ScaleSchema.parse({
+      id: 'ability_axis', kind: 'axis', label: 'Where do you start to struggle?',
+      secondsPerItem: 6, floor: true,
+      anchors: [{ value: 0, label: 'Untrained' }, { value: 100, label: 'Elite' }],
+      curves: [
+        { belt: 'white', mean: 12, sd: 7, height: 1.0 }, { belt: 'blue', mean: 28, sd: 9, height: 0.55 },
+        { belt: 'purple', mean: 45, sd: 11, height: 0.42 }, { belt: 'brown', mean: 62, sd: 13, height: 0.3 },
+        { belt: 'black', mean: 74, sd: 14, height: 0.34 }],
+    })
+    expect(s.curves).toHaveLength(5)
+  })
+  it('rejects curves with wrong count or unknown belt', () => {
+    const base = { id: 'x', kind: 'axis', label: 'l', secondsPerItem: 6,
+      anchors: [{ value: 0, label: 'a' }, { value: 100, label: 'b' }] }
+    expect(() => ScaleSchema.parse({ ...base, curves: [{ belt: 'white', mean: 1, sd: 1, height: 1 }] })).toThrow()
+    expect(() => ScaleSchema.parse({ ...base, curves: Array(5).fill({ belt: 'red', mean: 1, sd: 1, height: 1 }) })).toThrow()
+  })
+  it('accepts slots on a question and rejects empty slot strings', () => {
+    const q = { ...validQuestion, slots: { who: 'same rank', what: 'their closed guard', problem: 'Do you pass before they threaten a sweep or submission?' } }
+    expect(QuestionSchema.parse(q).slots?.what).toBe('their closed guard')
+    expect(() => QuestionSchema.parse({ ...validQuestion, slots: { who: '', what: 'x', problem: 'y' } })).toThrow()
+  })
+})

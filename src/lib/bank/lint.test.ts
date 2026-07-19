@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { lintText } from './lint'
+import { lintText, lintQuestion } from './lint'
 
 describe('wording linter (brief §4.4)', () => {
   it('catches the seeded bad example (DoD §10)', () => {
@@ -27,5 +27,15 @@ describe('wording linter (brief §4.4)', () => {
   it('passes clean observable-event wording', () => {
     expect(lintText('q', 'Standing against a resisting same-rank partner, I complete a takedown')).toHaveLength(0)
     expect(lintText('q', 'My partner recovers guard mid-transition')).toHaveLength(0)
+  })
+})
+
+describe('lintQuestion (slots-aware)', () => {
+  it('flags vague words inside slot strings', () => {
+    const w = lintQuestion({ qid: 'q1', text: 'clean text', slots: { who: 'same rank', what: 'their guard', problem: 'Do you reliably pass?' } })
+    expect(w).toEqual([{ qid: 'q1', kind: 'vague', match: 'reliably' }])
+  })
+  it('is identical to lintText when no slots', () => {
+    expect(lintQuestion({ qid: 'q2', text: 'I am confident here' })).toEqual(lintText('q2', 'I am confident here'))
   })
 })

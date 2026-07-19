@@ -37,6 +37,15 @@
     { "id": "slider10", "kind": "slider", "label": "Confidence (v0.1 legacy)", "secondsPerItem": 6, "legacy": true,
       "anchors": [
         { "value": 1, "label": "1 — lowest confidence" },
-        { "value": 10, "label": "10 — highest confidence" } ] }
+        { "value": 10, "label": "10 — highest confidence" } ] },
+    { "id": "ability_axis", "kind": "axis", "label": "Where do you start to struggle?",
+      "secondsPerItem": 6, "floor": true,
+      "anchors": [ { "value": 0, "label": "Untrained" }, { "value": 100, "label": "Elite" } ],
+      "curves": [
+        { "belt": "white",  "mean": 12, "sd": 7,  "height": 1.0 },
+        { "belt": "blue",   "mean": 28, "sd": 9,  "height": 0.55 },
+        { "belt": "purple", "mean": 45, "sd": 11, "height": 0.42 },
+        { "belt": "brown",  "mean": 62, "sd": 13, "height": 0.30 },
+        { "belt": "black",  "mean": 74, "sd": 14, "height": 0.34 } ] }
   ]
 }

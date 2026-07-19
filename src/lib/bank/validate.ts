@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { BankMetaSchema, CategorySchema, QuestionSchema, ScaleSchema, type Question } from './schema'
-import { lintText, type LintWarning } from './lint'
+import { lintQuestion, type LintWarning } from './lint'
 import type { RawBank } from './load'
 
 export interface ValidationResult {
@@ -76,7 +76,7 @@ export function validateBank(raw: RawBank, archives: Array<{ file: string; data:
     const prior = archived.get(q.qid)
     if (prior && prior.category !== q.category)
       errors.push(`${q.qid}: qid reuse — archived under category "${prior.category}", now "${q.category}"; qids are never recycled`)
-    if (q.status !== 'retired') warnings.push(...lintText(q.qid, q.text))
+    if (q.status !== 'retired') warnings.push(...lintQuestion(q))
   }
 
   // report (active only)
