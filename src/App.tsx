@@ -136,11 +136,43 @@ export default function App() {
     ? bank.categories.find(c => c.id === activeCategory)?.name ?? activeCategory
     : ''
 
+  // Sweep progress: count answered sweep questions and find first unanswered
+  const sweepAnsweredCount = session
+    ? sweepQs.filter(q => q.qid in session.answers).length
+    : 0
+  const sweepCurrentIndex = session
+    ? sweepQs.findIndex(q => !(q.qid in session.answers))
+    : 0
+  const sweepCurrentCategory = sweepCurrentIndex >= 0 && sweepCurrentIndex < sweepQs.length
+    ? (bank.categories.find(c => c.id === sweepQs[sweepCurrentIndex].category)?.name ?? 'Sweep')
+    : 'Sweep'
+
   return (
     <main>
       {(screen === 'sweep' || screen === 'interim' || screen === 'category' || screen === 'results') && (
         <div style={{ marginBottom: 16 }}>
-          <BeltStripeBar total={positionalCategories.length} done={completedCategories.length} />
+          <BeltStripeBar
+            total={positionalCategories.length}
+            done={screen === 'sweep' ? sweepAnsweredCount : completedCategories.length}
+            current={
+              screen === 'sweep'
+                ? (sweepCurrentIndex >= 0 ? sweepCurrentIndex : null)
+                : screen === 'category'
+                ? positionalCategories.findIndex(c => c.id === activeCategory)
+                : null
+            }
+            label={
+              screen === 'sweep' ? sweepCurrentCategory
+                : screen === 'category' ? activeCategoryName
+                : screen === 'interim' ? 'First picture'
+                : 'Results'
+            }
+            annotation={
+              screen === 'sweep'
+                ? `${sweepAnsweredCount}/${sweepQs.length}`
+                : `${completedCategories.length}/${positionalCategories.length}`
+            }
+          />
         </div>
       )}
 

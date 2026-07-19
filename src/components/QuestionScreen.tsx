@@ -24,7 +24,7 @@ export interface QuestionScreenProps {
   initialIndex?: number
 }
 
-export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, bank, initialIndex = 0 }: QuestionScreenProps) {
+export function QuestionScreen({ questions, answers, onAnswer, onDone, heading: _heading, bank, initialIndex = 0 }: QuestionScreenProps) {
   const [index, setIndex] = useState(initialIndex)
   const [infoPanelOpen, setInfoPanelOpen] = useState(false)
   const reducedMotion = usePrefersReducedMotion()
@@ -102,16 +102,12 @@ export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, 
 
   if (!current || !scale) return null
 
-  const headingStr = typeof heading === 'function' ? heading(index) : heading
   const isAxisScale = scale.kind === 'axis'
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className="mono" style={{ fontSize: 12 }}>
-          {headingStr} · {index + 1} of {questions.length}
-        </div>
-        {isAxisScale && (
+      {isAxisScale && (
+        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
           <button
             type="button"
             aria-label="How this chart works"
@@ -136,8 +132,8 @@ export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, 
           >
             i
           </button>
-        )}
-      </div>
+        </div>
+      )}
       <QuestionCard question={current} />
       <QuestionInput
         scale={scale}

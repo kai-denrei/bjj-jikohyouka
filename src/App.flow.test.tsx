@@ -3,8 +3,34 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import App from './App'
 import { bank } from './lib/bankInstance'
 import { sweepQuestions } from './lib/flow'
+import { BeltStripeBar } from './components/BeltStripeBar'
 
 const sweepQs = sweepQuestions(bank, false)
+
+describe('BeltStripeBar', () => {
+  it('renders total segments with correct data-state attributes', () => {
+    render(<BeltStripeBar total={5} done={2} current={2} label="Category" annotation="2/5" />)
+    const segments = document.querySelectorAll('[data-state]')
+    expect(segments).toHaveLength(5)
+    expect(segments[0].getAttribute('data-state')).toBe('done')
+    expect(segments[1].getAttribute('data-state')).toBe('done')
+    expect(segments[2].getAttribute('data-state')).toBe('current')
+    expect(segments[3].getAttribute('data-state')).toBe('todo')
+    expect(segments[4].getAttribute('data-state')).toBe('todo')
+  })
+
+  it('renders label and annotation text', () => {
+    render(<BeltStripeBar total={15} done={3} label="Takedowns & Wrestling" annotation="3/15" />)
+    expect(screen.getByText('Takedowns & Wrestling')).toBeInTheDocument()
+    expect(screen.getByText('3/15')).toBeInTheDocument()
+  })
+
+  it('progressbar aria-valuenow reflects done count', () => {
+    render(<BeltStripeBar total={15} done={7} />)
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '7')
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuemax', '15')
+  })
+})
 
 describe('App flow', () => {
   beforeEach(() => {
@@ -132,5 +158,26 @@ describe('App flow', () => {
         value: originalMatchMedia,
       })
     }
+  })
+
+  it('after answering 2 sweep questions bar annotation shows 2/15 and aria-valuenow=2', () => {
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
+    // Answer Q1 and Q2 (both belt_curve in the default bank)
+    fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
+    fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
+    // Bar should reflect 2 answered
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '2')
+    expect(screen.getByText('2/15')).toBeInTheDocument()
+  })
+
+  it('bar shows current category name label during sweep', () => {
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
+    // First sweep question's category name should appear as bar label
+    const firstCat = bank.categories.find(c => c.id === sweepQs[0].category)!
+    expect(screen.getByText(firstCat.name)).toBeInTheDocument()
   })
 })
