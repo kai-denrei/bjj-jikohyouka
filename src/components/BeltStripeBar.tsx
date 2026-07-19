@@ -2,6 +2,7 @@ export function BeltStripeBar({ total, done }: { total: number; done: number }) 
   return (
     <div
       role="progressbar"
+      aria-valuemin={0}
       aria-valuenow={done}
       aria-valuemax={total}
       style={{

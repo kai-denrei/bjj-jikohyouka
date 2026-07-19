@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { bank } from './lib/bankInstance'
 import { loadSession, saveSession, clearSession } from './lib/results/store'
 import { scoreAnswers, type Report } from './lib/results/score'
-import { sweepQuestions, recommendedDrilldowns, drilldownQuestions } from './lib/flow'
+import { sweepQuestions, recommendedDrilldowns, drilldownQuestions, includeDrafts } from './lib/flow'
 import { IntakeStep } from './components/IntakeStep'
 import { BeltStripeBar } from './components/BeltStripeBar'
 import { QuestionScreen } from './components/QuestionScreen'
@@ -12,6 +12,7 @@ import type { AssessmentSession, StoredAnswer, Intake } from './lib/results/type
 type Screen = 'intro' | 'intake' | 'sweep' | 'interim' | 'category' | 'results'
 
 const positionalCategories = bank.categories.filter(c => c.axis === 'positional')
+const drafts = includeDrafts(window.location.search)
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>('intro')
@@ -101,7 +102,7 @@ export default function App() {
     setScreen('interim')
   }
 
-  const sweepQs = sweepQuestions(bank, false)
+  const sweepQs = sweepQuestions(bank, drafts)
   const recommended = report ? recommendedDrilldowns(report, bank) : []
 
   const activeCategoryName = activeCategory
@@ -136,16 +137,21 @@ export default function App() {
         <IntakeStep onSubmit={startNewSession} />
       )}
 
-      {screen === 'sweep' && session && (
-        <QuestionScreen
-          questions={sweepQs}
-          answers={session.answers}
-          onAnswer={handleAnswer}
-          onDone={handleSweepDone}
-          heading="Sweep"
-          bank={bank}
-        />
-      )}
+      {screen === 'sweep' && session && (() => {
+        const firstUnanswered = sweepQs.findIndex(q => !(q.qid in session.answers))
+        const sweepInitialIndex = firstUnanswered === -1 ? sweepQs.length - 1 : firstUnanswered
+        return (
+          <QuestionScreen
+            questions={sweepQs}
+            answers={session.answers}
+            onAnswer={handleAnswer}
+            onDone={handleSweepDone}
+            heading="Sweep"
+            bank={bank}
+            initialIndex={sweepInitialIndex}
+          />
+        )
+      })()}
 
       {screen === 'interim' && report && (
         <InterimScreen
@@ -159,7 +165,7 @@ export default function App() {
 
       {screen === 'category' && session && activeCategory && (
         <QuestionScreen
-          questions={drilldownQuestions(bank, activeCategory, false)}
+          questions={drilldownQuestions(bank, activeCategory, drafts)}
           answers={session.answers}
           onAnswer={handleAnswer}
           onDone={handleCategoryDone}

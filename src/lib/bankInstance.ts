@@ -11,7 +11,9 @@ export const bank: Bank = {
   meta: BankMetaSchema.parse(bankMeta),
   categories: z.object({ categories: z.array(CategorySchema) }).strict().parse(categoriesData).categories,
   scales: z.object({ scales: z.array(ScaleSchema) }).strict().parse(scalesData).scales,
+  // Question files — add new bank question files here (one import + one line below):
   questions: [
     ...QuestionFileSchema.parse(positionalData).questions,
+    // ...QuestionFileSchema.parse(metaQualitiesData).questions,  (added by a later task)
   ],
 }

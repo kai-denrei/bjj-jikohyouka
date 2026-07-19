@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import type { Question, Bank } from '../lib/bank/schema'
 import type { StoredAnswer } from '../lib/results/types'
 import { QuestionInput } from './inputs/QuestionInput'
@@ -19,11 +19,23 @@ export interface QuestionScreenProps {
   onDone: () => void
   heading: string
   bank: Bank
+  initialIndex?: number
 }
 
-export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, bank }: QuestionScreenProps) {
-  const [index, setIndex] = useState(0)
+export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, bank, initialIndex = 0 }: QuestionScreenProps) {
+  const [index, setIndex] = useState(initialIndex)
   const reducedMotion = usePrefersReducedMotion()
+  const pendingTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Clear any pending advance timer on unmount
+  useEffect(() => {
+    return () => {
+      if (pendingTimer.current !== null) {
+        clearTimeout(pendingTimer.current)
+        pendingTimer.current = null
+      }
+    }
+  }, [])
 
   const current = questions[index]
 
@@ -41,17 +53,32 @@ export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, 
 
   function handleAnswer(raw: number | number[] | null) {
     if (!current) return
+    // Cancel any pending advance from a previous answer before scheduling a new one
+    if (pendingTimer.current !== null) {
+      clearTimeout(pendingTimer.current)
+      pendingTimer.current = null
+    }
     const stored: StoredAnswer = { qid: current.qid, v: current.v, raw }
     onAnswer(stored)
     if (reducedMotion) {
       advance()
     } else {
-      setTimeout(advance, 250)
+      pendingTimer.current = setTimeout(() => {
+        pendingTimer.current = null
+        advance()
+      }, 250)
     }
   }
 
   function handleBack() {
-    if (index > 0) setIndex(i => i - 1)
+    if (index > 0) {
+      // Cancel any pending advance so Back doesn't race with the timer
+      if (pendingTimer.current !== null) {
+        clearTimeout(pendingTimer.current)
+        pendingTimer.current = null
+      }
+      setIndex(i => i - 1)
+    }
   }
 
   if (!current || !scale) return null
