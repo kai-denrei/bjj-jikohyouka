@@ -63,3 +63,17 @@ New tests added:
 - **`heading` prop in QuestionScreen:** Still in the public interface (App passes it for potential future use). Now silenced via `_heading` rename — clean but the prop is dead weight. Could be removed in a future cleanup pass.
 - **Sweep `sweepQs.length` vs `positionalCategories.length`:** Both are 15 in the default bank. The annotation uses `sweepQs.length` for sweep mode which is correct — it reflects the actual sweep count, not the hardcoded category count.
 - **jsdom SVG geometry:** The hover-ghost label test required mocking `getBoundingClientRect` because jsdom returns zero-size rects for SVG elements. Pattern documented in the test.
+
+## Fix Report
+
+**Commit:** d683bb1  
+**Subject:** Axis visualization polish: Fix within-run counter, borderless done segments, dead prop removal
+
+**Fixes applied:**
+1. **Within-run counter (Fix 1):** Replaced `heading` prop with `withinRunCounter?: boolean`. When true, renders "{index+1} of {questions.length}" right-aligned above question card. App passes `withinRunCounter={true}` ONLY on category drill-down; sweep bar annotation already carries global progress.
+2. **Borderless done segments (Fix 2):** BeltStripeBar done segments now border-free; current segments retain 2px accent stroke; todo segments keep 1px line hairline.
+3. **Dead prop removal (Fix 3):** `heading` fully removed from QuestionScreenProps interface and all App.tsx call sites (sweep & category). Tests updated.
+
+**Test results:** 137 passed (18 files, all green)  
+**Build:** Clean (77ms, 0 TS errors)  
+**Concerns:** None.
