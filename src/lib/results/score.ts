@@ -133,7 +133,6 @@ export function scoreAnswers(answers: Record<string, StoredAnswer>, bank: Bank):
 
   for (const category of bank.categories) {
     const skillAnswers = answersByCategory[category.id] || []
-    const psychAnswers = psychAnswersByCategory[category.id] || []
 
     // Count active skill questions for this category (exclude drafts from activeCount denominator)
     const activeSkillQuestions = bank.questions.filter(

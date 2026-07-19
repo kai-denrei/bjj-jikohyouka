@@ -17,3 +17,10 @@ button { font: inherit; }
 .chip { min-height: var(--tap); border: 1px solid var(--line); border-radius: var(--radius); background: #fff; color: var(--ink); cursor: pointer; padding: 8px 12px; text-align: left; }
 .chip[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
 .mono { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); }
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.belt-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.belt-dot[data-belt="white"] { background: var(--belt-white); border: 1px solid var(--line); }
+.belt-dot[data-belt="blue"] { background: var(--belt-blue); }
+.belt-dot[data-belt="purple"] { background: var(--belt-purple); }
+.belt-dot[data-belt="brown"] { background: var(--belt-brown); }
+.belt-dot[data-belt="black"] { background: var(--belt-black); }

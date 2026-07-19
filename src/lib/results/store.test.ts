@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { loadSession, saveSession, clearSession, finishSession, listHistory, exportJSON, importJSON } from './store'
+import { loadSession, saveSession, finishSession, listHistory, exportJSON, importJSON } from './store'
 import type { AssessmentSession } from './types'
 
 const session = (over: Partial<AssessmentSession> = {}): AssessmentSession => ({
