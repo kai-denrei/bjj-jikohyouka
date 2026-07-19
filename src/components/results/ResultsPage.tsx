@@ -33,7 +33,7 @@ export function ResultsPage({ report, onRetakeCategory, availableCategoryIds, be
 
   // Compute previous scores from history for retake diff
   const history = useMemo(() => listHistory(), [historyVersion])
-  const prev = history.find(s => s.bankVersion === report.bankVersion)
+  const prev = history.find(s => s.bankVersion === report.bankVersion && s.startedAt !== session?.startedAt)
   let prevScores: Record<string, number | null> | undefined
   if (prev) {
     const prevReport = scoreAnswers(prev.answers, bank)
@@ -104,6 +104,7 @@ export function ResultsPage({ report, onRetakeCategory, availableCategoryIds, be
         onRetakeCategory={onRetakeCategory}
         prevScores={prevScores}
         availableCategoryIds={availableCategoryIds}
+        sharpenDisabled={finished}
       />
 
       {/* Radar hero */}

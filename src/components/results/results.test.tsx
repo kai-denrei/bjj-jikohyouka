@@ -216,6 +216,88 @@ describe('ResultsPage', () => {
     expect(onFinish).toHaveBeenCalledTimes(1)
     expect(listHistory()).toHaveLength(1)
   })
+
+  // Fix A (self-diff regression): after Finish & save, no "then N → now N" diff appears
+  it('no self-diff after Finish & save — saved session excluded from prevScores lookup', async () => {
+    localStorage.removeItem('skillcheck.history.v1')
+    const reportWithTakedowns: Report = {
+      bankVersion: '1.0.0',
+      categories: [
+        {
+          categoryId: 'takedowns',
+          name: 'Takedowns & Wrestling',
+          axis: 'positional',
+          score: 80,
+          band: 'Rolling',
+          answered: 5,
+          activeCount: 5,
+          uncertainty: 'narrow',
+          toNextBand: 20,
+        },
+      ],
+      insights: [],
+    }
+    const session: AssessmentSession = {
+      bankVersion: '1.0.0',
+      startedAt: '2026-06-01T00:00:00.000Z',
+      updatedAt: '2026-06-01T00:01:00.000Z',
+      intake: null,
+      answers: { td_001: { qid: 'td_001', v: 1, raw: 8 } },
+      completedCategories: [],
+    }
+    render(
+      <ResultsPage
+        report={reportWithTakedowns}
+        onRetakeCategory={() => {}}
+        availableCategoryIds={new Set(['takedowns'])}
+        session={session}
+        onFinish={() => {}}
+      />
+    )
+    // No diff before finish
+    expect(document.body.textContent).not.toMatch(/then \d+ → now \d+/)
+
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Finish & save' }))
+    })
+
+    // After finish, the just-saved session must NOT match itself — no spurious diff
+    expect(document.body.textContent).not.toMatch(/then \d+ → now \d+/)
+  })
+
+  // Fix B (post-finish Sharpen blank screen): Sharpen buttons disabled after Finish & save
+  it('Sharpen buttons are disabled after Finish & save', async () => {
+    localStorage.removeItem('skillcheck.history.v1')
+    const session: AssessmentSession = {
+      bankVersion: '1.0.0',
+      startedAt: '2026-06-01T12:00:00.000Z',
+      updatedAt: '2026-06-01T12:01:00.000Z',
+      intake: null,
+      answers: {},
+      completedCategories: [],
+    }
+    render(
+      <ResultsPage
+        report={report}
+        onRetakeCategory={() => {}}
+        availableCategoryIds={new Set(['a', 'b', 'c'])}
+        session={session}
+        onFinish={() => {}}
+      />
+    )
+    // Sharpen buttons should exist and be enabled before finish
+    const sharpensBefore = screen.getAllByRole('button', { name: 'Sharpen' })
+    expect(sharpensBefore.length).toBeGreaterThan(0)
+    sharpensBefore.forEach(btn => expect(btn).not.toBeDisabled())
+
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Finish & save' }))
+    })
+
+    // All Sharpen buttons must be disabled after finish
+    const sharpensAfter = screen.getAllByRole('button', { name: 'Sharpen' })
+    sharpensAfter.forEach(btn => expect(btn).toBeDisabled())
+  })
 })
 
 // Fix A-1b: QuestionScreen defensive guard — empty questions fires onDone immediately

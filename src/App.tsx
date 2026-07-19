@@ -110,6 +110,7 @@ export default function App() {
   }
 
   function handlePickCategory(categoryId: string) {
+    if (!sessionRef.current) return
     setActiveCategory(categoryId)
     setScreen('category')
   }

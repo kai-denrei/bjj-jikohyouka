@@ -14,9 +14,10 @@ interface BandListProps {
   onRetakeCategory: (categoryId: string) => void
   prevScores?: Record<string, number | null>
   availableCategoryIds: Set<string>
+  sharpenDisabled?: boolean
 }
 
-export function BandList({ categories, onRetakeCategory, prevScores, availableCategoryIds }: BandListProps) {
+export function BandList({ categories, onRetakeCategory, prevScores, availableCategoryIds, sharpenDisabled }: BandListProps) {
   const scored = categories
     .filter(c => c.score !== null)
     .sort((a, b) => (b.score as number) - (a.score as number))
@@ -33,6 +34,7 @@ export function BandList({ categories, onRetakeCategory, prevScores, availableCa
           onRetake={onRetakeCategory}
           prevScore={prevScores?.[cat.categoryId] ?? null}
           hasAvailableDrilldowns={availableCategoryIds.has(cat.categoryId)}
+          sharpenDisabled={sharpenDisabled}
         />
       ))}
       {unscoredWithDrilldowns.length > 0 && (
@@ -66,6 +68,7 @@ export function BandList({ categories, onRetakeCategory, prevScores, availableCa
                 className="btn-quiet"
                 style={{ width: 'auto', minHeight: 'unset', padding: '4px 10px', fontSize: 13 }}
                 onClick={() => onRetakeCategory(cat.categoryId)}
+                disabled={sharpenDisabled}
               >
                 Sharpen
               </button>
@@ -82,9 +85,10 @@ interface BandRowProps {
   onRetake: (id: string) => void
   prevScore: number | null
   hasAvailableDrilldowns: boolean
+  sharpenDisabled?: boolean
 }
 
-function BandRow({ cat, onRetake, prevScore, hasAvailableDrilldowns }: BandRowProps) {
+function BandRow({ cat, onRetake, prevScore, hasAvailableDrilldowns, sharpenDisabled }: BandRowProps) {
   return (
     <li
       style={{
@@ -134,6 +138,7 @@ function BandRow({ cat, onRetake, prevScore, hasAvailableDrilldowns }: BandRowPr
           className="btn-quiet"
           style={{ width: 'auto', minHeight: 'unset', padding: '4px 10px', fontSize: 13 }}
           onClick={() => onRetake(cat.categoryId)}
+          disabled={sharpenDisabled}
         >
           Sharpen
         </button>
