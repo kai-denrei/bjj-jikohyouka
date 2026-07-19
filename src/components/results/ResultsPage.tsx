@@ -5,6 +5,7 @@ import { exportJSON, importJSON, listHistory, finishSession } from '../../lib/re
 import { bank } from '../../lib/bankInstance'
 import { BandList } from './BandList'
 import { Radar } from './Radar'
+import { InfoPanel } from '../InfoPanel'
 import type { AssessmentSession, Intake } from '../../lib/results/types'
 
 const BELT_LENS: Record<NonNullable<Intake['belt']>, string> = {
@@ -30,6 +31,7 @@ export function ResultsPage({ report, onRetakeCategory, availableCategoryIds, be
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [historyVersion, setHistoryVersion] = useState(0)
   const [finished, setFinished] = useState(false)
+  const [infoPanelOpen, setInfoPanelOpen] = useState(false)
 
   // Compute previous scores from history for retake diff
   const history = useMemo(() => listHistory(), [historyVersion])
@@ -109,6 +111,33 @@ export function ResultsPage({ report, onRetakeCategory, availableCategoryIds, be
 
       {/* Radar hero */}
       <div style={{ margin: '32px 0' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+          <div />
+          <button
+            type="button"
+            aria-label="How this chart works"
+            onClick={() => setInfoPanelOpen(true)}
+            style={{
+              width: '24px',
+              height: '24px',
+              minHeight: '24px',
+              padding: 0,
+              border: '1px solid var(--line)',
+              borderRadius: '50%',
+              backgroundColor: 'transparent',
+              color: 'var(--ink)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '12px',
+              fontFamily: 'var(--font-mono)',
+              fontWeight: 600,
+            }}
+          >
+            i
+          </button>
+        </div>
         <Radar categories={report.categories} />
       </div>
 
@@ -186,6 +215,8 @@ export function ResultsPage({ report, onRetakeCategory, availableCategoryIds, be
           />
         </div>
       </footer>
+
+      <InfoPanel open={infoPanelOpen} onClose={() => setInfoPanelOpen(false)} />
     </div>
   )
 }

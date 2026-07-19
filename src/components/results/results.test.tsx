@@ -316,4 +316,59 @@ describe('QuestionScreen', () => {
     )
     expect(onDone).toHaveBeenCalledTimes(1)
   })
+
+  it('shows info button for axis-scale questions but not for tap-scale questions', () => {
+    // Create test fixtures with real scale IDs from the bank
+    const axisQuestion = {
+      qid: 'test_axis_001',
+      v: 1,
+      status: 'draft' as const,
+      category: 'takedowns',
+      axis: 'positional' as const,
+      input: 'ability_axis', // axis scale
+      text: 'Test axis question',
+      tier: 'core' as const,
+      scoring: { weight: 1, countsToward: 'skill' as const },
+      flags: [],
+    }
+
+    const tapQuestion = {
+      qid: 'test_tap_001',
+      v: 1,
+      status: 'draft' as const,
+      category: 'takedowns',
+      axis: 'positional' as const,
+      input: 'ladder6', // tap scale
+      text: 'Test tap question',
+      tier: 'core' as const,
+      scoring: { weight: 1, countsToward: 'skill' as const },
+      flags: [],
+    }
+
+    // Test with axis scale
+    const { rerender } = render(
+      <QuestionScreen
+        questions={[axisQuestion]}
+        answers={{}}
+        onAnswer={() => {}}
+        onDone={() => {}}
+        heading="Test"
+        bank={bank}
+      />
+    )
+    expect(screen.getByRole('button', { name: 'How this chart works' })).toBeInTheDocument()
+
+    // Test with tap scale
+    rerender(
+      <QuestionScreen
+        questions={[tapQuestion]}
+        answers={{}}
+        onAnswer={() => {}}
+        onDone={() => {}}
+        heading="Test"
+        bank={bank}
+      />
+    )
+    expect(screen.queryByRole('button', { name: 'How this chart works' })).not.toBeInTheDocument()
+  })
 })

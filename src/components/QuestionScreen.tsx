@@ -3,6 +3,7 @@ import type { Question, Bank } from '../lib/bank/schema'
 import type { StoredAnswer } from '../lib/results/types'
 import { QuestionInput } from './inputs/QuestionInput'
 import { QuestionCard } from './QuestionCard'
+import { InfoPanel } from './InfoPanel'
 
 function usePrefersReducedMotion(): boolean {
   try {
@@ -25,6 +26,7 @@ export interface QuestionScreenProps {
 
 export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, bank, initialIndex = 0 }: QuestionScreenProps) {
   const [index, setIndex] = useState(initialIndex)
+  const [infoPanelOpen, setInfoPanelOpen] = useState(false)
   const reducedMotion = usePrefersReducedMotion()
   const pendingTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -101,11 +103,40 @@ export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, 
   if (!current || !scale) return null
 
   const headingStr = typeof heading === 'function' ? heading(index) : heading
+  const isAxisScale = scale.kind === 'axis'
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <div className="mono" style={{ fontSize: 12 }}>
-        {headingStr} · {index + 1} of {questions.length}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="mono" style={{ fontSize: 12 }}>
+          {headingStr} · {index + 1} of {questions.length}
+        </div>
+        {isAxisScale && (
+          <button
+            type="button"
+            aria-label="How this chart works"
+            onClick={() => setInfoPanelOpen(true)}
+            style={{
+              width: '24px',
+              height: '24px',
+              minHeight: '24px',
+              padding: 0,
+              border: '1px solid var(--line)',
+              borderRadius: '50%',
+              backgroundColor: 'transparent',
+              color: 'var(--ink)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '12px',
+              fontFamily: 'var(--font-mono)',
+              fontWeight: 600,
+            }}
+          >
+            i
+          </button>
+        )}
       </div>
       <QuestionCard question={current} />
       <QuestionInput
@@ -118,6 +149,7 @@ export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, 
           Back
         </button>
       )}
+      <InfoPanel open={infoPanelOpen} onClose={() => setInfoPanelOpen(false)} />
     </div>
   )
 }
