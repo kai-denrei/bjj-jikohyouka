@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { bank } from './lib/bankInstance'
 import { loadSession, saveSession, clearSession } from './lib/results/store'
 import { scoreAnswers, type Report } from './lib/results/score'
@@ -17,6 +17,7 @@ const drafts = includeDrafts(window.location.search)
 export default function App() {
   const [screen, setScreen] = useState<Screen>('intro')
   const [session, setSession] = useState<AssessmentSession | null>(null)
+  const sessionRef = useRef<AssessmentSession | null>(null)
   const [completedCategories, setCompletedCategories] = useState<string[]>([])
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
   const [report, setReport] = useState<Report | null>(null)
@@ -29,6 +30,11 @@ export default function App() {
     }
   }, [])
 
+  function setSessionAndRef(s: AssessmentSession | null) {
+    sessionRef.current = s
+    setSession(s)
+  }
+
   function startNewSession(intake: Intake | null) {
     const newSession: AssessmentSession = {
       bankVersion: bank.meta.bankVersion,
@@ -38,14 +44,14 @@ export default function App() {
       answers: {},
       completedCategories: [],
     }
-    setSession(newSession)
+    setSessionAndRef(newSession)
     saveSession(newSession)
     setScreen('sweep')
   }
 
   function handleResume() {
     if (!resumeSession) return
-    setSession(resumeSession)
+    setSessionAndRef(resumeSession)
     setCompletedCategories(resumeSession.completedCategories)
     setResumeSession(null)
     // Restore appropriate screen based on session state
@@ -54,14 +60,23 @@ export default function App() {
       setReport(rep)
       setScreen('interim')
     } else {
-      setScreen('sweep')
+      // Fix 3: if all sweep questions already answered, go straight to interim
+      const sweepQs = sweepQuestions(bank, drafts)
+      const allAnswered = sweepQs.every(q => q.qid in resumeSession.answers)
+      if (allAnswered) {
+        const rep = scoreAnswers(resumeSession.answers, bank)
+        setReport(rep)
+        setScreen('interim')
+      } else {
+        setScreen('sweep')
+      }
     }
   }
 
   function handleStartOver() {
     clearSession()
     setResumeSession(null)
-    setSession(null)
+    setSessionAndRef(null)
     setCompletedCategories([])
     setActiveCategory(null)
     setReport(null)
@@ -69,16 +84,16 @@ export default function App() {
   }
 
   function handleAnswer(a: StoredAnswer) {
-    if (!session) return
-    const newAnswers = { ...session.answers, [a.qid]: a }
-    const newSession = { ...session, answers: newAnswers }
-    setSession(newSession)
+    if (!sessionRef.current) return
+    const newAnswers = { ...sessionRef.current.answers, [a.qid]: a }
+    const newSession = { ...sessionRef.current, answers: newAnswers }
+    setSessionAndRef(newSession)
     saveSession(newSession)
   }
 
   function handleSweepDone() {
-    if (!session) return
-    const rep = scoreAnswers(session.answers, bank)
+    if (!sessionRef.current) return
+    const rep = scoreAnswers(sessionRef.current.answers, bank)
     setReport(rep)
     setScreen('interim')
   }
@@ -89,11 +104,11 @@ export default function App() {
   }
 
   function handleCategoryDone() {
-    if (!activeCategory || !session) return
+    if (!activeCategory || !sessionRef.current) return
     const newCompleted = [...completedCategories, activeCategory]
     setCompletedCategories(newCompleted)
-    const newSession = { ...session, completedCategories: newCompleted }
-    setSession(newSession)
+    const newSession = { ...sessionRef.current, completedCategories: newCompleted }
+    setSessionAndRef(newSession)
     saveSession(newSession)
     // Recompute report
     const rep = scoreAnswers(newSession.answers, bank)

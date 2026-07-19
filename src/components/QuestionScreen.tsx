@@ -27,6 +27,15 @@ export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, 
   const reducedMotion = usePrefersReducedMotion()
   const pendingTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  // Sync index when initialIndex changes (e.g. mid-sweep resume jump)
+  useEffect(() => {
+    if (pendingTimer.current !== null) {
+      clearTimeout(pendingTimer.current)
+      pendingTimer.current = null
+    }
+    setIndex(initialIndex)
+  }, [initialIndex])
+
   // Clear any pending advance timer on unmount
   useEffect(() => {
     return () => {
