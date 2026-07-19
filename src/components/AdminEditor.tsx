@@ -26,6 +26,7 @@ export function AdminEditor({ question, onSaved, admin }: AdminEditorProps) {
   const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
   if (!admin || !import.meta.env.DEV) return null
+  if (question.status !== 'draft') return null
 
   if (!expanded) {
     return (

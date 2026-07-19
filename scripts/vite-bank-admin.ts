@@ -27,7 +27,14 @@ export function bankAdminPlugin(): Plugin {
 
         // Parse request body
         let body = ''
-        req.on('data', (chunk: Buffer) => { body += chunk.toString() })
+        req.on('data', (chunk: Buffer) => {
+          body += chunk.toString()
+          if (body.length > 65536) {
+            res.writeHead(413, { 'Content-Type': 'application/json' })
+            res.end(JSON.stringify({ ok: false, error: 'body too large' }))
+            return
+          }
+        })
         req.on('end', () => {
           try {
             const { file, qid, changes } = JSON.parse(body) as UpdateRequest

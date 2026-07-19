@@ -54,7 +54,7 @@ export function applyBankEdit(
   const warnings = lintQuestion(validated)
 
   // Reconstruct file with 2-space indent + trailing newline
-  const updatedQuestions = questions.map((q, i) => (i === idx ? candidate : q))
+  const updatedQuestions = questions.map((q, i) => (i === idx ? parseResult.data : q))
   const updated = JSON.stringify({ ...parsed, questions: updatedQuestions }, null, 2) + '\n'
 
   return { ok: true, updated, warnings }
