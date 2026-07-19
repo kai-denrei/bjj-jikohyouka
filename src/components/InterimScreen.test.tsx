@@ -3,7 +3,8 @@ import { describe, it, expect } from 'vitest'
 import { InterimScreen } from './InterimScreen'
 import type { Report } from '../lib/results/score'
 
-// Minimal report with two positional categories that have scores
+// Minimal report with three positional categories that have scores
+// (Radar guard requires ≥3 non-null scored categories to render the polygon)
 const report: Report = {
   bankVersion: '1.0.0',
   categories: [
@@ -28,6 +29,17 @@ const report: Report = {
       activeCount: 5,
       uncertainty: 'wide',
       toNextBand: 10,
+    },
+    {
+      categoryId: 'mount_top',
+      name: 'Mount Top',
+      axis: 'positional',
+      score: 55,
+      band: 'Drilling',
+      answered: 1,
+      activeCount: 5,
+      uncertainty: 'wide',
+      toNextBand: 5,
     },
   ],
   insights: [],

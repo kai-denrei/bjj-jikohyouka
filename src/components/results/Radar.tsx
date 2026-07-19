@@ -46,7 +46,7 @@ export function Radar({ categories }: RadarProps) {
   // Only positional categories with a non-null score get an axis
   const scored = categories.filter(c => c.axis === 'positional' && c.score !== null)
 
-  if (scored.length === 0) {
+  if (scored.length < 3) {
     return null
   }
 

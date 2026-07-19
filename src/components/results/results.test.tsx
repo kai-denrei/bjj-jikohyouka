@@ -38,10 +38,13 @@ describe('ResultsPage', () => {
     expect(screen.getByText(/All models are wrong; some are useful/)).toBeInTheDocument()
     expect(screen.getByText(/r ≈ \.29/)).toBeInTheDocument()
   })
-  it('renders the radar with one polygon and skips unscored axes', () => {
+  it('renders the radar with one polygon and skips unscored axes (need ≥3 scored for svg)', () => {
+    // The base report fixture has only 2 scored categories (a, b) — Radar guard suppresses svg
+    // when fewer than 3 categories have non-null scores (degenerate polygon).
+    // ResultsPage still renders; just no svg.
     const { container } = render(<ResultsPage report={report} onRetakeCategory={() => {}} availableCategoryIds={allAvailable} />)
-    expect(container.querySelectorAll('svg polygon')).toHaveLength(1)
-    expect(container.querySelector('svg')!.textContent).not.toContain('Gamma')
+    // With the degenerate guard in place, 2 scored → no svg
+    expect(container.querySelector('svg[aria-label="Skill radar"]')).toBeNull()
   })
   it('shows insight cards', () => {
     render(<ResultsPage report={report} onRetakeCategory={() => {}} availableCategoryIds={allAvailable} />)
@@ -297,6 +300,31 @@ describe('ResultsPage', () => {
     // All Sharpen buttons must be disabled after finish
     const sharpensAfter = screen.getAllByRole('button', { name: 'Sharpen' })
     sharpensAfter.forEach(btn => expect(btn).toBeDisabled())
+  })
+})
+
+// Ride-along (Task 3): Radar guard — fewer than 3 scored categories → no svg rendered
+import { Radar } from './Radar'
+
+describe('Radar degenerate polygon guard', () => {
+  it('returns null (no svg) when fewer than 3 categories have non-null scores', () => {
+    const twoScored = [
+      { categoryId: 'a', name: 'Alpha', axis: 'positional', score: 80, band: 'Rolling' as const, answered: 5, activeCount: 5, uncertainty: 'narrow' as const, toNextBand: 20 },
+      { categoryId: 'b', name: 'Beta', axis: 'positional', score: 30, band: 'Learning' as const, answered: 1, activeCount: 8, uncertainty: 'wide' as const, toNextBand: 10 },
+    ]
+    const { container } = render(<Radar categories={twoScored} />)
+    expect(container.querySelector('svg')).toBeNull()
+  })
+
+  it('renders svg when 3 or more categories have non-null scores', () => {
+    const threeScored = [
+      { categoryId: 'a', name: 'Alpha', axis: 'positional', score: 80, band: 'Rolling' as const, answered: 5, activeCount: 5, uncertainty: 'narrow' as const, toNextBand: 20 },
+      { categoryId: 'b', name: 'Beta', axis: 'positional', score: 30, band: 'Learning' as const, answered: 1, activeCount: 8, uncertainty: 'wide' as const, toNextBand: 10 },
+      { categoryId: 'c', name: 'Gamma', axis: 'positional', score: 55, band: 'Drilling' as const, answered: 3, activeCount: 5, uncertainty: 'narrow' as const, toNextBand: 5 },
+    ]
+    const { container } = render(<Radar categories={threeScored} />)
+    expect(container.querySelector('svg[aria-label="Skill radar"]')).not.toBeNull()
+    expect(container.querySelectorAll('svg polygon')).toHaveLength(1)
   })
 })
 

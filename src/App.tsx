@@ -94,6 +94,25 @@ export default function App() {
     setScreen('intake')
   }
 
+  function handlePauseSweep() {
+    // Pause during sweep: find the current unanswered question index to resume at
+    if (!sessionRef.current) return
+    const sweepQsNow = sweepQuestions(bank, drafts)
+    const firstUnanswered = sweepQsNow.findIndex(q => !(q.qid in sessionRef.current!.answers))
+    setSweepStartIndex(firstUnanswered === -1 ? 0 : firstUnanswered)
+    // Expose the current session as the resume target (without a page reload)
+    setResumeSession(sessionRef.current)
+    setScreen('intro')
+  }
+
+  function handlePauseDrilldown() {
+    // Pause during drill-down: recompute report and go to interim
+    if (!sessionRef.current) return
+    const rep = scoreAnswers(sessionRef.current.answers, bank)
+    setReport(rep)
+    setScreen('interim')
+  }
+
   function handleAnswer(a: StoredAnswer) {
     if (!sessionRef.current) return
     const newAnswers = { ...sessionRef.current.answers, [a.qid]: a }
@@ -151,28 +170,42 @@ export default function App() {
     <main>
       {(screen === 'sweep' || screen === 'interim' || screen === 'category' || screen === 'results') && (
         <div style={{ marginBottom: 16 }}>
-          <BeltStripeBar
-            total={positionalCategories.length}
-            done={screen === 'sweep' ? sweepAnsweredCount : completedCategories.length}
-            current={
-              screen === 'sweep'
-                ? (sweepCurrentIndex >= 0 ? sweepCurrentIndex : null)
-                : screen === 'category'
-                ? positionalCategories.findIndex(c => c.id === activeCategory)
-                : null
-            }
-            label={
-              screen === 'sweep' ? sweepCurrentCategory
-                : screen === 'category' ? activeCategoryName
-                : screen === 'interim' ? 'First picture'
-                : 'Results'
-            }
-            annotation={
-              screen === 'sweep'
-                ? `${sweepAnsweredCount}/${sweepQs.length}`
-                : `${completedCategories.length}/${positionalCategories.length}`
-            }
-          />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ flex: 1 }}>
+              <BeltStripeBar
+                total={positionalCategories.length}
+                done={screen === 'sweep' ? sweepAnsweredCount : completedCategories.length}
+                current={
+                  screen === 'sweep'
+                    ? (sweepCurrentIndex >= 0 ? sweepCurrentIndex : null)
+                    : screen === 'category'
+                    ? positionalCategories.findIndex(c => c.id === activeCategory)
+                    : null
+                }
+                label={
+                  screen === 'sweep' ? sweepCurrentCategory
+                    : screen === 'category' ? activeCategoryName
+                    : screen === 'interim' ? 'First picture'
+                    : 'Results'
+                }
+                annotation={
+                  screen === 'sweep'
+                    ? `${sweepAnsweredCount}/${sweepQs.length}`
+                    : `${completedCategories.length}/${positionalCategories.length}`
+                }
+              />
+            </div>
+            {(screen === 'sweep' || screen === 'category') && (
+              <button
+                type="button"
+                className="btn-quiet"
+                style={{ flexShrink: 0 }}
+                onClick={screen === 'sweep' ? handlePauseSweep : handlePauseDrilldown}
+              >
+                Pause
+              </button>
+            )}
+          </div>
         </div>
       )}
 
@@ -229,16 +262,27 @@ export default function App() {
       )}
 
       {screen === 'results' && report && (
-        <ResultsPage
-          report={report}
-          onRetakeCategory={(categoryId) => {
-            handlePickCategory(categoryId)
-          }}
-          availableCategoryIds={availableCategoryIds}
-          belt={session?.intake?.belt ?? null}
-          session={session}
-          onFinish={() => setSessionAndRef(null)}
-        />
+        <>
+          <ResultsPage
+            report={report}
+            onRetakeCategory={(categoryId) => {
+              handlePickCategory(categoryId)
+            }}
+            availableCategoryIds={availableCategoryIds}
+            belt={session?.intake?.belt ?? null}
+            session={session}
+            onFinish={() => setSessionAndRef(null)}
+          />
+          <div style={{ marginTop: 16 }}>
+            <button
+              type="button"
+              className="btn-quiet"
+              onClick={() => setScreen('interim')}
+            >
+              Back to categories
+            </button>
+          </div>
+        </>
       )}
     </main>
   )
