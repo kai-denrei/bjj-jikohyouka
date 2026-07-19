@@ -19,8 +19,13 @@ describe('§9 seed drafts', () => {
     const strict = drafts.filter(q => q.tier === 'core' || q.category === 'meta_qualities')
     for (const q of strict) expect(lintText(q.qid, q.text), q.qid).toEqual([])
   })
-  it('psychological and partner items never count toward skill', () => {
-    const noSkill = drafts.filter(q => q.axis === 'psychological' || q.flags.includes('needs_gerald_review'))
+  it('psychological and reputation partner items never count toward skill', () => {
+    // needs_gerald_review is a general content-review marker (can sit on skill
+    // questions); the no-skill invariant applies to psychological items and to
+    // the reputation set's partner-quality items specifically.
+    const noSkill = drafts.filter(
+      q => q.axis === 'psychological' || (q.category === 'reputation' && q.flags.includes('needs_gerald_review'))
+    )
     expect(noSkill.length).toBeGreaterThan(0)
     expect(noSkill.every(q => q.scoring.countsToward !== 'skill')).toBe(true)
   })
