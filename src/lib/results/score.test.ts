@@ -14,6 +14,12 @@ const bank: Bank = {
     { id: 'agree3', kind: 'tap', label: 'A', secondsPerItem: 6, anchors: [{ value: 0, label: 'a' }, { value: 2, label: 'b' }] },
     { id: 'know_check', kind: 'tap', label: 'K', secondsPerItem: 6, anchors: [{ value: 0, label: 'a' }, { value: 2, label: 'b' }] },
     { id: 'frequency10', kind: 'tap', label: 'F', secondsPerItem: 6, anchors: [{ value: 0, label: 'never' }, { value: 3, label: 'always' }] },
+    { id: 'ability_axis', kind: 'axis', label: 'Ability Axis', secondsPerItem: 6, floor: true,
+      anchors: [{ value: 0, label: 'Untrained' }, { value: 100, label: 'Elite' }],
+      curves: [
+        { belt: 'white', mean: 12, sd: 7, height: 1.0 }, { belt: 'blue', mean: 28, sd: 9, height: 0.55 },
+        { belt: 'purple', mean: 45, sd: 11, height: 0.42 }, { belt: 'brown', mean: 62, sd: 13, height: 0.3 },
+        { belt: 'black', mean: 74, sd: 14, height: 0.34 }] },
   ],
   questions: [
     { qid: 'td_a', v: 1, status: 'active', category: 'takedowns', axis: 'positional', input: 'ladder6', text: 'q', tier: 'core', scoring: { weight: 1, countsToward: 'skill' }, flags: [] },
@@ -21,6 +27,7 @@ const bank: Bank = {
     { qid: 'td_draft', v: 1, status: 'draft', category: 'takedowns', axis: 'positional', input: 'ladder6', text: 'q', tier: 'drilldown', scoring: { weight: 1, countsToward: 'skill' }, flags: [] },
     { qid: 'td_joy', v: 1, status: 'active', category: 'takedowns', axis: 'psychological', input: 'agree3', text: 'q', tier: 'drilldown', scoring: { weight: 1, countsToward: 'none' }, flags: [] },
     { qid: 'td_know', v: 1, status: 'active', category: 'takedowns', axis: 'psychological', input: 'know_check', text: 'q', tier: 'drilldown', scoring: { weight: 1, countsToward: 'none' }, flags: [] },
+    { qid: 'td_axis', v: 1, status: 'active', category: 'takedowns', axis: 'positional', input: 'ability_axis', text: 'q', tier: 'core', scoring: { weight: 1, countsToward: 'skill' }, flags: [] },
     { qid: 'mt_a', v: 1, status: 'active', category: 'mount_top', axis: 'positional', input: 'ladder6', text: 'q', tier: 'core', scoring: { weight: 1, countsToward: 'skill' }, flags: [] },
     { qid: 'mq_inverted', v: 1, status: 'draft', category: 'meta_qualities', axis: 'meta', input: 'frequency10', text: 'q', tier: 'drilldown', scoring: { weight: 1, countsToward: 'skill' }, flags: ['inverted'] },
   ],
@@ -60,11 +67,11 @@ describe('scoreAnswers (provisional)', () => {
   it('draft skill question answered but not counted in activeCount → uncertainty is narrow when all active answered', () => {
     const r = scoreAnswers({ td_a: a('td_a', 3), td_b: a('td_b', 2), td_draft: a('td_draft', 4) }, bank)
     const td = r.categories.find(c => c.categoryId === 'takedowns')!
-    // activeCount should exclude draft (only td_a and td_b are active) = 2
-    expect(td.activeCount).toBe(2)
+    // activeCount should exclude draft (td_a, td_b, td_axis are active) = 3
+    expect(td.activeCount).toBe(3)
     // answered is 3 (td_a, td_b, td_draft all answered)
     expect(td.answered).toBe(3)
-    // answered >= activeCount → narrow
+    // answered < activeCount (3 < 3 is false) → narrow
     expect(td.uncertainty).toBe('narrow')
   })
   it('avoidance insight only fires for agree3 raw 0; know_check raw 0 does not trigger', () => {
@@ -93,5 +100,12 @@ describe('scoreAnswers (provisional)', () => {
     const rMin = scoreAnswers({ mq_inverted: a('mq_inverted', 0) }, bank)
     const mqMin = rMin.categories.find(c => c.categoryId === 'meta_qualities')!
     expect(mqMin.score).toBe(100)
+  })
+  it('ability_axis: x/100 provisional; floor 0 counts as an answered zero', () => {
+    expect(PROVISIONAL_NORMALIZATION.ability_axis(62)).toBeCloseTo(0.62)
+    const r = scoreAnswers({ td_axis: a('td_axis', 0) }, bank)
+    const td = r.categories.find(c => c.categoryId === 'takedowns')!
+    expect(td.score).toBe(0)
+    expect(td.answered).toBe(1)   // floor is an answer, not a skip
   })
 })

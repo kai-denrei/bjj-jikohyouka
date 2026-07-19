@@ -42,6 +42,7 @@ export const PROVISIONAL_NORMALIZATION: Record<string, (raw: number | number[]) 
     return arr.reduce((a, b) => a + b, 0) / (arr.length * 10)
   },
   slider10: r => ((r as number) - 1) / 9,
+  ability_axis: r => (r as number) / 100,
 }
 
 function scoreQuestion(question: Question, answer: StoredAnswer | undefined, bank: Bank): number | null {

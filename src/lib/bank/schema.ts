@@ -16,7 +16,7 @@ export const ScaleSchema = z.object({
     sd: z.number().positive(),
     height: z.number().positive(),
   }).strict()).length(5).optional(),
-}).strict()
+}).strict().refine(s => s.kind !== 'axis' || s.curves !== undefined, { message: 'axis scales require curves' })
 
 export const CategorySchema = z.object({
   id: z.string().regex(/^[a-z0-9_]+$/),

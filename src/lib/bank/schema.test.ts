@@ -66,6 +66,19 @@ describe('axis scale + slots (phase 3)', () => {
     expect(() => ScaleSchema.parse({ ...base, curves: [{ belt: 'white', mean: 1, sd: 1, height: 1 }] })).toThrow()
     expect(() => ScaleSchema.parse({ ...base, curves: Array(5).fill({ belt: 'red', mean: 1, sd: 1, height: 1 }) })).toThrow()
   })
+  it('rejects axis scale without curves (must have curves)', () => {
+    const base = { id: 'x', kind: 'axis', label: 'l', secondsPerItem: 6,
+      anchors: [{ value: 0, label: 'a' }, { value: 100, label: 'b' }] }
+    const result = ScaleSchema.safeParse(base)
+    expect(result.success).toBe(false)
+    expect(result.error?.message).toMatch(/require.*curves/i)
+  })
+  it('accepts tap scales without curves (they don\'t need them)', () => {
+    const base = { id: 'x', kind: 'tap', label: 'l', secondsPerItem: 6,
+      anchors: [{ value: 0, label: 'a' }, { value: 100, label: 'b' }] }
+    const result = ScaleSchema.safeParse(base)
+    expect(result.success).toBe(true)
+  })
   it('accepts slots on a question and rejects empty slot strings', () => {
     const q = { ...validQuestion, slots: { who: 'same rank', what: 'their closed guard', problem: 'Do you pass before they threaten a sweep or submission?' } }
     expect(QuestionSchema.parse(q).slots?.what).toBe('their closed guard')
