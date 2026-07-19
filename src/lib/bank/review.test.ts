@@ -17,13 +17,16 @@ describe('renderReview', () => {
       expect(md).toContain(q.text)
   })
   it('excludes retired questions and marks drafts', () => {
-    // bank 1.0.0 has no drafts/retired yet — assert the rendering rules directly
+    // Use a known active question without slots to test the DRAFT prefix rendering
     const bank = loadBank()
-    bank.questions[0] = { ...bank.questions[0], status: 'draft' }
-    bank.questions[1] = { ...bank.questions[1], status: 'retired' }
+    const activeNoSlots = bank.questions.find(q => q.status === 'active' && !q.slots)!
+    const idx = bank.questions.indexOf(activeNoSlots)
+    bank.questions[idx] = { ...activeNoSlots, status: 'draft' }
+    const retireIdx = bank.questions.findIndex((q, i) => i !== idx && q.category === activeNoSlots.category)
+    bank.questions[retireIdx] = { ...bank.questions[retireIdx], status: 'retired' }
     const md2 = renderReview(bank)
-    expect(md2).toContain(`🚧 DRAFT — ${bank.questions[0].text}`)
-    expect(md2).not.toContain(bank.questions[1].text)
+    expect(md2).toContain(`🚧 DRAFT — ${activeNoSlots.text}`)
+    expect(md2).not.toContain(bank.questions[retireIdx].text)
   })
   it('shows anchor labels so Gerald never reads JSON', () => {
     expect(md).toContain('highest confidence')  // slider10 anchor label

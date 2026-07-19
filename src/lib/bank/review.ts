@@ -18,9 +18,17 @@ export function renderReview(bank: Bank): string {
       if (s) lines.push(`> **${id}**: ${s.anchors.map(a => `${a.value} = ${a.label}`).join(' · ')}`)
     }
     lines.push('')
-    const fmt = (q: Question) =>
-      `- ${q.status === 'draft' ? '🚧 DRAFT — ' : ''}${q.text}` +
-      `  \n  \`${q.qid}\` v${q.v} · ${q.tier} · ${q.input}${q.flags.length ? ' · ' + q.flags.join(', ') : ''}`
+    const fmt = (q: Question) => {
+      const prefix = q.status === 'draft' ? '🚧 DRAFT — ' : ''
+      if (q.slots) {
+        const { who, what, problem } = q.slots
+        return `- ${prefix}vs ${who} — ${what} — ${problem}` +
+          `\n  _${q.text}_` +
+          `  \n  \`${q.qid}\` v${q.v} · ${q.tier} · ${q.input}${q.flags.length ? ' · ' + q.flags.join(', ') : ''}`
+      }
+      return `- ${prefix}${q.text}` +
+        `  \n  \`${q.qid}\` v${q.v} · ${q.tier} · ${q.input}${q.flags.length ? ' · ' + q.flags.join(', ') : ''}`
+    }
     for (const q of qs.filter(q => q.tier === 'core')) lines.push(fmt(q))
     for (const q of qs.filter(q => q.tier === 'drilldown')) lines.push(fmt(q))
     lines.push('')
