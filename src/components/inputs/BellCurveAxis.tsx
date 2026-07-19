@@ -101,18 +101,17 @@ function buildGaussianPath(mean: number, sd: number, height: number): string {
     const svgY = AXIS_Y - normalised * PLOT_H
     points.push([svgX, svgY])
   }
-  const linePoints = points.map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(' ')
   // Close shape down to the axis
   return (
     `M${PLOT_X0},${AXIS_Y} ` +
     `L${points.map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(' L')} ` +
     `L${PLOT_X1},${AXIS_Y} Z`
   )
-  void linePoints // suppress unused warning
 }
 
 /** Find the nearest curve to a given axis value (for aria-valuetext) */
 function nearestBelt(curves: NonNullable<Scale['curves']>, v: number): string {
+  // Deterministic tie-break: first curve in scale.curves order wins if distances are equal.
   let closest = curves[0]
   let minDist = Math.abs(v - curves[0].mean)
   for (const c of curves) {
@@ -137,12 +136,12 @@ export function BellCurveAxis({ scale, value, onChange }: BellCurveAxisProps) {
     const svg = svgRef.current
     if (!svg) return
     const rect = svg.getBoundingClientRect()
-    // Map click into the plot area fraction, not full SVG width
-    const plotFraction = (e.clientX - rect.left - (PLOT_X0 / VIEW_W) * rect.width)
-      / (PLOT_W / VIEW_W * rect.width)
-    const raw = Math.round(plotFraction * 100)
-    const clamped = Math.max(1, Math.min(100, raw))
-    onChange(clamped)
+    // Construct a synthetic plot-area rect to reuse clientXToAxis's unified math
+    const plotRect = {
+      left: rect.left + (PLOT_X0 / VIEW_W) * rect.width,
+      width: (PLOT_W / VIEW_W) * rect.width,
+    }
+    onChange(clientXToAxis(e.clientX, plotRect))
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {
@@ -174,14 +173,14 @@ export function BellCurveAxis({ scale, value, onChange }: BellCurveAxisProps) {
         {scale.label}
       </p>
 
-      {/* SVG chart — role slider for keyboard/aria */}
+      {/* SVG chart — role slider for keyboard/aria. aria-valuemin=1 because value 0 is the floor chip's, a separate control */}
       <svg
         ref={svgRef}
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
         style={{ width: '100%', display: 'block', cursor: 'crosshair' }}
         role="slider"
         tabIndex={0}
-        aria-valuemin={0}
+        aria-valuemin={1}
         aria-valuemax={100}
         aria-valuenow={value ?? 0}
         aria-valuetext={ariaValueText}

@@ -72,6 +72,15 @@ describe('clientXToAxis', () => {
     // rounds: 24.5 → 25 (not 24)
     expect(clientXToAxis(198, rect)).toBe(25) // (198-100)/400 = 0.245 → round to 25
   })
+  it('works with a synthetic plot-area rect (handleSvgClick use case)', () => {
+    // Simulates a 360-wide SVG with plot area at x∈[10,350] (PLOT_X0=10, PLOT_W=340)
+    // Scaled to screen width 340: left=110 (100 + 10/360*340), width=340*(340/360)
+    const plotRect = { left: 110, width: 321.111 }
+    // Click at screen 280 should map to axis ≈50
+    // fraction = (280 - 110) / 321.111 ≈ 0.530 → round to 53 (conservative)
+    // But let's use a simpler case: click at 110 + 321.111/2 ≈ 270.5 → ~50
+    expect(clientXToAxis(270, plotRect)).toBe(50) // (270-110)/321.111 ≈ 0.497 → rounds to 50
+  })
 })
 
 describe('BellCurveAxis', () => {
