@@ -16,10 +16,12 @@
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
-        "countsToward": "none"
+        "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; observable-event version of 'heavy pressure' — partner concedes without requiring an attack (Appendix B 'intense relaxed pressure' note)",
-      "flags": ["needs_gerald_review"]
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; observable-event version of 'heavy pressure' \u2014 partner concedes without requiring an attack (Appendix B 'intense relaxed pressure' note)",
+      "flags": [
+        "needs_gerald_review"
+      ]
     },
     {
       "qid": "mq_no_guard_recovery",
@@ -34,7 +36,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; observable-event version of 'flow/connection' — partner interruption rate during transitions (Appendix B 'flow → partner doesn't recover guard mid-transition'); scored inverted — higher frequency is worse (flags: inverted)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; observable-event version of 'flow/connection' \u2014 partner interruption rate during transitions (Appendix B 'flow \u2192 partner doesn't recover guard mid-transition'); scored inverted \u2014 higher frequency is worse (flags: inverted)",
       "flags": [
         "inverted"
       ]
@@ -57,7 +59,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; composure under pressure — action-based (frame, breathe, plan) rather than felt quality",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; composure under pressure \u2014 action-based (frame, breathe, plan) rather than felt quality",
       "flags": []
     },
     {
@@ -78,7 +80,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; timing/anticipation — entry on moment of imbalance rather than general 'good timing'",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; timing/anticipation \u2014 entry on moment of imbalance rather than general 'good timing'",
       "flags": []
     },
     {
@@ -99,7 +101,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; chaining — second attack enters from the shell of the first, observable from partner's reaction path",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; chaining \u2014 second attack enters from the shell of the first, observable from partner's reaction path",
       "flags": []
     },
     {
@@ -120,7 +122,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; early-stage defense — pre-empt before danger zone (vs mid/late escape which is after the hold is set)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; early-stage defense \u2014 pre-empt before danger zone (vs mid/late escape which is after the hold is set)",
       "flags": []
     },
     {
@@ -141,7 +143,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; late-stage escape — surviving a near-finish, distinct from early defense",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; late-stage escape \u2014 surviving a near-finish, distinct from early defense",
       "flags": []
     },
     {
@@ -162,7 +164,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; adaptability to unfamiliar guard — time-bounded observable outcome, not 'I can handle anything'",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; adaptability to unfamiliar guard \u2014 time-bounded observable outcome, not 'I can handle anything'",
       "flags": []
     },
     {
@@ -183,7 +185,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; adaptability to body type — attack-rate proxy for adaptation, concrete and measurable in memory",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; adaptability to body type \u2014 attack-rate proxy for adaptation, concrete and measurable in memory",
       "flags": []
     },
     {
@@ -199,7 +201,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; received-feedback version of pressure quality — external observer's report of the felt experience",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; received-feedback version of pressure quality \u2014 external observer's report of the felt experience",
       "flags": []
     }
   ]
