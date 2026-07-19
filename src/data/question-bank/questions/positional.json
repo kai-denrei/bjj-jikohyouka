@@ -3736,10 +3736,17 @@
       "category": "takedowns",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "any rank", "what": "standing exchanges", "problem": "Do you complete a takedown against full resistance?" },
+      "slots": {
+        "who": "any rank",
+        "what": "standing exchanges",
+        "problem": "Do you complete a takedown against full resistance?"
+      },
       "text": "In standing exchanges against full resistance, I complete a takedown",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of td_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3751,10 +3758,17 @@
       "category": "guard_top",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "their closed or open guard", "problem": "Do you reach a passing position before they threaten a sweep or submission?" },
+      "slots": {
+        "who": "same rank",
+        "what": "their closed or open guard",
+        "problem": "Do you reach a passing position before they threaten a sweep or submission?"
+      },
       "text": "When a same-rank partner closes their guard, I reach a passing position before they threaten a sweep or submission",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of gt_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3766,10 +3780,17 @@
       "category": "guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my guard", "problem": "Do you re-establish guard before they advance to a passing position?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my guard",
+        "problem": "Do you re-establish guard before they advance to a passing position?"
+      },
       "text": "When a same-rank partner breaks my guard open, I establish a new guard before they advance to a passing position",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of gb_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3781,10 +3802,17 @@
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "their closed guard", "problem": "Do you open their legs and reach a passing position?" },
+      "slots": {
+        "who": "same rank",
+        "what": "their closed guard",
+        "problem": "Do you open their legs and reach a passing position?"
+      },
       "text": "Inside a same-rank partner's closed guard, I open their legs and reach a standing or hip-out passing position",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of cgt_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3796,10 +3824,17 @@
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my closed guard", "problem": "Do you break their posture before they post and frame out?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my closed guard",
+        "problem": "Do you break their posture before they post and frame out?"
+      },
       "text": "When a same-rank partner posts in my closed guard, my hips elevate and their posture breaks before they frame out",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of cgb_001 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3811,10 +3846,17 @@
       "category": "open_guard_top",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "their butterfly guard", "problem": "Do you clear their hooks and land in a passing position?" },
+      "slots": {
+        "who": "same rank",
+        "what": "their butterfly guard",
+        "problem": "Do you clear their hooks and land in a passing position?"
+      },
       "text": "When a same-rank partner plays butterfly guard against me, I clear their hooks and land in a passing position",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of ogt_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3826,10 +3868,17 @@
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my butterfly guard", "problem": "Do you complete the sweep when they come forward?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my butterfly guard",
+        "problem": "Do you complete the sweep when they come forward?"
+      },
       "text": "When a same-rank partner stands or sits in my butterfly guard with weight forward, I complete a sweep to top",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of ogb_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3841,10 +3890,17 @@
       "category": "half_guard_top",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my half guard top", "problem": "Do you clear their knee shield and advance to side control or mount?" },
+      "slots": {
+        "who": "same rank",
+        "what": "their half guard",
+        "problem": "Do you clear their knee shield and advance to side control or mount?"
+      },
       "text": "When a same-rank partner holds my leg in half guard, I clear their knee shield and advance to side control or mount",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgt_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3856,10 +3912,17 @@
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my half guard", "problem": "Do you secure an underhook and complete the sweep under crossface pressure?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my half guard",
+        "problem": "Do you secure an underhook and complete the sweep under crossface pressure?"
+      },
       "text": "When a same-rank partner has top half guard with crossface pressure, I secure an underhook and complete a sweep",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgb_005 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3871,10 +3934,17 @@
       "category": "mount_top",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my mount", "problem": "Do you maintain mount when they frame and bridge to escape?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my mount",
+        "problem": "Do you maintain mount when they frame and bridge to escape?"
+      },
       "text": "When a same-rank partner is mounted and frames to escape, I maintain mount until they give up framing or I improve position",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of mt_001 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3886,10 +3956,17 @@
       "category": "mount_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "their mount", "problem": "Do you reach half guard or guard before they attack?" },
+      "slots": {
+        "who": "same rank",
+        "what": "their mount",
+        "problem": "Do you reach half guard or guard before they attack?"
+      },
       "text": "When a same-rank partner mounts me and settles their weight, I reach half guard or full guard before they attack",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of mb_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3901,10 +3978,17 @@
       "category": "back_mount_top",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my back control", "problem": "Do you keep both hooks in until they give up or you finish?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my back control",
+        "problem": "Do you keep both hooks in until they give up or you finish?"
+      },
       "text": "When I take the back of a same-rank partner with seat belt, I keep both hooks in until they give up defending or I finish",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of bmt_001 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3916,10 +4000,17 @@
       "category": "back_mount_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "their back control", "problem": "Do you free a hook and turn to face them before they attack your neck?" },
+      "slots": {
+        "who": "same rank",
+        "what": "their back control",
+        "problem": "Do you free a hook and turn to face them before they attack your neck?"
+      },
       "text": "When a same-rank partner has my back with seat belt and hooks in, I free a hook and turn to face them before they attack my neck",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of bmb_003 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3931,10 +4022,17 @@
       "category": "leg_locks",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "a leg entanglement", "problem": "Do you finish the ankle lock before they step over?" },
+      "slots": {
+        "who": "same rank",
+        "what": "a leg entanglement",
+        "problem": "Do you finish the ankle lock before they step over?"
+      },
       "text": "When a same-rank partner's leg is entangled and I have heel control, I finish the straight ankle lock before they step over",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of ll_003 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3946,10 +4044,17 @@
       "category": "wrist_locks",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "a wrist isolation", "problem": "Do you apply the lock before they correct the angle?" },
-      "text": "When a same-rank partner's wrist is isolated at a bad angle, I apply a wrist lock that causes them to tap or escape",
+      "slots": {
+        "who": "same rank",
+        "what": "a wrist isolation",
+        "problem": "Do you apply the lock before they correct the angle?"
+      },
+      "text": "When a same-rank partner's wrist is isolated at a bad angle, I apply the wrist lock before they correct the angle",
       "tier": "core",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of wl_003 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": []
     },
@@ -3962,7 +4067,10 @@
       "input": "frequency10",
       "text": "In my last 10 rolls that started standing, I scored at least one takedown",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; frequency-of-execution item for takedown pilot drilldown",
       "flags": []
     },
@@ -3975,7 +4083,10 @@
       "input": "agree3",
       "text": "Training takedowns gives me energy rather than draining it",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "none" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; enjoyment/psychological item for takedown pilot drilldown",
       "flags": []
     },
@@ -3987,10 +4098,17 @@
       "category": "takedowns",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "standing grip exchanges", "problem": "Does your grip fighting create an opening for entry before they reset?" },
+      "slots": {
+        "who": "same rank",
+        "what": "standing grip exchanges",
+        "problem": "Does your grip fighting create an opening for entry before they reset?"
+      },
       "text": "Against a same-rank partner standing, my grip fighting and weight shifts create openings for takedown entry",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of td_006 using observable-event pattern",
       "flags": []
     },
@@ -4002,10 +4120,17 @@
       "category": "takedowns",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "any rank", "what": "a double-leg drill", "problem": "Do you change levels, drive through, and finish with correct head position?" },
+      "slots": {
+        "who": "any rank",
+        "what": "a double-leg drill",
+        "problem": "Do you change levels, drive through, and finish with correct head position?"
+      },
       "text": "Against a non-resisting partner, I shoot a double-leg, change levels, drive through, and finish the takedown with correct head position",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of td_009 using observable-event pattern",
       "flags": []
     },
@@ -4017,10 +4142,17 @@
       "category": "takedowns",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "free rolling from standing", "problem": "Do you shoot and complete a double-leg against full resistance?" },
+      "slots": {
+        "who": "same rank",
+        "what": "free rolling from standing",
+        "problem": "Do you shoot and complete a double-leg against full resistance?"
+      },
       "text": "In free rolling against a same-rank partner, I shoot and complete a double-leg takedown",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of td_010 using observable-event pattern",
       "flags": []
     },
@@ -4032,10 +4164,17 @@
       "category": "takedowns",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "their takedown shot", "problem": "Do you sprawl or redirect and end up on top or back to neutral?" },
+      "slots": {
+        "who": "same rank",
+        "what": "their takedown shot",
+        "problem": "Do you sprawl or redirect and end up on top or back to neutral?"
+      },
       "text": "When a same-rank partner shoots a takedown on me, I sprawl or redirect and end up on top or back to neutral",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of td_011 using observable-event pattern",
       "flags": []
     },
@@ -4047,10 +4186,17 @@
       "category": "takedowns",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "a standing clinch", "problem": "Do you create a takedown entry within 10 seconds?" },
+      "slots": {
+        "who": "same rank",
+        "what": "a standing clinch",
+        "problem": "Do you create a takedown entry within 10 seconds?"
+      },
       "text": "From a standing clinch with a same-rank partner, I create a takedown entry within 10 seconds",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of td_012 using observable-event pattern",
       "flags": []
     },
@@ -4063,7 +4209,10 @@
       "input": "frequency10",
       "text": "In my last 10 rolls from closed guard, I broke posture at least once before my partner opened my guard",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; frequency-of-execution item for closed guard bottom pilot drilldown",
       "flags": []
     },
@@ -4076,7 +4225,10 @@
       "input": "agree3",
       "text": "Playing closed guard lets me express my game rather than just survive",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "none" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; enjoyment/psychological item for closed guard bottom pilot drilldown",
       "flags": []
     },
@@ -4088,10 +4240,17 @@
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my closed guard after posture break", "problem": "Do you enter a submission they must actively defend?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my closed guard after posture break",
+        "problem": "Do you enter a submission they must actively defend?"
+      },
       "text": "From a broken-posture position in my closed guard, I enter a submission attempt that my partner must actively defend",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of cgb_002 using observable-event pattern",
       "flags": []
     },
@@ -4103,10 +4262,17 @@
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my closed guard attack setup", "problem": "Do you shift hips off-center before each attack to weaken their frame?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my closed guard attacks",
+        "problem": "Do you shift hips off-center before each attack to weaken their frame?"
+      },
       "text": "When attacking from closed guard, I shift my hips off-center before each attack so my partner's frame weakens",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of cgb_005 using observable-event pattern",
       "flags": []
     },
@@ -4118,10 +4284,17 @@
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my closed guard when submissions stall", "problem": "Do you complete a hip-bump or scissor sweep when they shut down your attacks?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my closed guard when submissions stall",
+        "problem": "Do you complete a hip-bump or scissor sweep when they shut down your attacks?"
+      },
       "text": "When a same-rank partner shuts down my submissions in closed guard, I complete a hip-bump or scissor sweep",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of cgb_006 using observable-event pattern",
       "flags": []
     },
@@ -4133,10 +4306,17 @@
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my closed guard when they stand", "problem": "Do you break their base before they begin a pass?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my closed guard when they stand",
+        "problem": "Do you break their base before they begin a pass?"
+      },
       "text": "When a same-rank partner stands inside my closed guard, I break their base before they begin a pass",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of cgb_011 using observable-event pattern",
       "flags": []
     },
@@ -4149,7 +4329,10 @@
       "input": "frequency10",
       "text": "In my last 10 rolls from half guard bottom, I secured an underhook and used it to threaten a sweep",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; frequency-of-execution item for half guard bottom pilot drilldown",
       "flags": []
     },
@@ -4162,7 +4345,10 @@
       "input": "agree3",
       "text": "Half guard bottom feels like a position I seek out rather than fall back on",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "none" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "none"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; enjoyment/psychological item for half guard bottom pilot drilldown",
       "flags": []
     },
@@ -4174,10 +4360,17 @@
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my half guard under crossface", "problem": "Do you frame and swim to the underhook before they flatten you?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my half guard under crossface",
+        "problem": "Do you frame and swim to the underhook before they flatten you?"
+      },
       "text": "When a same-rank partner crossfaces me in half guard, I frame and swim to the underhook before they flatten me",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgb_004 using observable-event pattern",
       "flags": []
     },
@@ -4189,10 +4382,17 @@
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my half guard under pass attempt", "problem": "Do you retain the leg entanglement or recover guard before they reach side control?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my half guard under their pass",
+        "problem": "Do you retain the leg entanglement or recover guard before they reach side control?"
+      },
       "text": "When a same-rank partner tries to pass my half guard, I retain the leg entanglement or recover guard before they reach side control",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgb_006 using observable-event pattern",
       "flags": []
     },
@@ -4204,10 +4404,17 @@
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my half guard to deep half entry", "problem": "Do you sweep or return to top against their defensive base?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my deep half guard",
+        "problem": "Do you sweep or return to top against their defensive base?"
+      },
       "text": "Against a same-rank partner in half guard, I enter deep half, sweep, or return to top against their defensive base",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgb_009 using observable-event pattern",
       "flags": []
     },
@@ -4219,10 +4426,17 @@
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "my half guard under heavy crossface", "problem": "Do you frame, create space, and regain initiative within five seconds?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my half guard under heavy crossface",
+        "problem": "Do you frame, create space, and regain initiative within five seconds?"
+      },
       "text": "When a same-rank partner applies heavy crossface pressure in half guard, I frame, create space, and regain initiative within five seconds",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgb_012 using observable-event pattern",
       "flags": []
     }

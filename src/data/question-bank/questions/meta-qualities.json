@@ -7,10 +7,17 @@
       "category": "meta_qualities",
       "axis": "meta",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "a pinned position", "problem": "Do they give up the position before you attack?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my top pins",
+        "problem": "Do they give up the position before you attack?"
+      },
       "text": "When I settle my weight on a pinned partner, they give up the position before I attack",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; observable-event version of 'heavy pressure' — partner concedes without requiring an attack (Appendix B 'intense relaxed pressure' note)",
       "flags": []
     },
@@ -23,9 +30,14 @@
       "input": "frequency10",
       "text": "In my last 10 transitions between dominant positions, my partner recovered guard before I settled the new position",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; observable-event version of 'flow/connection' — partner interruption rate during transitions (Appendix B 'flow → partner doesn't recover guard mid-transition'); scored inverted — higher frequency is worse (flags: inverted)",
-      "flags": ["inverted"]
+      "flags": [
+        "inverted"
+      ]
     },
     {
       "qid": "mq_composure_bad_spot",
@@ -34,10 +46,17 @@
       "category": "meta_qualities",
       "axis": "meta",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "their dominant position", "problem": "Do you frame, breathe, and plan before they attack?" },
+      "slots": {
+        "who": "same rank",
+        "what": "their dominant position",
+        "problem": "Do you frame, breathe, and plan before they attack?"
+      },
       "text": "When a same-rank partner reaches a dominant position on me, I frame, breathe, and move with a plan before they attack",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; composure under pressure — action-based (frame, breathe, plan) rather than felt quality",
       "flags": []
     },
@@ -48,10 +67,17 @@
       "category": "meta_qualities",
       "axis": "meta",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "their base or grip", "problem": "Do you enter before they can reset?" },
+      "slots": {
+        "who": "same rank",
+        "what": "a shifted base or broken grip",
+        "problem": "Do you enter before they can reset?"
+      },
       "text": "When a same-rank partner's base shifts or their grip breaks, I enter my attack before they can reset",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; timing/anticipation — entry on moment of imbalance rather than general 'good timing'",
       "flags": []
     },
@@ -62,10 +88,17 @@
       "category": "meta_qualities",
       "axis": "meta",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "your submission attempt", "problem": "Does their defense put them into your next attack?" },
+      "slots": {
+        "who": "same rank",
+        "what": "my first submission attempt",
+        "problem": "Does their defense put them into your next attack?"
+      },
       "text": "When my first submission attempt fails, my partner's defense puts them in position for my next attack before they reset",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; chaining — second attack enters from the shell of the first, observable from partner's reaction path",
       "flags": []
     },
@@ -76,10 +109,17 @@
       "category": "meta_qualities",
       "axis": "meta",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "their submission setup", "problem": "Do you strip the grip or frame before they reach a finishing position?" },
+      "slots": {
+        "who": "same rank",
+        "what": "their submission setup",
+        "problem": "Do you strip the grip or frame before they reach a finishing position?"
+      },
       "text": "When a same-rank partner begins setting up a submission, I recognize and strip the grip or frame before they reach a finishing position",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; early-stage defense — pre-empt before danger zone (vs mid/late escape which is after the hold is set)",
       "flags": []
     },
@@ -90,10 +130,17 @@
       "category": "meta_qualities",
       "axis": "meta",
       "input": "ability_axis",
-      "slots": { "who": "same rank", "what": "a near-finished submission", "problem": "Do you create space or change the angle before you tap?" },
+      "slots": {
+        "who": "same rank",
+        "what": "a near-finished submission",
+        "problem": "Do you create space or change the angle before you tap?"
+      },
       "text": "When a same-rank partner has a submission set and is finishing, I create enough space or change the angle to escape before I tap",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; late-stage escape — surviving a near-finish, distinct from early defense",
       "flags": []
     },
@@ -104,10 +151,17 @@
       "category": "meta_qualities",
       "axis": "meta",
       "input": "ability_axis",
-      "slots": { "who": "any rank", "what": "an unfamiliar guard style", "problem": "Do you find a passing entry within the first minute?" },
+      "slots": {
+        "who": "any rank",
+        "what": "an unfamiliar guard style",
+        "problem": "Do you find a passing entry within the first minute?"
+      },
       "text": "When a partner plays a guard style I have not drilled against, I find a passing entry within the first minute of the round",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; adaptability to unfamiliar guard — time-bounded observable outcome, not 'I can handle anything'",
       "flags": []
     },
@@ -118,10 +172,17 @@
       "category": "meta_qualities",
       "axis": "meta",
       "input": "ability_axis",
-      "slots": { "who": "bigger, same rank", "what": "a size or reach mismatch", "problem": "Does your attack rate stay above zero in the first two rounds?" },
+      "slots": {
+        "who": "bigger, same rank",
+        "what": "a size or reach mismatch",
+        "problem": "Does your attack rate stay above zero in the first two rounds?"
+      },
       "text": "Against a partner who is significantly heavier or has a much longer reach, my attack rate does not drop to zero in the first two rounds",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; adaptability to body type — attack-rate proxy for adaptation, concrete and measurable in memory",
       "flags": []
     },
@@ -134,7 +195,10 @@
       "input": "received_feedback",
       "text": "Partners or coaches have told me my pressure makes them feel pinned before I start attacking",
       "tier": "drilldown",
-      "scoring": { "weight": 1.0, "countsToward": "skill" },
+      "scoring": {
+        "weight": 1,
+        "countsToward": "skill"
+      },
       "rationale": "PLACEHOLDER — pending Gerald review; received-feedback version of pressure quality — external observer's report of the felt experience",
       "flags": []
     }
