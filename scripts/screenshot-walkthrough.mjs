@@ -139,14 +139,56 @@ async function runDraftMode(browser) {
   await page.waitForSelector('button.btn-quiet:has-text("Skip for now")', { timeout: 6000 })
   await page.click('button.btn-quiet:has-text("Skip for now")')
 
-  // Wait for first sweep question
+  // Wait for first sweep question (axis question in draft mode)
   await page.waitForSelector('h2', { timeout: 8000 })
-  await page.waitForTimeout(200)
+  await page.waitForTimeout(300) // let fonts + SVG settle
 
-  // 06-draft-mode
+  // 06-draft-mode — first axis question, no tap yet (refreshed)
   await save(page, '06-draft-mode')
   const draftQ1Text = await page.locator('h2').first().textContent()
   console.log(`  Draft first Q: "${draftQ1Text?.slice(0, 70)}..."`)
+
+  // ── 07-axis-widget: click at ~62% of the plot width ──────────────────────
+  // SVG geometry: PLOT_X0=10, PLOT_X1=350, PLOT_W=340, VIEW_W=360
+  // 62% of PLOT_W => SVG x = 10 + 0.62*340 = 220.8 => fraction of VIEW_W = 220.8/360 ≈ 0.6133
+  // Use the SVG bounding box to compute the exact screen x to click.
+  const svgEl = page.locator('svg[role="slider"]').first()
+  await svgEl.waitFor({ state: 'visible', timeout: 6000 })
+  const svgBox = await svgEl.boundingBox()
+  if (!svgBox) throw new Error('Could not get SVG bounding box for axis click')
+
+  const PLOT_X0_frac = 10 / 360  // fraction of VIEW_W
+  const PLOT_W_frac  = 340 / 360
+  const clickFrac    = PLOT_X0_frac + 0.62 * PLOT_W_frac  // 62% into the plot
+  const clickX       = svgBox.x + clickFrac * svgBox.width
+  const clickY       = svgBox.y + svgBox.height * 0.45    // mid-chart height
+
+  console.log(`  Axis click at screen x=${clickX.toFixed(1)}, y=${clickY.toFixed(1)} (SVG box: x=${svgBox.x.toFixed(1)} w=${svgBox.width.toFixed(1)})`)
+  await page.mouse.click(clickX, clickY)
+
+  // Wait for the vertical line to appear (data-testid="axis-line").
+  // SVG <line> elements can report as "hidden" to Playwright's visibility check
+  // even when rendered, so wait for "attached" (in DOM) rather than "visible".
+  await page.waitForSelector('[data-testid="axis-line"]', { state: 'attached', timeout: 5000 })
+  // Screenshot BEFORE the 250ms auto-advance fires — grab it immediately after
+  // the DOM update that renders the vertical line + wash.
+  await page.waitForTimeout(80)
+
+  // 07-axis-widget — vertical line + left wash visible (captured within the
+  // 250ms auto-advance window, before Q advances to next question)
+  await save(page, '07-axis-widget')
+
+  // ── 08-info-panel: click the "How this chart works" (i) button ────────────
+  const infoBtn = page.locator('button[aria-label="How this chart works"]')
+  await infoBtn.waitFor({ state: 'visible', timeout: 5000 })
+  await infoBtn.click()
+
+  // Wait for the InfoPanel dialog to appear
+  await page.waitForSelector('[role="dialog"]', { state: 'visible', timeout: 5000 })
+  await page.waitForTimeout(200) // let dialog settle
+
+  // 08-info-panel — modal overlay with four explainer sections
+  await save(page, '08-info-panel')
 
   await ctx.close()
   return draftQ1Text
