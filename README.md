@@ -21,7 +21,17 @@ Question content is iterated by Gerald; all drafted content ships as
 
 ```bash
 npm install
-npm run dev
+npm run dev        # http://localhost:5173
+npm test           # vitest run (86 tests)
+npm run build      # tsc + vite production build
+```
+
+**Screenshot walkthrough** — captures the full assessment flow (intro → intake → 15-question sweep → interim → results → draft mode) at 390×844 mobile viewport:
+
+```bash
+# requires: npm i -D playwright && npx playwright install chromium (one-time)
+node scripts/screenshot-walkthrough.mjs
+# PNGs written to docs/screenshots/
 ```
 
 Bank commands (brief §4.4): `npm run bank:validate`, `npm run bank:release -- --patch|--minor|--major` (initial release takes no flag), `npm run bank:review`.

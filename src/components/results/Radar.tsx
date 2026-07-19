@@ -8,6 +8,30 @@ const SIZE = 320
 const CENTER = SIZE / 2
 const RINGS = 3
 const MAX_RADIUS = CENTER - 56 // leave room for labels
+const LABEL_R_OFFSET = 18
+
+// Short display names for radar axis labels — keeps the chart readable at 390px
+const SHORT_NAME: Record<string, string> = {
+  takedowns: 'Takedowns',
+  guard_top: 'Guard Pass',
+  guard_bottom: 'Guard Ret.',
+  closed_guard_top: 'Closed (T)',
+  closed_guard_bottom: 'Closed (B)',
+  open_guard_top: 'Open Pass',
+  open_guard_bottom: 'Open (B)',
+  half_guard_top: 'Half (T)',
+  half_guard_bottom: 'Half (B)',
+  mount_top: 'Mount (T)',
+  mount_bottom: 'Mount (B)',
+  back_mount_top: 'Back (T)',
+  back_mount_bottom: 'Back (B)',
+  leg_locks: 'Leg Locks',
+  wrist_locks: 'Wrists',
+}
+
+function shortLabel(categoryId: string, fullName: string): string {
+  return SHORT_NAME[categoryId] ?? fullName
+}
 
 function polarToXY(angle: number, radius: number): { x: number; y: number } {
   // Start from top (−π/2), go clockwise
@@ -91,10 +115,10 @@ export function Radar({ categories }: RadarProps) {
         strokeLinejoin="round"
       />
 
-      {/* Axis labels */}
+      {/* Axis labels — use short names to prevent clipping at 390 px viewport */}
       {scored.map((cat, i) => {
         const angle = i * angleStep
-        const labelR = MAX_RADIUS + 18
+        const labelR = MAX_RADIUS + LABEL_R_OFFSET
         const { x, y } = polarToXY(angle, labelR)
         const textAnchor =
           Math.abs(x - CENTER) < 4 ? 'middle' : x < CENTER ? 'end' : 'start'
@@ -109,7 +133,7 @@ export function Radar({ categories }: RadarProps) {
             textAnchor={textAnchor}
             dominantBaseline="middle"
           >
-            {cat.name}
+            {shortLabel(cat.categoryId, cat.name)}
           </text>
         )
       })}
