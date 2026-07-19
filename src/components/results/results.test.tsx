@@ -310,7 +310,6 @@ describe('QuestionScreen', () => {
         answers={{}}
         onAnswer={() => {}}
         onDone={onDone}
-        heading="Test"
         bank={bank}
       />
     )
@@ -352,7 +351,6 @@ describe('QuestionScreen', () => {
         answers={{}}
         onAnswer={() => {}}
         onDone={() => {}}
-        heading="Test"
         bank={bank}
       />
     )
@@ -365,7 +363,6 @@ describe('QuestionScreen', () => {
         answers={{}}
         onAnswer={() => {}}
         onDone={() => {}}
-        heading="Test"
         bank={bank}
       />
     )

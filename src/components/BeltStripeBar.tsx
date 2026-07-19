@@ -33,7 +33,7 @@ export function BeltStripeBar({ total, done, current = null, label, annotation }
                 flex: 1,
                 borderRadius: 2,
                 backgroundColor: state === 'done' ? 'var(--ink)' : 'transparent',
-                border: state === 'current' ? '2px solid var(--accent)' : '1px solid var(--line)',
+                border: state === 'done' ? 'none' : state === 'current' ? '2px solid var(--accent)' : '1px solid var(--line)',
                 boxSizing: 'border-box',
               }}
             />

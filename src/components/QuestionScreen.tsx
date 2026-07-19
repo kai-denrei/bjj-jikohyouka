@@ -19,12 +19,12 @@ export interface QuestionScreenProps {
   answers: Record<string, StoredAnswer>
   onAnswer: (a: StoredAnswer) => void
   onDone: () => void
-  heading: string | ((index: number) => string)
+  withinRunCounter?: boolean
   bank: Bank
   initialIndex?: number
 }
 
-export function QuestionScreen({ questions, answers, onAnswer, onDone, heading: _heading, bank, initialIndex = 0 }: QuestionScreenProps) {
+export function QuestionScreen({ questions, answers, onAnswer, onDone, withinRunCounter, bank, initialIndex = 0 }: QuestionScreenProps) {
   const [index, setIndex] = useState(initialIndex)
   const [infoPanelOpen, setInfoPanelOpen] = useState(false)
   const reducedMotion = usePrefersReducedMotion()
@@ -106,6 +106,13 @@ export function QuestionScreen({ questions, answers, onAnswer, onDone, heading: 
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {withinRunCounter && (
+        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+          <span className="mono" style={{ fontSize: 11, color: 'var(--ink-2)' }}>
+            {index + 1} of {questions.length}
+          </span>
+        </div>
+      )}
       {isAxisScale && (
         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
           <button
