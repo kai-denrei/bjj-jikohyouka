@@ -124,4 +124,24 @@ describe('AdminEditor', () => {
       expect(screen.getByText(/only draft questions are editable/)).toBeInTheDocument()
     })
   })
+
+  it('does not render for non-draft questions even in admin mode', () => {
+    const activeQuestion: Question = {
+      qid: 'td_active_question',
+      v: 1,
+      status: 'active',
+      category: 'takedowns',
+      axis: 'positional',
+      input: 'slider10',
+      text: 'I complete takedowns in sparring',
+      tier: 'drilldown',
+      scoring: { weight: 1, countsToward: 'skill' },
+      flags: [],
+    }
+    const { container } = render(
+      <AdminEditor question={activeQuestion} onSaved={() => {}} admin={true} />
+    )
+    expect(container.firstChild).toBeNull()
+    expect(screen.queryByRole('button', { name: /edit/i })).toBeNull()
+  })
 })

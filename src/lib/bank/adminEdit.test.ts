@@ -143,4 +143,26 @@ describe('applyBankEdit', () => {
     if (!result.ok) return
     expect(result.warnings).toHaveLength(0)
   })
+
+  it('serializes schema defaults — flags appears even when the input record lacked it', () => {
+    const draftNoFlags = {
+      qid: 'td_test_no_flags',
+      v: 1,
+      status: 'draft',
+      category: 'takedowns',
+      axis: 'positional',
+      input: 'slider10',
+      text: 'I complete takedowns in sparring',
+      tier: 'drilldown',
+      scoring: { weight: 1, countsToward: 'skill' },
+      // no flags key
+    }
+    const fileContent = makeFile([draftNoFlags])
+    const result = applyBankEdit(fileContent, 'td_test_no_flags', {
+      text: 'I complete takedowns reliably',
+    })
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.updated).toContain('"flags": []')
+  })
 })
