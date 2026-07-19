@@ -7,7 +7,7 @@ interface RadarProps {
 const SIZE = 320
 const CENTER = SIZE / 2
 const RINGS = 3
-const MAX_RADIUS = CENTER - 32 // leave room for labels
+const MAX_RADIUS = CENTER - 56 // leave room for labels
 
 function polarToXY(angle: number, radius: number): { x: number; y: number } {
   // Start from top (−π/2), go clockwise
@@ -48,6 +48,7 @@ export function Radar({ categories }: RadarProps) {
       height={SIZE}
       viewBox={`0 0 ${SIZE} ${SIZE}`}
       aria-label="Skill radar"
+      overflow="visible"
       style={{ display: 'block', maxWidth: '100%', margin: '0 auto' }}
     >
       {/* Concentric hairline rings */}
@@ -93,7 +94,7 @@ export function Radar({ categories }: RadarProps) {
       {/* Axis labels */}
       {scored.map((cat, i) => {
         const angle = i * angleStep
-        const labelR = MAX_RADIUS + 16
+        const labelR = MAX_RADIUS + 18
         const { x, y } = polarToXY(angle, labelR)
         const textAnchor =
           Math.abs(x - CENTER) < 4 ? 'middle' : x < CENTER ? 'end' : 'start'

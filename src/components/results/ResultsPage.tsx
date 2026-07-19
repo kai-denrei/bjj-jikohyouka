@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState, useMemo } from 'react'
 import type { Report } from '../../lib/results/score'
 import { scoreAnswers } from '../../lib/results/score'
 import { exportJSON, importJSON, listHistory } from '../../lib/results/store'
@@ -21,14 +21,14 @@ interface ResultsPageProps {
   report: Report
   onRetakeCategory: (categoryId: string) => void
   belt?: Intake['belt'] | null
-  onRerender?: () => void
 }
 
-export function ResultsPage({ report, onRetakeCategory, belt, onRerender }: ResultsPageProps) {
+export function ResultsPage({ report, onRetakeCategory, belt }: ResultsPageProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [historyVersion, setHistoryVersion] = useState(0)
 
   // Compute previous scores from history for retake diff
-  const history = listHistory()
+  const history = useMemo(() => listHistory(), [historyVersion])
   const prev = history.find(s => s.bankVersion === report.bankVersion)
   let prevScores: Record<string, number | null> | undefined
   if (prev) {
@@ -58,7 +58,7 @@ export function ResultsPage({ report, onRetakeCategory, belt, onRerender }: Resu
       if (typeof text !== 'string') return
       const result = importJSON(text)
       if (result.ok) {
-        onRerender?.()
+        setHistoryVersion(v => v + 1)
       } else {
         alert(`Import failed: ${result.error}`)
       }

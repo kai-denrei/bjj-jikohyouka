@@ -1,4 +1,13 @@
-import type { CategoryScore } from '../../lib/results/score'
+import type { Band, CategoryScore } from '../../lib/results/score'
+
+const NEXT_BAND: Record<Band, Band | null> = {
+  Unmapped: 'Learning',
+  Learning: 'Drilling',
+  Drilling: 'Positional',
+  Positional: 'Rolling',
+  Rolling: 'Weapon',
+  Weapon: null,
+}
 
 interface BandListProps {
   categories: CategoryScore[]
@@ -102,9 +111,9 @@ function BandRow({ cat, onRetake, prevScore }: BandRowProps) {
       )}
 
       {/* To next band */}
-      {cat.toNextBand !== null && (
+      {cat.toNextBand !== null && cat.band !== null && NEXT_BAND[cat.band] !== null && (
         <span className="mono" style={{ color: 'var(--ink-2)' }}>
-          +{cat.toNextBand} to next band
+          +{cat.toNextBand} to {NEXT_BAND[cat.band]}
         </span>
       )}
 
