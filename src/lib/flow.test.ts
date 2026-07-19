@@ -10,10 +10,12 @@ describe('flow selection', () => {
     expect(includeDrafts('?bank=draft')).toBe(true)
     expect(includeDrafts('')).toBe(false)
   })
-  it('sweep = 15 core questions, one per category, in category order', () => {
+  it('sweep = 15 core questions, one per positional category, in category order', () => {
     const qs = sweepQuestions(bank, false)
     expect(qs).toHaveLength(15)
-    expect(qs.map(q => q.category)).toEqual(bank.categories.map(c => c.id))
+    // Only positional categories have active core items; meta/reputation are draft-only
+    const positionalCategoryIds = bank.categories.filter(c => c.axis === 'positional').map(c => c.id)
+    expect(qs.map(q => q.category)).toEqual(positionalCategoryIds)
     expect(qs.every(q => q.tier === 'core' && q.status === 'active')).toBe(true)
   })
   it('drilldown excludes the core item and retired items', () => {

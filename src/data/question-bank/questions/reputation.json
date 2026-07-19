@@ -1,0 +1,108 @@
+{
+  "questions": [
+    {
+      "qid": "rep_show_technique",
+      "v": 1,
+      "status": "draft",
+      "category": "reputation",
+      "axis": "reputation",
+      "input": "received_feedback",
+      "text": "Training partners or coaches have asked me to show them a technique I just hit",
+      "tier": "drilldown",
+      "scoring": { "weight": 1.0, "countsToward": "context" },
+      "rationale": "PLACEHOLDER — pending Gerald review; skill-reputation item — being asked to teach is an observable social signal of perceived expertise",
+      "flags": []
+    },
+    {
+      "qid": "rep_higher_belt_comment",
+      "v": 1,
+      "status": "draft",
+      "category": "reputation",
+      "axis": "reputation",
+      "input": "received_feedback",
+      "text": "Higher-ranked training partners have commented on a specific aspect of my game — pressure, guard, or finishing",
+      "tier": "drilldown",
+      "scoring": { "weight": 1.0, "countsToward": "context" },
+      "rationale": "PLACEHOLDER — pending Gerald review; skill-reputation item — unsolicited specific feedback from a higher rank is a memory of an event",
+      "flags": []
+    },
+    {
+      "qid": "rep_sought_out_to_roll",
+      "v": 1,
+      "status": "draft",
+      "category": "reputation",
+      "axis": "reputation",
+      "input": "received_feedback",
+      "text": "Partners at my level or above have sought me out specifically to roll, rather than me initiating",
+      "tier": "drilldown",
+      "scoring": { "weight": 1.0, "countsToward": "context" },
+      "rationale": "PLACEHOLDER — pending Gerald review; skill-reputation item — being sought out is an observable social signal, not self-judgment",
+      "flags": []
+    },
+    {
+      "qid": "rep_comp_advice",
+      "v": 1,
+      "status": "draft",
+      "category": "reputation",
+      "axis": "reputation",
+      "input": "received_feedback",
+      "text": "A coach or senior has given me specific advice about my game before a competition or grading",
+      "tier": "drilldown",
+      "scoring": { "weight": 1.0, "countsToward": "context" },
+      "rationale": "PLACEHOLDER — pending Gerald review; skill-reputation item — receiving targeted pre-competition input implies the coach sees something worth developing",
+      "flags": []
+    },
+    {
+      "qid": "rep_partner_roll_hard",
+      "v": 1,
+      "status": "draft",
+      "category": "reputation",
+      "axis": "reputation",
+      "input": "received_feedback",
+      "text": "Partners or a coach have asked me to ease the intensity with a smaller or less-experienced training partner",
+      "tier": "drilldown",
+      "scoring": { "weight": 1.0, "countsToward": "none" },
+      "rationale": "PLACEHOLDER — pending Gerald review; partner-quality item (negatively valenced) — being asked to dial back is a concrete event that signals intensity mismatch; flagged for Gerald to review insight copy",
+      "flags": ["needs_gerald_review"]
+    },
+    {
+      "qid": "rep_beginners_seek_roll",
+      "v": 1,
+      "status": "draft",
+      "category": "reputation",
+      "axis": "reputation",
+      "input": "received_feedback",
+      "text": "Newer students at the gym seek me out to roll because they feel they can learn from the round",
+      "tier": "drilldown",
+      "scoring": { "weight": 1.0, "countsToward": "none" },
+      "rationale": "PLACEHOLDER — pending Gerald review; partner-quality item (positively valenced) — beginners choosing you as a training partner signals perceived safety and generosity",
+      "flags": ["needs_gerald_review"]
+    },
+    {
+      "qid": "rep_coach_trusts_beginners",
+      "v": 1,
+      "status": "draft",
+      "category": "reputation",
+      "axis": "reputation",
+      "input": "received_feedback",
+      "text": "A coach has specifically paired me with a beginner or visitor and asked me to take care of them on the mat",
+      "tier": "drilldown",
+      "scoring": { "weight": 1.0, "countsToward": "none" },
+      "rationale": "PLACEHOLDER — pending Gerald review; partner-quality item — being trusted with beginners is a coach's observable vote of confidence in someone's mat conduct",
+      "flags": ["needs_gerald_review"]
+    },
+    {
+      "qid": "rep_partner_avoid",
+      "v": 1,
+      "status": "draft",
+      "category": "reputation",
+      "axis": "reputation",
+      "input": "received_feedback",
+      "text": "I have noticed that the same people decline to roll with me more than once, or step off the mat when I look for partners",
+      "tier": "drilldown",
+      "scoring": { "weight": 1.0, "countsToward": "none" },
+      "rationale": "PLACEHOLDER — pending Gerald review; partner-quality item (negatively valenced) — being avoided is a pattern observable in memory; insight copy must be kind; flagged for Gerald",
+      "flags": ["needs_gerald_review"]
+    }
+  ]
+}

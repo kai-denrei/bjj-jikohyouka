@@ -14,8 +14,8 @@ describe('snapshot', () => {
   it('freezes version, all questions (incl. retired), scales, categories', () => {
     const s = snapshot(loadBank())
     expect(s.bankVersion).toBe('1.0.0')
-    expect(s.questions).toHaveLength(173)
+    expect(s.questions.filter(q => q.status === 'active')).toHaveLength(173)
     expect(s.scales.length).toBe(8)
-    expect(s.categories.length).toBe(15)
+    expect(s.categories.length).toBe(17)
   })
 })

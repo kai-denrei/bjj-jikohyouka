@@ -104,6 +104,20 @@
       "axis": "positional",
       "weight": 0.5,
       "description": "Attacking with and defending against wrist locks"
+    },
+    {
+      "id": "meta_qualities",
+      "name": "Meta-qualities",
+      "axis": "meta",
+      "weight": 1.0,
+      "description": "What makes someone hard to deal with, regardless of position"
+    },
+    {
+      "id": "reputation",
+      "name": "Reputation & partners",
+      "axis": "reputation",
+      "weight": 1.0,
+      "description": "What people have told you — memories of events, not self-judgment"
     }
   ]
 }

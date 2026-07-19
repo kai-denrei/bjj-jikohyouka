@@ -4,8 +4,12 @@ import { loadBank } from './load'
 
 describe('renderReview', () => {
   const md = renderReview(loadBank())
-  it('has one section per category', () => {
-    expect(md.match(/^## /gm)).toHaveLength(15)
+  it('has one section per category that has non-retired questions', () => {
+    const bank = loadBank()
+    const categoriesWithQuestions = bank.categories.filter(cat =>
+      bank.questions.some(q => q.category === cat.id && q.status !== 'retired')
+    ).length
+    expect(md.match(/^## /gm)).toHaveLength(categoriesWithQuestions)
   })
   it('contains every active question text exactly once', () => {
     const bank = loadBank()
