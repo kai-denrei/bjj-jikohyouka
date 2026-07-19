@@ -8,10 +8,13 @@ const base = { qid: 'q', v: 1, status: 'draft', category: 'takedowns', axis: 'po
   tier: 'core', scoring: { weight: 1, countsToward: 'skill' }, flags: [] } as Question
 
 describe('QuestionCard', () => {
-  it('renders slots as who-chip, big what, problem line', () => {
+  it('renders what heading and problem line from slots; who-chip is absent', () => {
     render(<QuestionCard question={{ ...base, slots: { who: 'same rank', what: 'their closed guard', problem: 'Do you pass before they threaten a sweep or submission?' } }} />)
-    expect(screen.getByText('vs SAME RANK')).toBeInTheDocument()
+    // who-chip must NOT be in the DOM
+    expect(screen.queryByText('vs SAME RANK')).toBeNull()
+    // what renders as heading
     expect(screen.getByRole('heading', { name: 'Their closed guard' })).toBeInTheDocument()
+    // problem renders
     expect(screen.getByText('Do you pass before they threaten a sweep or submission?')).toBeInTheDocument()
   })
   it('falls back to canonical text as the heading when no slots', () => {

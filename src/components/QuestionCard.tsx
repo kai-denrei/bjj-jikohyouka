@@ -10,13 +10,10 @@ export function QuestionCard({ question }: QuestionCardProps) {
     return <h2 style={{ margin: 0 }}>{question.text}</h2>
   }
 
-  const { who, what, problem } = question.slots
+  const { what, problem } = question.slots
 
   return (
     <div>
-      <div className="mono" style={{ fontSize: 14, marginBottom: 12 }}>
-        vs {who.toUpperCase()}
-      </div>
       <h2 style={{ margin: '0 0 12px 0' }}>
         {what.charAt(0).toUpperCase() + what.slice(1)}
       </h2>
