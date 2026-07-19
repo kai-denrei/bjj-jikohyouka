@@ -7,6 +7,7 @@ describe('InfoPanel', () => {
     render(<InfoPanel open onClose={() => {}} />)
     expect(screen.getByRole('dialog', { name: 'How to read this chart' })).toBeInTheDocument()
     expect(screen.getByText(/belt population/)).toBeInTheDocument()
+    expect(screen.getByText(/dots show where your line crosses each curve/)).toBeInTheDocument()
     expect(screen.getByText(/slide and confirm on touch/)).toBeInTheDocument()
     expect(screen.getByText(/marks a place to start, not a failure/)).toBeInTheDocument()
     expect(screen.getByText(/mirror, not a measurement/)).toBeInTheDocument()

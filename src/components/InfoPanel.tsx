@@ -84,7 +84,7 @@ export function InfoPanel({ open, onClose }: InfoPanelProps) {
           {/* Section 1: Belt population and curves */}
           <section>
             <p style={{ margin: 0 }}>
-              Each curve is a belt population. The horizontal axis is ability — further right, harder to deal with. The curves overlap on purpose: an exceptional purple belt is a harder round than an out-of-practice black belt. Belt color is a decent proxy for ability, not a guarantee.
+              Each curve is a belt population. The horizontal axis is ability — further right, harder to deal with. The curves overlap on purpose: an exceptional purple belt is a harder round than an out-of-practice black belt. Belt color is a decent proxy for ability, not a guarantee. The dots show where your line crosses each curve — one position can be a strong blue and a middling purple at the same time.
             </p>
           </section>
 
