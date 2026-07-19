@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react'
-import { describe, it, expect, beforeEach, afterEach } from 'vitest'
+import { render, screen, fireEvent, act } from '@testing-library/react'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import App from './App'
 import { bank } from './lib/bankInstance'
 import { sweepQuestions } from './lib/flow'
@@ -82,5 +82,55 @@ describe('App flow', () => {
     // wrist_locks scored 0 (slider10 raw=1) — must be in recommended chips
     // If Fix 1 was broken, wrist_locks answer would be missing from the report
     expect(screen.getByRole('button', { name: 'Wrist Locks' })).toBeInTheDocument()
+  })
+
+  // Regression: sweepStartIndex stabilization — answering Q1 must NOT immediately jump to Q2
+  // The 250ms auto-advance timer must survive the App re-render triggered by handleAnswer.
+  it('answering sweep Q1 does not immediately advance before 250ms (sweepStartIndex regression)', () => {
+    // Mock matchMedia to report no preference for reduced motion → timer path is taken
+    const originalMatchMedia = window.matchMedia
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: (query: string) => ({
+        matches: false, // prefers-reduced-motion: no-preference
+        media: query,
+        onchange: null,
+        addListener: () => {},
+        removeListener: () => {},
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        dispatchEvent: () => false,
+      }),
+    })
+    vi.useFakeTimers()
+
+    try {
+      render(<App />)
+      fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
+
+      const q1Text = sweepQs[0].text
+      const q2Text = sweepQs[1].text
+
+      // Confirm Q1 is displayed
+      expect(screen.getByRole('heading', { name: q1Text })).toBeInTheDocument()
+
+      // Answer Q1 — sweepQs[0] is belt_curve type
+      fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
+
+      // Q1 must still be showing — the 250ms timer must NOT have fired yet
+      expect(screen.getByRole('heading', { name: q1Text })).toBeInTheDocument()
+      expect(screen.queryByRole('heading', { name: q2Text })).toBeNull()
+
+      // Advance past the 250ms delay → Q2 should now be displayed
+      act(() => { vi.advanceTimersByTime(250) })
+      expect(screen.getByRole('heading', { name: q2Text })).toBeInTheDocument()
+    } finally {
+      vi.useRealTimers()
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: originalMatchMedia,
+      })
+    }
   })
 })

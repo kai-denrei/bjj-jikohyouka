@@ -22,6 +22,7 @@ export default function App() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
   const [report, setReport] = useState<Report | null>(null)
   const [resumeSession, setResumeSession] = useState<AssessmentSession | null>(null)
+  const [sweepStartIndex, setSweepStartIndex] = useState(0)
 
   useEffect(() => {
     const saved = loadSession()
@@ -46,6 +47,7 @@ export default function App() {
     }
     setSessionAndRef(newSession)
     saveSession(newSession)
+    setSweepStartIndex(0)
     setScreen('sweep')
   }
 
@@ -68,6 +70,8 @@ export default function App() {
         setReport(rep)
         setScreen('interim')
       } else {
+        const firstUnanswered = sweepQs.findIndex(q => !(q.qid in resumeSession.answers))
+        setSweepStartIndex(firstUnanswered === -1 ? 0 : firstUnanswered)
         setScreen('sweep')
       }
     }
@@ -80,6 +84,7 @@ export default function App() {
     setCompletedCategories([])
     setActiveCategory(null)
     setReport(null)
+    setSweepStartIndex(0)
     setScreen('intake')
   }
 
@@ -152,21 +157,17 @@ export default function App() {
         <IntakeStep onSubmit={startNewSession} />
       )}
 
-      {screen === 'sweep' && session && (() => {
-        const firstUnanswered = sweepQs.findIndex(q => !(q.qid in session.answers))
-        const sweepInitialIndex = firstUnanswered === -1 ? sweepQs.length - 1 : firstUnanswered
-        return (
-          <QuestionScreen
-            questions={sweepQs}
-            answers={session.answers}
-            onAnswer={handleAnswer}
-            onDone={handleSweepDone}
-            heading="Sweep"
-            bank={bank}
-            initialIndex={sweepInitialIndex}
-          />
-        )
-      })()}
+      {screen === 'sweep' && session && (
+        <QuestionScreen
+          questions={sweepQs}
+          answers={session.answers}
+          onAnswer={handleAnswer}
+          onDone={handleSweepDone}
+          heading="Sweep"
+          bank={bank}
+          initialIndex={sweepStartIndex}
+        />
+      )}
 
       {screen === 'interim' && report && (
         <InterimScreen
