@@ -17,7 +17,7 @@ export interface QuestionScreenProps {
   answers: Record<string, StoredAnswer>
   onAnswer: (a: StoredAnswer) => void
   onDone: () => void
-  heading: string
+  heading: string | ((index: number) => string)
   bank: Bank
   initialIndex?: number
 }
@@ -99,10 +99,12 @@ export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, 
 
   if (!current || !scale) return null
 
+  const headingStr = typeof heading === 'function' ? heading(index) : heading
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div className="mono" style={{ fontSize: 12 }}>
-        {heading} · {index + 1} of {questions.length}
+        {headingStr} · {index + 1} of {questions.length}
       </div>
       <h2 style={{ margin: 0 }}>{current.text}</h2>
       <QuestionInput

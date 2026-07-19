@@ -169,7 +169,11 @@ export default function App() {
           answers={session.answers}
           onAnswer={handleAnswer}
           onDone={handleSweepDone}
-          heading="Sweep"
+          heading={(i) => {
+            const q = sweepQs[i]
+            const cat = q ? bank.categories.find(c => c.id === q.category) : null
+            return cat?.name ?? 'Sweep'
+          }}
           bank={bank}
           initialIndex={sweepStartIndex}
         />
