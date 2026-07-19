@@ -535,7 +535,7 @@ export function BellCurveAxis({ scale, value, onChange, resetKey }: BellCurveAxi
                   cy={cy}
                   r={4.5}
                   fill={`var(--belt-${curve.belt})`}
-                  stroke={isWhite ? 'var(--line)' : 'white'}
+                  stroke={isWhite ? 'var(--line)' : 'var(--belt-white)'}
                   strokeWidth={1}
                 />
               )
