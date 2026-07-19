@@ -213,7 +213,7 @@ export default function App() {
           onPick={handlePickCategory}
           onResults={() => setScreen('results')}
           recommended={recommended}
-          bank={bank}
+          availableCategoryIds={availableCategoryIds}
         />
       )}
 

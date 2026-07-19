@@ -49,4 +49,9 @@ describe('flow selection', () => {
     expect(qs.every(q => q.status === 'active')).toBe(true)
     expect(qs.length).toBeGreaterThan(0)
   })
+
+  it('draft mode pilot questions never include v0.1 input formats (slider10 or belt_curve)', () => {
+    const qs = drilldownQuestions(bank, 'takedowns', true)
+    expect(qs.every(q => q.input !== 'slider10' && q.input !== 'belt_curve')).toBe(true)
+  })
 })
