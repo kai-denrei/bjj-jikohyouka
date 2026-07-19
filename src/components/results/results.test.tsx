@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, act } from '@testing-library/react'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 import { ResultsPage } from './ResultsPage'
 import { QuestionScreen } from '../QuestionScreen'
 import { bank } from '../../lib/bankInstance'
@@ -20,6 +20,10 @@ const report: Report = {
 const allAvailable = new Set(['a', 'b', 'c'])
 
 describe('ResultsPage', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
   it('sorts scored categories desc, parks unscored under Not yet mapped, no composite %', () => {
     render(<ResultsPage report={report} onRetakeCategory={() => {}} availableCategoryIds={allAvailable} />)
     const rows = screen.getAllByRole('listitem').map(li => li.textContent)
@@ -108,7 +112,6 @@ describe('ResultsPage', () => {
     const exportBlob = JSON.stringify({ schemaVersion: 1, sessions: [importedSession] })
 
     // Mock FileReader so readAsText fires onload synchronously
-    const OriginalFileReader = global.FileReader
     vi.stubGlobal('FileReader', class {
       onload: ((ev: { target: { result: string } }) => void) | null = null
       readAsText(_file: File) {
@@ -130,8 +133,6 @@ describe('ResultsPage', () => {
 
     // After import, prevScore for takedowns should be non-null → diff text appears
     expect(screen.getByText(/then \d+ → now \d+/)).toBeInTheDocument()
-
-    vi.stubGlobal('FileReader', OriginalFileReader)
   })
 
   // Fix 3: BandList shows next band name instead of "next band"
