@@ -7,21 +7,16 @@ export interface IntakeStepProps {
 }
 
 export function IntakeStep({ onSubmit }: IntakeStepProps) {
-  const [belt, setBelt] = useState<string | null>(null)
-  const [years, setYears] = useState<string | null>(null)
-  const [style, setStyle] = useState<string | null>(null)
-  const [sessionsPerWeek, setSessionsPerWeek] = useState<string | null>(null)
+  const [belt, setBelt] = useState<Intake['belt'] | null>(null)
+  const [years, setYears] = useState<Intake['years'] | null>(null)
+  const [style, setStyle] = useState<Intake['style'] | null>(null)
+  const [sessionsPerWeek, setSessionsPerWeek] = useState<Intake['sessionsPerWeek'] | null>(null)
 
   const isComplete = belt && years && style && sessionsPerWeek
 
   const handleContinue = () => {
     if (isComplete) {
-      onSubmit({
-        belt: belt as any,
-        years: years as any,
-        style: style as any,
-        sessionsPerWeek: sessionsPerWeek as any,
-      })
+      onSubmit({ belt: belt!, years: years!, style: style!, sessionsPerWeek: sessionsPerWeek! })
     }
   }
 
@@ -41,7 +36,7 @@ export function IntakeStep({ onSubmit }: IntakeStepProps) {
               type="button"
               className="chip"
               aria-pressed={belt === label.toLowerCase() ? 'true' : 'false'}
-              onClick={() => setBelt(label.toLowerCase())}
+              onClick={() => setBelt(label.toLowerCase() as Intake['belt'])}
             >
               {label}
             </button>
@@ -65,7 +60,7 @@ export function IntakeStep({ onSubmit }: IntakeStepProps) {
               type="button"
               className="chip"
               aria-pressed={years === value ? 'true' : 'false'}
-              onClick={() => setYears(value)}
+              onClick={() => setYears(value as Intake['years'])}
             >
               {label}
             </button>
@@ -87,7 +82,7 @@ export function IntakeStep({ onSubmit }: IntakeStepProps) {
               type="button"
               className="chip"
               aria-pressed={style === value ? 'true' : 'false'}
-              onClick={() => setStyle(value)}
+              onClick={() => setStyle(value as Intake['style'])}
             >
               {label}
             </button>
@@ -109,7 +104,7 @@ export function IntakeStep({ onSubmit }: IntakeStepProps) {
               type="button"
               className="chip"
               aria-pressed={sessionsPerWeek === value ? 'true' : 'false'}
-              onClick={() => setSessionsPerWeek(value)}
+              onClick={() => setSessionsPerWeek(value as Intake['sessionsPerWeek'])}
             >
               {label}
             </button>
