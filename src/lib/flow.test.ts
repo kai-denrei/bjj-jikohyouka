@@ -32,4 +32,21 @@ describe('flow selection', () => {
     expect(recs).toHaveLength(3)
     expect(recs).toEqual(bank.categories.slice(0, 3).map(c => c.id))
   })
+
+  it('draft mode drill-downs return only draft questions for a pilot category', () => {
+    const qs = drilldownQuestions(bank, 'takedowns', true)
+    expect(qs.every(q => q.status === 'draft')).toBe(true)
+    expect(qs.length).toBeGreaterThan(0)
+  })
+
+  it('draft mode drill-downs return empty array for non-pilot categories', () => {
+    const qs = drilldownQuestions(bank, 'mount_top', true)
+    expect(qs).toEqual([])
+  })
+
+  it('non-draft mode drill-downs return only active questions (unchanged)', () => {
+    const qs = drilldownQuestions(bank, 'takedowns', false)
+    expect(qs.every(q => q.status === 'active')).toBe(true)
+    expect(qs.length).toBeGreaterThan(0)
+  })
 })

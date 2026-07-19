@@ -37,8 +37,13 @@ export function drilldownQuestions(bank: Bank, categoryId: string, drafts: boole
     if (q.category !== categoryId) return false
     if (q.tier !== 'drilldown') return false
     if (q.status === 'retired') return false
-    if (q.status === 'draft' && !drafts) return false
-    return true
+    if (drafts) {
+      // In draft mode, return ONLY draft questions
+      return q.status === 'draft'
+    } else {
+      // In non-draft mode, return only active questions
+      return q.status === 'active'
+    }
   })
 }
 
