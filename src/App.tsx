@@ -14,6 +14,11 @@ type Screen = 'intro' | 'intake' | 'sweep' | 'interim' | 'category' | 'results'
 
 const positionalCategories = bank.categories.filter(c => c.axis === 'positional')
 const drafts = includeDrafts(window.location.search)
+const availableCategoryIds = new Set(
+  bank.categories
+    .filter(c => drilldownQuestions(bank, c.id, drafts).length > 0)
+    .map(c => c.id)
+)
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>('intro')
@@ -197,7 +202,10 @@ export default function App() {
           onRetakeCategory={(categoryId) => {
             handlePickCategory(categoryId)
           }}
+          availableCategoryIds={availableCategoryIds}
           belt={session?.intake?.belt ?? null}
+          session={session}
+          onFinish={() => setSessionAndRef(null)}
         />
       )}
     </main>

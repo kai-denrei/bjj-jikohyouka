@@ -1,7 +1,10 @@
 import { render, screen, fireEvent, act } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { ResultsPage } from './ResultsPage'
+import { QuestionScreen } from '../QuestionScreen'
+import { bank } from '../../lib/bankInstance'
 import type { Report } from '../../lib/results/score'
+import type { AssessmentSession } from '../../lib/results/types'
 
 const report: Report = {
   bankVersion: '1.0.0',
@@ -13,9 +16,12 @@ const report: Report = {
   insights: [{ categoryId: 'b', kind: 'avoidance', text: 'That loop feeds itself — positional rounds beat avoiding it.' }],
 }
 
+// All three fixture categories available by default for backward-compat tests
+const allAvailable = new Set(['a', 'b', 'c'])
+
 describe('ResultsPage', () => {
   it('sorts scored categories desc, parks unscored under Not yet mapped, no composite %', () => {
-    render(<ResultsPage report={report} onRetakeCategory={() => {}} />)
+    render(<ResultsPage report={report} onRetakeCategory={() => {}} availableCategoryIds={allAvailable} />)
     const rows = screen.getAllByRole('listitem').map(li => li.textContent)
     expect(rows[0]).toContain('Alpha')
     expect(rows[1]).toContain('Beta')
@@ -23,18 +29,18 @@ describe('ResultsPage', () => {
     expect(document.body.textContent).not.toMatch(/overall|\d+%/)
   })
   it('marks wide uncertainty and shows the epigraph', () => {
-    render(<ResultsPage report={report} onRetakeCategory={() => {}} />)
+    render(<ResultsPage report={report} onRetakeCategory={() => {}} availableCategoryIds={allAvailable} />)
     expect(screen.getByText(/rough estimate — drill down to sharpen/)).toBeInTheDocument()
     expect(screen.getByText(/All models are wrong; some are useful/)).toBeInTheDocument()
     expect(screen.getByText(/r ≈ \.29/)).toBeInTheDocument()
   })
   it('renders the radar with one polygon and skips unscored axes', () => {
-    const { container } = render(<ResultsPage report={report} onRetakeCategory={() => {}} />)
+    const { container } = render(<ResultsPage report={report} onRetakeCategory={() => {}} availableCategoryIds={allAvailable} />)
     expect(container.querySelectorAll('svg polygon')).toHaveLength(1)
     expect(container.querySelector('svg')!.textContent).not.toContain('Gamma')
   })
   it('shows insight cards', () => {
-    render(<ResultsPage report={report} onRetakeCategory={() => {}} />)
+    render(<ResultsPage report={report} onRetakeCategory={() => {}} availableCategoryIds={allAvailable} />)
     expect(screen.getByText(/loop feeds itself/)).toBeInTheDocument()
   })
 
@@ -57,7 +63,7 @@ describe('ResultsPage', () => {
       toNextBand: 10,
     }))
     const report15: Report = { bankVersion: '1.0.0', categories: cats15, insights: [] }
-    const { container } = render(<ResultsPage report={report15} onRetakeCategory={() => {}} />)
+    const { container } = render(<ResultsPage report={report15} onRetakeCategory={() => {}} availableCategoryIds={allAvailable} />)
     const svg = container.querySelector('svg[aria-label="Skill radar"]')!
     expect(svg).toBeTruthy()
     expect(svg.getAttribute('overflow')).toBe('visible')
@@ -111,7 +117,7 @@ describe('ResultsPage', () => {
     })
 
     const { container } = render(
-      <ResultsPage report={reportWithTakedowns} onRetakeCategory={() => {}} />
+      <ResultsPage report={reportWithTakedowns} onRetakeCategory={() => {}} availableCategoryIds={allAvailable} />
     )
 
     // Trigger the hidden file input change
@@ -132,10 +138,99 @@ describe('ResultsPage', () => {
   it('BandList shows next band name in to-next hint', () => {
     // Alpha: band=Rolling, toNextBand=20 → "+20 to Weapon"
     // Beta:  band=Learning, toNextBand=10 → "+10 to Drilling"
-    render(<ResultsPage report={report} onRetakeCategory={() => {}} />)
+    render(<ResultsPage report={report} onRetakeCategory={() => {}} availableCategoryIds={allAvailable} />)
     expect(screen.getByText('+20 to Weapon')).toBeInTheDocument()
     expect(screen.getByText('+10 to Drilling')).toBeInTheDocument()
     // The old generic text should not appear
     expect(screen.queryByText(/to next band/)).not.toBeInTheDocument()
+  })
+
+  // Fix A-1: Dead-end guard — no Sharpen for empty-drilldown category + absent from Not yet mapped
+  it('no Sharpen button and absent from Not yet mapped when category has no available drilldowns', () => {
+    const availableIds = new Set(['a', 'b']) // 'c' (Gamma) has no drilldowns
+    render(
+      <ResultsPage
+        report={report}
+        onRetakeCategory={() => {}}
+        availableCategoryIds={availableIds}
+      />
+    )
+    // 'c' (Gamma) has no available drilldowns → should not appear at all
+    expect(screen.queryByText('Gamma')).not.toBeInTheDocument()
+    // The header should also be absent since no unscored categories have drilldowns
+    expect(screen.queryByText('Not yet mapped')).not.toBeInTheDocument()
+  })
+
+  // Fix A-1: Sharpen absent in scored row when no available drilldowns
+  it('Sharpen button absent in scored row when category not in availableCategoryIds', () => {
+    // 'a' scored, not in available set
+    const availableIds = new Set(['b', 'c'])
+    const mockRetake = vi.fn()
+    render(
+      <ResultsPage
+        report={report}
+        onRetakeCategory={mockRetake}
+        availableCategoryIds={availableIds}
+      />
+    )
+    // Alpha row should render but have no Sharpen button
+    expect(screen.getAllByText('Alpha').length).toBeGreaterThan(0)
+    // Click all Sharpen buttons — none should trigger retake for 'a'
+    const sharpenButtons = screen.getAllByText('Sharpen')
+    sharpenButtons.forEach(btn => {
+      fireEvent.click(btn)
+    })
+    expect(mockRetake).not.toHaveBeenCalledWith('a')
+  })
+
+  // Fix A-2: Finish & save calls finishSession, disables button, shows Saved
+  it('Finish & save calls finishSession, disables button, and shows Saved', async () => {
+    // Clear history before test
+    localStorage.removeItem('skillcheck.history.v1')
+    const { listHistory } = await import('../../lib/results/store')
+    const onFinish = vi.fn()
+    const session: AssessmentSession = {
+      bankVersion: '1.0.0',
+      startedAt: '2026-01-01T00:00:00.000Z',
+      updatedAt: '2026-01-01T00:01:00.000Z',
+      intake: null,
+      answers: {},
+      completedCategories: [],
+    }
+    render(
+      <ResultsPage
+        report={report}
+        onRetakeCategory={() => {}}
+        availableCategoryIds={new Set(['a', 'b', 'c'])}
+        session={session}
+        onFinish={onFinish}
+      />
+    )
+    const btn = screen.getByRole('button', { name: 'Finish & save' })
+    expect(btn).not.toBeDisabled()
+
+    await act(async () => { fireEvent.click(btn) })
+
+    expect(screen.getByRole('button', { name: 'Saved' })).toBeDisabled()
+    expect(onFinish).toHaveBeenCalledTimes(1)
+    expect(listHistory()).toHaveLength(1)
+  })
+})
+
+// Fix A-1b: QuestionScreen defensive guard — empty questions fires onDone immediately
+describe('QuestionScreen', () => {
+  it('with empty questions array fires onDone immediately', () => {
+    const onDone = vi.fn()
+    render(
+      <QuestionScreen
+        questions={[]}
+        answers={{}}
+        onAnswer={() => {}}
+        onDone={onDone}
+        heading="Test"
+        bank={bank}
+      />
+    )
+    expect(onDone).toHaveBeenCalledTimes(1)
   })
 })

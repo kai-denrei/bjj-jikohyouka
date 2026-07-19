@@ -27,6 +27,13 @@ export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, 
   const reducedMotion = usePrefersReducedMotion()
   const pendingTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  // Guard: if there are no questions, fire onDone immediately so the user is never stranded
+  useEffect(() => {
+    if (questions.length === 0) {
+      onDone()
+    }
+  }, []) // fire once on mount
+
   // Sync index when initialIndex changes (e.g. mid-sweep resume jump)
   useEffect(() => {
     if (pendingTimer.current !== null) {

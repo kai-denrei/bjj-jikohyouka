@@ -1,11 +1,11 @@
 import { useRef, useState, useMemo } from 'react'
 import type { Report } from '../../lib/results/score'
 import { scoreAnswers } from '../../lib/results/score'
-import { exportJSON, importJSON, listHistory } from '../../lib/results/store'
+import { exportJSON, importJSON, listHistory, finishSession } from '../../lib/results/store'
 import { bank } from '../../lib/bankInstance'
 import { BandList } from './BandList'
 import { Radar } from './Radar'
-import type { Intake } from '../../lib/results/types'
+import type { AssessmentSession, Intake } from '../../lib/results/types'
 
 const BELT_LENS: Record<NonNullable<Intake['belt']>, string> = {
   white:
@@ -20,12 +20,16 @@ const BELT_LENS: Record<NonNullable<Intake['belt']>, string> = {
 interface ResultsPageProps {
   report: Report
   onRetakeCategory: (categoryId: string) => void
+  availableCategoryIds: Set<string>
   belt?: Intake['belt'] | null
+  session?: AssessmentSession | null
+  onFinish?: () => void
 }
 
-export function ResultsPage({ report, onRetakeCategory, belt }: ResultsPageProps) {
+export function ResultsPage({ report, onRetakeCategory, availableCategoryIds, belt, session, onFinish }: ResultsPageProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [historyVersion, setHistoryVersion] = useState(0)
+  const [finished, setFinished] = useState(false)
 
   // Compute previous scores from history for retake diff
   const history = useMemo(() => listHistory(), [historyVersion])
@@ -47,6 +51,14 @@ export function ResultsPage({ report, onRetakeCategory, belt }: ResultsPageProps
     a.download = 'bjj-assessment.json'
     a.click()
     URL.revokeObjectURL(url)
+  }
+
+  function handleFinish() {
+    if (!session) return
+    finishSession(session)
+    setHistoryVersion(v => v + 1)
+    setFinished(true)
+    onFinish?.()
   }
 
   function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
@@ -91,6 +103,7 @@ export function ResultsPage({ report, onRetakeCategory, belt }: ResultsPageProps
         categories={report.categories}
         onRetakeCategory={onRetakeCategory}
         prevScores={prevScores}
+        availableCategoryIds={availableCategoryIds}
       />
 
       {/* Radar hero */}
@@ -139,7 +152,7 @@ export function ResultsPage({ report, onRetakeCategory, belt }: ResultsPageProps
           scoreboard.
         </p>
 
-        {/* Export / Import */}
+        {/* Export / Import / Finish */}
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <button
             className="btn-quiet"
@@ -154,6 +167,14 @@ export function ResultsPage({ report, onRetakeCategory, belt }: ResultsPageProps
             onClick={() => fileInputRef.current?.click()}
           >
             Import JSON
+          </button>
+          <button
+            className="btn-quiet"
+            style={{ width: 'auto', flex: '1 1 140px' }}
+            onClick={handleFinish}
+            disabled={finished || !session}
+          >
+            {finished ? 'Saved' : 'Finish & save'}
           </button>
           <input
             ref={fileInputRef}

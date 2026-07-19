@@ -13,14 +13,16 @@ interface BandListProps {
   categories: CategoryScore[]
   onRetakeCategory: (categoryId: string) => void
   prevScores?: Record<string, number | null>
+  availableCategoryIds: Set<string>
 }
 
-export function BandList({ categories, onRetakeCategory, prevScores }: BandListProps) {
+export function BandList({ categories, onRetakeCategory, prevScores, availableCategoryIds }: BandListProps) {
   const scored = categories
     .filter(c => c.score !== null)
     .sort((a, b) => (b.score as number) - (a.score as number))
 
   const unscored = categories.filter(c => c.score === null)
+  const unscoredWithDrilldowns = unscored.filter(c => availableCategoryIds.has(c.categoryId))
 
   return (
     <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
@@ -30,9 +32,10 @@ export function BandList({ categories, onRetakeCategory, prevScores }: BandListP
           cat={cat}
           onRetake={onRetakeCategory}
           prevScore={prevScores?.[cat.categoryId] ?? null}
+          hasAvailableDrilldowns={availableCategoryIds.has(cat.categoryId)}
         />
       ))}
-      {unscored.length > 0 && (
+      {unscoredWithDrilldowns.length > 0 && (
         <>
           <li
             style={{
@@ -46,7 +49,7 @@ export function BandList({ categories, onRetakeCategory, prevScores }: BandListP
           >
             Not yet mapped
           </li>
-          {unscored.map(cat => (
+          {unscoredWithDrilldowns.map(cat => (
             <li
               key={cat.categoryId}
               style={{
@@ -78,9 +81,10 @@ interface BandRowProps {
   cat: CategoryScore
   onRetake: (id: string) => void
   prevScore: number | null
+  hasAvailableDrilldowns: boolean
 }
 
-function BandRow({ cat, onRetake, prevScore }: BandRowProps) {
+function BandRow({ cat, onRetake, prevScore, hasAvailableDrilldowns }: BandRowProps) {
   return (
     <li
       style={{
@@ -124,14 +128,16 @@ function BandRow({ cat, onRetake, prevScore }: BandRowProps) {
         </span>
       )}
 
-      {/* Sharpen button */}
-      <button
-        className="btn-quiet"
-        style={{ width: 'auto', minHeight: 'unset', padding: '4px 10px', fontSize: 13 }}
-        onClick={() => onRetake(cat.categoryId)}
-      >
-        Sharpen
-      </button>
+      {/* Sharpen button — only shown when drilldown questions are available */}
+      {hasAvailableDrilldowns && (
+        <button
+          className="btn-quiet"
+          style={{ width: 'auto', minHeight: 'unset', padding: '4px 10px', fontSize: 13 }}
+          onClick={() => onRetake(cat.categoryId)}
+        >
+          Sharpen
+        </button>
+      )}
     </li>
   )
 }
