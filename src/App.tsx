@@ -30,6 +30,7 @@ export default function App() {
   const [report, setReport] = useState<Report | null>(null)
   const [resumeSession, setResumeSession] = useState<AssessmentSession | null>(null)
   const [sweepStartIndex, setSweepStartIndex] = useState(0)
+  const [sessionFinished, setSessionFinished] = useState(false)
 
   useEffect(() => {
     const saved = loadSession()
@@ -55,6 +56,7 @@ export default function App() {
     setSessionAndRef(newSession)
     saveSession(newSession)
     setSweepStartIndex(0)
+    setSessionFinished(false)
     setScreen('sweep')
   }
 
@@ -92,6 +94,7 @@ export default function App() {
     setActiveCategory(null)
     setReport(null)
     setSweepStartIndex(0)
+    setSessionFinished(false)
     setScreen('intake')
   }
 
@@ -274,17 +277,19 @@ export default function App() {
             availableCategoryIds={availableCategoryIds}
             belt={session?.intake?.belt ?? null}
             session={session}
-            onFinish={() => setSessionAndRef(null)}
+            onFinish={() => { setSessionAndRef(null); setSessionFinished(true) }}
           />
-          <div style={{ marginTop: 16 }}>
-            <button
-              type="button"
-              className="btn-quiet"
-              onClick={() => setScreen('interim')}
-            >
-              Back to categories
-            </button>
-          </div>
+          {!sessionFinished && (
+            <div style={{ marginTop: 16 }}>
+              <button
+                type="button"
+                className="btn-quiet"
+                onClick={() => setScreen('interim')}
+              >
+                Back to categories
+              </button>
+            </div>
+          )}
         </>
       )}
     </main>

@@ -1,6 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { AdminEditor } from './AdminEditor'
+import { QuestionScreen } from './QuestionScreen'
+import { bank } from '../lib/bankInstance'
 import type { Question } from '../lib/bank/schema'
 
 const DRAFT_QUESTION_WITH_SLOTS: Question = {
@@ -143,5 +145,74 @@ describe('AdminEditor', () => {
     )
     expect(container.firstChild).toBeNull()
     expect(screen.queryByRole('button', { name: /edit/i })).toBeNull()
+  })
+})
+
+// Regression: key={current.qid} on AdminEditor in QuestionScreen
+// Without the key, navigating from question A to B keeps A's mounted instance
+// — editor stays expanded with A's text and would POST A's content under B's qid.
+describe('AdminEditor key regression via QuestionScreen', () => {
+  const DRAFT_A: Question = {
+    qid: 'key_reg_draft_a',
+    v: 1,
+    status: 'draft',
+    category: 'takedowns',
+    axis: 'positional',
+    input: 'ladder6',
+    text: 'Question A text',
+    tier: 'drilldown',
+    scoring: { weight: 1, countsToward: 'skill' },
+    flags: [],
+  }
+  const DRAFT_B: Question = {
+    qid: 'key_reg_draft_b',
+    v: 1,
+    status: 'draft',
+    category: 'takedowns',
+    axis: 'positional',
+    input: 'ladder6',
+    text: 'Question B text',
+    tier: 'drilldown',
+    scoring: { weight: 1, countsToward: 'skill' },
+    flags: [],
+  }
+
+  it('navigating to a new question resets AdminEditor to collapsed and prefills new text', () => {
+    const { rerender } = render(
+      <QuestionScreen
+        questions={[DRAFT_A]}
+        answers={{}}
+        onAnswer={() => {}}
+        onDone={() => {}}
+        bank={bank}
+        admin={true}
+      />
+    )
+
+    // Expand the editor on question A
+    fireEvent.click(screen.getByRole('button', { name: /edit/i }))
+    // Editor is expanded — textarea shows question A's text
+    expect(screen.getByRole('textbox', { name: /text/i })).toHaveValue('Question A text')
+
+    // Navigate to question B (simulated by rerendering with B as only question)
+    rerender(
+      <QuestionScreen
+        questions={[DRAFT_B]}
+        answers={{}}
+        onAnswer={() => {}}
+        onDone={() => {}}
+        bank={bank}
+        admin={true}
+      />
+    )
+
+    // Editor must be collapsed (no textarea visible) — key forced remount
+    expect(screen.queryByRole('textbox', { name: /text/i })).toBeNull()
+    // Edit button visible for the new question
+    expect(screen.getByRole('button', { name: /edit/i })).toBeInTheDocument()
+
+    // Expand again — must show question B's text, not A's
+    fireEvent.click(screen.getByRole('button', { name: /edit/i }))
+    expect(screen.getByRole('textbox', { name: /text/i })).toHaveValue('Question B text')
   })
 })

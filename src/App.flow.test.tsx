@@ -266,4 +266,30 @@ describe('App flow', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Back to categories' }))
     expect(screen.getByRole('heading', { name: 'First picture' })).toBeInTheDocument()
   })
+
+  // Fix 3 pin: after Finish & save, Back to categories button is absent
+  it('Back to categories button absent after Finish & save', async () => {
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
+    // Complete sweep
+    for (const q of sweepQs) {
+      if (q.input === 'slider10') {
+        fireEvent.click(screen.getByRole('button', { name: '5' }))
+      } else {
+        fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
+      }
+    }
+    // On interim → go to results
+    fireEvent.click(screen.getByRole('button', { name: 'See results' }))
+    expect(screen.getByRole('button', { name: 'Back to categories' })).toBeInTheDocument()
+
+    // Finish & save
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Finish & save' }))
+    })
+
+    // Back to categories must be gone
+    expect(screen.queryByRole('button', { name: 'Back to categories' })).not.toBeInTheDocument()
+  })
 })

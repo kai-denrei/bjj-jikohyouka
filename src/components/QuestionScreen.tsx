@@ -155,7 +155,7 @@ export function QuestionScreen({ questions, answers, onAnswer, onDone, withinRun
           Back
         </button>
       )}
-      <AdminEditor question={current} onSaved={() => {}} admin={admin} />
+      <AdminEditor key={current.qid} question={current} onSaved={() => {}} admin={admin} />
       <InfoPanel open={infoPanelOpen} onClose={() => setInfoPanelOpen(false)} />
     </div>
   )
