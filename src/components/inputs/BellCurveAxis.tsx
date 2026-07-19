@@ -156,7 +156,7 @@ export function BellCurveAxis({ scale, value, onChange }: BellCurveAxisProps) {
   const ariaValueText = value != null && value > 0
     ? `${value} of 100 — around ${nearestBelt(curves, value)}`
     : value === 0
-    ? 'No answer yet'
+    ? 'No answer to this yet'
     : 'Not placed'
 
   return (
@@ -182,7 +182,7 @@ export function BellCurveAxis({ scale, value, onChange }: BellCurveAxisProps) {
         tabIndex={0}
         aria-valuemin={1}
         aria-valuemax={100}
-        aria-valuenow={value ?? 0}
+        {...(value && value > 0 ? { 'aria-valuenow': value } : {})}
         aria-valuetext={ariaValueText}
         aria-label={scale.label}
         onClick={handleSvgClick}

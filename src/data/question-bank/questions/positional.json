@@ -4369,10 +4369,10 @@
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
-        "countsToward": "skill"
+        "countsToward": "none"
       },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgb_004 using observable-event pattern",
-      "flags": []
+      "flags": ["needs_gerald_review"]
     },
     {
       "qid": "hgb_pass_prevent",
@@ -4413,10 +4413,10 @@
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
-        "countsToward": "skill"
+        "countsToward": "none"
       },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgb_009 using observable-event pattern",
-      "flags": []
+      "flags": ["needs_gerald_review"]
     },
     {
       "qid": "hgb_crossface_deal",
@@ -4435,10 +4435,10 @@
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
-        "countsToward": "skill"
+        "countsToward": "none"
       },
       "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgb_012 using observable-event pattern",
-      "flags": []
+      "flags": ["needs_gerald_review"]
     }
   ]
 }

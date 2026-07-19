@@ -16,10 +16,10 @@
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
-        "countsToward": "skill"
+        "countsToward": "none"
       },
       "rationale": "PLACEHOLDER — pending Gerald review; observable-event version of 'heavy pressure' — partner concedes without requiring an attack (Appendix B 'intense relaxed pressure' note)",
-      "flags": []
+      "flags": ["needs_gerald_review"]
     },
     {
       "qid": "mq_no_guard_recovery",

@@ -48,7 +48,7 @@ export function InfoPanel({ open, onClose }: InfoPanelProps) {
       <div
         role="dialog"
         aria-modal="true"
-        aria-label="How to read this chart"
+        aria-labelledby="info-panel-title"
         style={{
           background: '#fff',
           borderRadius: 'var(--radius)',
@@ -68,7 +68,7 @@ export function InfoPanel({ open, onClose }: InfoPanelProps) {
             marginBottom: '16px',
           }}
         >
-          <h2 style={{ margin: 0, fontFamily: 'var(--font-display)' }}>How to read this chart</h2>
+          <h2 id="info-panel-title" style={{ margin: 0, fontFamily: 'var(--font-display)' }}>How to read this chart</h2>
           <button
             type="button"
             className="btn-quiet"
@@ -83,9 +83,6 @@ export function InfoPanel({ open, onClose }: InfoPanelProps) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '14px', lineHeight: '1.6' }}>
           {/* Section 1: Belt population and curves */}
           <section>
-            <h3 style={{ fontFamily: 'var(--font-display)', margin: '0 0 8px 0', fontSize: '16px' }}>
-              How to read this chart
-            </h3>
             <p style={{ margin: 0 }}>
               Each curve is a belt population. The horizontal axis is ability — further right, harder to deal with. The curves overlap on purpose: an exceptional purple belt is a harder round than an out-of-practice black belt. Belt color is a decent proxy for ability, not a guarantee.
             </p>
