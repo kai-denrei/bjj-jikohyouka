@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import type { Question, Bank } from '../lib/bank/schema'
 import type { StoredAnswer } from '../lib/results/types'
 import { QuestionInput } from './inputs/QuestionInput'
+import { QuestionCard } from './QuestionCard'
 
 function usePrefersReducedMotion(): boolean {
   try {
@@ -106,7 +107,7 @@ export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, 
       <div className="mono" style={{ fontSize: 12 }}>
         {headingStr} · {index + 1} of {questions.length}
       </div>
-      <h2 style={{ margin: 0 }}>{current.text}</h2>
+      <QuestionCard question={current} />
       <QuestionInput
         scale={scale}
         value={currentValue}
