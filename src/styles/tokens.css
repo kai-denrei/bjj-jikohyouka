@@ -1,0 +1,19 @@
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+:root {
+  --mat:#F4F4F1; --ink:#23304A; --ink-2:#6B7284; --line:#D8DAD3; --accent:#35509E;
+  --belt-white:#E9E7E0; --belt-blue:#3F6BB5; --belt-purple:#6E4C9F; --belt-brown:#7A5230; --belt-black:#1A1A1A;
+  --radius:6px; --tap:48px;
+  --font-display:'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body:'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+}
+body { background: var(--mat); color: var(--ink); font-family: var(--font-body); margin: 0; }
+#root { max-width: 560px; margin: 0 auto; padding: 16px; min-height: 100dvh; }
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.01em; }
+button { font: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn { min-height: var(--tap); width: 100%; border: 0; border-radius: var(--radius); background: var(--accent); color: #fff; font-weight: 600; cursor: pointer; }
+.btn-quiet { min-height: var(--tap); width: 100%; border: 1px solid var(--line); border-radius: var(--radius); background: transparent; color: var(--ink); cursor: pointer; }
+.chip { min-height: var(--tap); border: 1px solid var(--line); border-radius: var(--radius); background: #fff; color: var(--ink); cursor: pointer; padding: 8px 12px; text-align: left; }
+.chip[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.mono { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); }
