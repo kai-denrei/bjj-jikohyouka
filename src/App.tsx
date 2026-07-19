@@ -7,6 +7,7 @@ import { IntakeStep } from './components/IntakeStep'
 import { BeltStripeBar } from './components/BeltStripeBar'
 import { QuestionScreen } from './components/QuestionScreen'
 import { InterimScreen } from './components/InterimScreen'
+import { ResultsPage } from './components/results/ResultsPage'
 import type { AssessmentSession, StoredAnswer, Intake } from './lib/results/types'
 
 type Screen = 'intro' | 'intake' | 'sweep' | 'interim' | 'category' | 'results'
@@ -190,8 +191,14 @@ export default function App() {
         />
       )}
 
-      {screen === 'results' && (
-        <h2>Results</h2>
+      {screen === 'results' && report && (
+        <ResultsPage
+          report={report}
+          onRetakeCategory={(categoryId) => {
+            handlePickCategory(categoryId)
+          }}
+          belt={session?.intake?.belt ?? null}
+        />
       )}
     </main>
   )
