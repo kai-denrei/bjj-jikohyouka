@@ -37,7 +37,10 @@ export const PROVISIONAL_NORMALIZATION: Record<string, (raw: number | number[]) 
   received_feedback: r => (r as number) / 2,
   know_check: r => (r as number) / 2,
   agree3: r => (r as number) / 2,
-  belt_curve: r => (r as number[]).reduce((a, b) => a + b, 0) / ((r as number[]).length * 10),
+  belt_curve: r => {
+    const arr = Array.isArray(r) ? (r as number[]) : [r as number]
+    return arr.reduce((a, b) => a + b, 0) / (arr.length * 10)
+  },
   slider10: r => ((r as number) - 1) / 9,
 }
 
@@ -59,7 +62,12 @@ function scoreQuestion(question: Question, answer: StoredAnswer | undefined, ban
     return null
   }
 
-  const normalized = normalizer(answer.raw)
+  let normalized: number
+  try {
+    normalized = normalizer(answer.raw)
+  } catch {
+    return null
+  }
   return Math.max(0, Math.min(1, normalized)) // Clamp to [0, 1]
 }
 
