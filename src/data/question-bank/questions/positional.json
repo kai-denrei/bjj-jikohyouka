@@ -3763,7 +3763,7 @@
         "what": "their closed or open guard",
         "problem": "Do you reach a passing position before they threaten a sweep or submission?"
       },
-      "text": "When a same-rank partner closes their guard, I reach a passing position before they threaten a sweep or submission",
+      "text": "When a same-rank partner plays closed or open guard, I reach a passing position before they threaten a sweep or submission",
       "tier": "core",
       "scoring": {
         "weight": 1,

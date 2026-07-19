@@ -9,7 +9,7 @@ describe('§9 seed drafts', () => {
     expect(drafts.length).toBeGreaterThanOrEqual(40)
     expect(drafts.every(q => q.rationale?.startsWith('PLACEHOLDER — pending Gerald review'))).toBe(true)
   })
-  it('15 draft sweep rewrites, one per positional category, ladder6, with lineage', () => {
+  it('15 draft sweep rewrites, one per positional category, ability_axis, with lineage', () => {
     const sweep = drafts.filter(q => q.tier === 'core')
     expect(sweep).toHaveLength(15)
     expect(new Set(sweep.map(q => q.category)).size).toBe(15)
