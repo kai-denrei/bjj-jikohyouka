@@ -85,6 +85,7 @@ describe('clientXToAxis', () => {
 
 describe('BellCurveAxis', () => {
   const axis = () => bank.scales.find(s => s.id === 'ability_axis')!
+
   it('renders five belt curves, endpoint labels, and the fixed prompt from scale data', () => {
     render(<BellCurveAxis scale={axis()} value={null} onChange={() => {}} />)
     expect(document.querySelectorAll('svg path[data-belt]')).toHaveLength(5)
@@ -92,26 +93,136 @@ describe('BellCurveAxis', () => {
     expect(screen.getByText('Elite')).toBeInTheDocument()
     expect(screen.getByText('Where do you start to struggle?')).toBeInTheDocument()
   })
-  it('has slider semantics and arrow-key movement', () => {
+
+  it('mouse click commits immediately — pointerMove then click fires onChange once', () => {
+    const fn = vi.fn()
+    render(<BellCurveAxis scale={axis()} value={null} onChange={fn} />)
+    const svg = document.querySelector('svg[role="slider"]')!
+    // pointerMove with mouse pointerType — should NOT commit
+    fireEvent.pointerMove(svg, { pointerType: 'mouse', clientX: 200 })
+    expect(fn).not.toHaveBeenCalled()
+    // click commits immediately
+    fireEvent.click(svg, { clientX: 200 })
+    expect(fn).toHaveBeenCalledTimes(1)
+  })
+
+  it('touch drag stages without committing; Confirm button commits and disappears', () => {
+    const fn = vi.fn()
+    render(<BellCurveAxis scale={axis()} value={null} onChange={fn} />)
+    const svg = document.querySelector('svg[role="slider"]')!
+    // No Confirm button initially
+    expect(screen.queryByRole('button', { name: 'Confirm' })).toBeNull()
+    // Touch drag: pointerDown + pointerMove + pointerUp
+    fireEvent.pointerDown(svg, { pointerType: 'touch', clientX: 150, pointerId: 1 })
+    fireEvent.pointerMove(svg, { pointerType: 'touch', clientX: 180, pointerId: 1 })
+    fireEvent.pointerUp(svg, { pointerType: 'touch', clientX: 180, pointerId: 1 })
+    // onChange should NOT have been called yet
+    expect(fn).not.toHaveBeenCalled()
+    // Confirm button should now be visible
+    const confirmBtn = screen.getByRole('button', { name: 'Confirm' })
+    expect(confirmBtn).toBeInTheDocument()
+    // Clicking Confirm commits
+    fireEvent.click(confirmBtn)
+    expect(fn).toHaveBeenCalledTimes(1)
+    // Confirm disappears after commit
+    expect(screen.queryByRole('button', { name: 'Confirm' })).toBeNull()
+  })
+
+  it('no Confirm button when nothing is staged', () => {
+    render(<BellCurveAxis scale={axis()} value={50} onChange={() => {}} />)
+    expect(screen.queryByRole('button', { name: 'Confirm' })).toBeNull()
+  })
+
+  it('keyboard ArrowRight from unplaced does not commit; Enter commits at 52', () => {
+    const fn = vi.fn()
+    render(<BellCurveAxis scale={axis()} value={null} onChange={fn} />)
+    const slider = screen.getByRole('slider')
+    // ArrowRight from unplaced — stages at 52 (50+2) but does NOT commit
+    fireEvent.keyDown(slider, { key: 'ArrowRight' })
+    expect(fn).not.toHaveBeenCalled()
+    // Enter commits
+    fireEvent.keyDown(slider, { key: 'Enter' })
+    expect(fn).toHaveBeenCalledWith(52)
+    expect(fn).toHaveBeenCalledTimes(1)
+  })
+
+  it('keyboard arrow keys still work from a placed value', () => {
     const fn = vi.fn()
     render(<BellCurveAxis scale={axis()} value={50} onChange={fn} />)
     const slider = screen.getByRole('slider')
     expect(slider).toHaveAttribute('aria-valuenow', '50')
     expect(slider.getAttribute('aria-valuetext')).toMatch(/around (White|Blue|Purple|Brown|Black)/)
-    fireEvent.keyDown(slider, { key: 'ArrowRight' })
-    expect(fn).toHaveBeenCalledWith(52)
+    // ArrowLeft stages without committing
+    fireEvent.keyDown(slider, { key: 'ArrowLeft' })
+    expect(fn).not.toHaveBeenCalled()
+    // Space commits staged
+    fireEvent.keyDown(slider, { key: ' ' })
+    expect(fn).toHaveBeenCalledWith(48)
   })
-  it('renders the vertical line only when placed, and floor chip stores 0', () => {
+
+  it('keyboard arrows clamp to 1–100', () => {
+    const fn = vi.fn()
+    render(<BellCurveAxis scale={axis()} value={1} onChange={fn} />)
+    const slider = screen.getByRole('slider')
+    fireEvent.keyDown(slider, { key: 'ArrowLeft' })
+    fireEvent.keyDown(slider, { key: 'Enter' })
+    expect(fn).toHaveBeenCalledWith(1) // clamped, not -1
+  })
+
+  it('floor chip commits 0 immediately and clears any staged line', () => {
+    const fn = vi.fn()
+    render(<BellCurveAxis scale={axis()} value={null} onChange={fn} />)
+    const svg = document.querySelector('svg[role="slider"]')!
+    // Stage something via touch
+    fireEvent.pointerDown(svg, { pointerType: 'touch', clientX: 150, pointerId: 1 })
+    fireEvent.pointerMove(svg, { pointerType: 'touch', clientX: 180, pointerId: 1 })
+    fireEvent.pointerUp(svg, { pointerType: 'touch', clientX: 180, pointerId: 1 })
+    expect(screen.getByRole('button', { name: 'Confirm' })).toBeInTheDocument()
+    // Floor chip clears staged and commits 0 immediately
+    fireEvent.click(screen.getByRole('button', { name: 'No answer to this yet' }))
+    expect(fn).toHaveBeenCalledWith(0)
+    expect(screen.queryByRole('button', { name: 'Confirm' })).toBeNull()
+  })
+
+  it('renders the vertical line only when placed, with no staged line', () => {
     const fn = vi.fn()
     const { rerender } = render(<BellCurveAxis scale={axis()} value={null} onChange={fn} />)
     expect(document.querySelector('[data-testid="axis-line"]')).toBeNull()
-    fireEvent.click(screen.getByRole('button', { name: 'No answer to this yet' }))
-    expect(fn).toHaveBeenCalledWith(0)
+    expect(document.querySelector('[data-testid="axis-line-staged"]')).toBeNull()
     rerender(<BellCurveAxis scale={axis()} value={62} onChange={fn} />)
     expect(document.querySelector('[data-testid="axis-line"]')).not.toBeNull()
     expect(screen.getByText('works')).toBeInTheDocument()
     expect(screen.getByText('struggles')).toBeInTheDocument()
   })
+
+  it('staged ghost line has strokeDasharray; committed line does not', () => {
+    render(<BellCurveAxis scale={axis()} value={null} onChange={() => {}} />)
+    // Trigger keyboard staging
+    const slider = screen.getByRole('slider')
+    fireEvent.keyDown(slider, { key: 'ArrowRight' })
+    // Staged line should appear
+    const stagedLine = document.querySelector('[data-testid="axis-line-staged"]')
+    expect(stagedLine).not.toBeNull()
+    expect(stagedLine!.getAttribute('stroke-dasharray')).toBeTruthy()
+    // No committed line yet
+    expect(document.querySelector('[data-testid="axis-line"]')).toBeNull()
+  })
+
+  it('aria-valuenow reflects staged when staged is present, else committed', () => {
+    const { rerender } = render(<BellCurveAxis scale={axis()} value={null} onChange={() => {}} />)
+    const slider = screen.getByRole('slider')
+    // Neither staged nor committed — no aria-valuenow
+    expect(slider.hasAttribute('aria-valuenow')).toBe(false)
+    // Stage via keyboard
+    fireEvent.keyDown(slider, { key: 'ArrowRight' })
+    // aria-valuenow should reflect staged value (52)
+    expect(slider).toHaveAttribute('aria-valuenow', '52')
+    // After commit, rerender with committed value
+    fireEvent.keyDown(slider, { key: 'Enter' })
+    rerender(<BellCurveAxis scale={axis()} value={52} onChange={() => {}} />)
+    expect(slider).toHaveAttribute('aria-valuenow', '52')
+  })
+
   it('QuestionInput dispatches axis scales to BellCurveAxis', () => {
     render(<QuestionInput scale={axis()} value={null} onChange={() => {}} />)
     expect(screen.getByRole('slider')).toBeInTheDocument()

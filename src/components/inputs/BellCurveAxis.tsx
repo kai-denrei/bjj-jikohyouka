@@ -1,16 +1,15 @@
 /**
- * BellCurveAxis — tap-to-place ability axis widget.
+ * BellCurveAxis — staged-commit ability axis widget.
  *
- * Design intent: this is NOT a slider.
- *   • Tap/click places a vertical line at a semantic position on the ability
- *     distribution. There is no draggable handle.
+ * Design intent: placement is STAGED, commit is EXPLICIT.
  *   • No default position — the question asks "where do you START to
  *     struggle?" and pre-seeding an answer would bias the response.
  *   • The left / right regions around the line ("works" / "struggles") are
- *     semantic landmarks, not just range endpoints. A slider UX collapses
- *     the meaning of those regions into abstract numbers; a tap-to-place
- *     lets the practitioner aim directly at a perceived landmark on the
- *     distribution curve rather than nudging a handle.
+ *     semantic landmarks, not just range endpoints.
+ *   • Interaction by modality:
+ *     - Mouse/pen: hover shows ghost line live; click commits immediately.
+ *     - Touch: drag stages the line; Confirm button commits.
+ *     - Keyboard: arrows stage; Enter/Space commits.
  *
  *   Anti-slider rationale — Appendix A of the task brief (2026-07-19):
  *   slider fatigue (all values feel equally valid), anchoring to the default
@@ -20,7 +19,7 @@
  *   skill-mapping contexts.
  */
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import type { Scale } from '../../lib/bank/schema'
 import '../../styles/tokens.css'
 
@@ -121,40 +120,153 @@ function nearestBelt(curves: NonNullable<Scale['curves']>, v: number): string {
   return closest.belt.charAt(0).toUpperCase() + closest.belt.slice(1)
 }
 
+/** Compute the synthetic plot-area rect from an SVG element's bounding rect */
+function plotRect(svg: SVGSVGElement): { left: number; width: number } {
+  const rect = svg.getBoundingClientRect()
+  return {
+    left: rect.left + (PLOT_X0 / VIEW_W) * rect.width,
+    width: (PLOT_W / VIEW_W) * rect.width,
+  }
+}
+
 export function BellCurveAxis({ scale, value, onChange }: BellCurveAxisProps) {
   const svgRef = useRef<SVGSVGElement>(null)
+  // staged: position placed but not yet committed. null = nothing staged.
+  const [staged, setStaged] = useState<number | null>(null)
+  // ghostX: mouse-hover ghost position (mouse/pen only, not touch)
+  const [ghostX, setGhostX] = useState<number | null>(null)
 
   const curves = scale.curves ?? []
   const startAnchor = scale.anchors.find(a => a.value === 0)?.label ?? 'Untrained'
   const endAnchor = scale.anchors.find(a => a.value === 100)?.label ?? 'Elite'
 
-  // Whether the vertical line is shown (value placed and non-zero)
-  const showLine = value !== null && value > 0
-  const lineX = showLine ? axisToSvgX(value!) : null
+  // The "active display" position: staged takes priority, else committed value
+  const displayValue = staged ?? (value !== null && value > 0 ? value : null)
+  // What to show in the chart:
+  //   - committed line (solid, data-testid="axis-line"): value > 0 and not staged
+  //   - staged ghost line (dashed, data-testid="axis-line-staged"): staged !== null
+  //   - hover ghost line: ghostX !== null (mouse/pen hover, no staged, no committed)
+  const showCommittedLine = value !== null && value > 0 && staged === null
+  const showStagedLine = staged !== null
+  // The wash and microlabels track: staged > hover ghost > committed
+  const washValue = displayValue
+  const showWash = washValue !== null
+
+  const committedLineX = showCommittedLine ? axisToSvgX(value!) : null
+  const stagedLineX = showStagedLine ? axisToSvgX(staged!) : null
+  // Hover ghost: only when no staged line and not committed (or could show over committed too)
+  const hoverLineX = ghostX !== null && !showStagedLine ? axisToSvgX(ghostX) : null
+  const washLineX = washValue !== null ? axisToSvgX(washValue) : null
+
+  // ── Pointer helpers ──────────────────────────────────────────────────────
+
+  function getPointerType(e: React.PointerEvent | React.MouseEvent): string {
+    // fireEvent.pointer* in jsdom may not set pointerType on the synthetic event
+    // but sets it as a property; React wraps it, so we read from nativeEvent or cast
+    const pe = e as React.PointerEvent
+    return (pe.nativeEvent as any)?.pointerType ?? (pe as any).pointerType ?? 'mouse'
+  }
+
+  function clientXToAxisFromSvg(clientX: number): number {
+    const svg = svgRef.current
+    if (!svg) return 50
+    return clientXToAxis(clientX, plotRect(svg))
+  }
+
+  // ── Mouse / Pen handlers ─────────────────────────────────────────────────
+
+  function handlePointerMove(e: React.PointerEvent<SVGSVGElement>) {
+    const pt = getPointerType(e)
+    if (pt === 'touch') return  // handled by touch path
+    // Mouse/pen: update ghost hover position live
+    setGhostX(clientXToAxisFromSvg(e.clientX))
+  }
+
+  function handlePointerLeave(e: React.PointerEvent<SVGSVGElement>) {
+    const pt = getPointerType(e)
+    if (pt === 'touch') return
+    // Clear hover ghost (but keep any touch/keyboard staged state)
+    setGhostX(null)
+  }
 
   function handleSvgClick(e: React.MouseEvent<SVGSVGElement>) {
-    const svg = svgRef.current
-    if (!svg) return
-    const rect = svg.getBoundingClientRect()
-    // Construct a synthetic plot-area rect to reuse clientXToAxis's unified math
-    const plotRect = {
-      left: rect.left + (PLOT_X0 / VIEW_W) * rect.width,
-      width: (PLOT_W / VIEW_W) * rect.width,
-    }
-    onChange(clientXToAxis(e.clientX, plotRect))
+    // Click commits immediately for mouse/pen
+    const axisVal = clientXToAxisFromSvg(e.clientX)
+    setGhostX(null)
+    setStaged(null)
+    onChange(axisVal)
   }
+
+  // ── Touch handlers ───────────────────────────────────────────────────────
+
+  function handlePointerDown(e: React.PointerEvent<SVGSVGElement>) {
+    const pt = getPointerType(e)
+    if (pt !== 'touch') return
+    // Capture pointer so move events come to us even if touch leaves the element
+    ;(e.currentTarget as Element).setPointerCapture?.(e.pointerId)
+    const axisVal = clientXToAxisFromSvg(e.clientX)
+    setStaged(axisVal)
+  }
+
+  function handlePointerMoveTouch(e: React.PointerEvent<SVGSVGElement>) {
+    const pt = getPointerType(e)
+    if (pt !== 'touch') return
+    const axisVal = clientXToAxisFromSvg(e.clientX)
+    setStaged(axisVal)
+  }
+
+  function handlePointerUp(e: React.PointerEvent<SVGSVGElement>) {
+    const pt = getPointerType(e)
+    if (pt !== 'touch') return
+    // Keep staged — pointerUp does NOT commit for touch. Confirm button commits.
+    const axisVal = clientXToAxisFromSvg(e.clientX)
+    setStaged(axisVal)
+  }
+
+  function handleConfirm() {
+    if (staged === null) return
+    const toCommit = staged
+    setStaged(null)
+    onChange(toCommit)
+  }
+
+  // ── Keyboard handler ─────────────────────────────────────────────────────
 
   function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
-    e.preventDefault()
-    const current = value ?? 50
-    const delta = e.key === 'ArrowRight' ? 2 : -2
-    const next = Math.max(1, Math.min(100, current + delta))
-    onChange(next)
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault()
+      // Initialize from staged > committed > 50 (unplaced)
+      const current = staged ?? (value !== null && value > 0 ? value : 50)
+      const delta = e.key === 'ArrowRight' ? 2 : -2
+      const next = Math.max(1, Math.min(100, current + delta))
+      setStaged(next)
+      return
+    }
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      if (staged !== null) {
+        handleConfirm()
+      }
+      return
+    }
   }
 
-  const ariaValueText = value != null && value > 0
-    ? `${value} of 100 — around ${nearestBelt(curves, value)}`
+  // ── Combined pointer handlers (merge mouse and touch paths) ──────────────
+
+  function handleUnifiedPointerMove(e: React.PointerEvent<SVGSVGElement>) {
+    const pt = getPointerType(e)
+    if (pt === 'touch') {
+      handlePointerMoveTouch(e)
+    } else {
+      handlePointerMove(e)
+    }
+  }
+
+  // ── Aria ─────────────────────────────────────────────────────────────────
+
+  const ariaDisplayValue = staged ?? (value !== null && value > 0 ? value : null)
+  const ariaValueText = ariaDisplayValue !== null
+    ? `${ariaDisplayValue} of 100 — around ${nearestBelt(curves, ariaDisplayValue)}`
     : value === 0
     ? 'No answer to this yet'
     : 'Not placed'
@@ -182,21 +294,25 @@ export function BellCurveAxis({ scale, value, onChange }: BellCurveAxisProps) {
         tabIndex={0}
         aria-valuemin={1}
         aria-valuemax={100}
-        {...(value && value > 0 ? { 'aria-valuenow': value } : {})}
+        {...(ariaDisplayValue !== null ? { 'aria-valuenow': ariaDisplayValue } : {})}
         aria-valuetext={ariaValueText}
         aria-label={scale.label}
         onClick={handleSvgClick}
         onKeyDown={handleKeyDown}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handleUnifiedPointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerLeave={handlePointerLeave}
       >
-        {/* Left-of-line wash (appears behind curves) */}
-        {showLine && lineX !== null && (
+        {/* Left-of-line wash (tracks staged/hover/committed, appears behind curves) */}
+        {showWash && washLineX !== null && (
           <rect
             x={PLOT_X0}
             y={PLOT_TOP}
-            width={lineX - PLOT_X0}
+            width={washLineX - PLOT_X0}
             height={AXIS_Y - PLOT_TOP}
             fill="var(--accent)"
-            fillOpacity={0.07}
+            fillOpacity={showStagedLine ? 0.05 : 0.07}
           />
         )}
 
@@ -247,20 +363,75 @@ export function BellCurveAxis({ scale, value, onChange }: BellCurveAxisProps) {
           {endAnchor}
         </text>
 
-        {/* Vertical placement line */}
-        {showLine && lineX !== null && (
+        {/* Hover ghost line (mouse/pen hover, no staged) */}
+        {hoverLineX !== null && (
+          <line
+            x1={hoverLineX} y1={PLOT_TOP}
+            x2={hoverLineX} y2={AXIS_Y}
+            stroke="var(--accent)"
+            strokeWidth={2}
+            strokeDasharray="4 3"
+            opacity={0.4}
+          />
+        )}
+
+        {/* Staged ghost line (dashed, accent color, 0.6 opacity) */}
+        {showStagedLine && stagedLineX !== null && (
+          <>
+            <line
+              data-testid="axis-line-staged"
+              x1={stagedLineX} y1={PLOT_TOP}
+              x2={stagedLineX} y2={AXIS_Y}
+              stroke="var(--accent)"
+              strokeWidth={2}
+              strokeDasharray="4 3"
+              opacity={0.6}
+            />
+            {/* "works" microlabel — left of staged line */}
+            {stagedLineX > PLOT_X0 + 18 && (
+              <text
+                x={stagedLineX - 6}
+                y={PLOT_TOP + 14}
+                className="mono"
+                fill="var(--accent)"
+                fontSize={10}
+                textAnchor="end"
+                opacity={0.6}
+              >
+                works
+              </text>
+            )}
+            {/* "struggles" microlabel — right of staged line */}
+            {stagedLineX < PLOT_X1 - 24 && (
+              <text
+                x={stagedLineX + 6}
+                y={PLOT_TOP + 14}
+                className="mono"
+                fill="var(--ink-2)"
+                fontSize={10}
+                textAnchor="start"
+                opacity={0.6}
+              >
+                struggles
+              </text>
+            )}
+          </>
+        )}
+
+        {/* Committed vertical placement line (solid) */}
+        {showCommittedLine && committedLineX !== null && (
           <>
             <line
               data-testid="axis-line"
-              x1={lineX} y1={PLOT_TOP}
-              x2={lineX} y2={AXIS_Y}
+              x1={committedLineX} y1={PLOT_TOP}
+              x2={committedLineX} y2={AXIS_Y}
               stroke="var(--accent)"
               strokeWidth={2}
             />
-            {/* "works" microlabel — left of line, anchored to line */}
-            {lineX > PLOT_X0 + 18 && (
+            {/* "works" microlabel — left of committed line */}
+            {committedLineX > PLOT_X0 + 18 && (
               <text
-                x={lineX - 6}
+                x={committedLineX - 6}
                 y={PLOT_TOP + 14}
                 className="mono"
                 fill="var(--accent)"
@@ -270,10 +441,10 @@ export function BellCurveAxis({ scale, value, onChange }: BellCurveAxisProps) {
                 works
               </text>
             )}
-            {/* "struggles" microlabel — right of line */}
-            {lineX < PLOT_X1 - 24 && (
+            {/* "struggles" microlabel — right of committed line */}
+            {committedLineX < PLOT_X1 - 24 && (
               <text
-                x={lineX + 6}
+                x={committedLineX + 6}
                 y={PLOT_TOP + 14}
                 className="mono"
                 fill="var(--ink-2)"
@@ -287,13 +458,30 @@ export function BellCurveAxis({ scale, value, onChange }: BellCurveAxisProps) {
         )}
       </svg>
 
+      {/* Confirm button — touch only, visible while staged !== null */}
+      {staged !== null && (
+        <div style={{ marginTop: 8 }}>
+          <button
+            className="btn"
+            style={{ width: '100%' }}
+            onClick={handleConfirm}
+          >
+            Confirm
+          </button>
+        </div>
+      )}
+
       {/* Floor chip — "No answer to this yet" */}
       {scale.floor && (
         <div style={{ marginTop: 12 }}>
           <button
             className="chip"
             aria-pressed={value === 0}
-            onClick={() => onChange(0)}
+            onClick={() => {
+              setStaged(null)
+              setGhostX(null)
+              onChange(0)
+            }}
             style={{ width: '100%' }}
           >
             No answer to this yet

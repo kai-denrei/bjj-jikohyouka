@@ -91,7 +91,7 @@ export function InfoPanel({ open, onClose }: InfoPanelProps) {
           {/* Section 2: How to use / one tap */}
           <section>
             <p style={{ margin: 0 }}>
-              One tap answers the question. Place the line where opponents start to shut this down. Left of your line: it works more often than not. Right of your line: where it starts to fail.
+              Move the line to where opponents start to shut this down, then commit it — click on desktop, slide and confirm on touch. Left of your line: it works more often than not. Right of your line: where it starts to fail.
             </p>
           </section>
 
