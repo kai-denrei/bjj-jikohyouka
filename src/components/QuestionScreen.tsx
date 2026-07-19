@@ -4,6 +4,7 @@ import type { StoredAnswer } from '../lib/results/types'
 import { QuestionInput } from './inputs/QuestionInput'
 import { QuestionCard } from './QuestionCard'
 import { InfoPanel } from './InfoPanel'
+import { AdminEditor } from './AdminEditor'
 
 function usePrefersReducedMotion(): boolean {
   try {
@@ -22,9 +23,10 @@ export interface QuestionScreenProps {
   withinRunCounter?: boolean
   bank: Bank
   initialIndex?: number
+  admin?: boolean
 }
 
-export function QuestionScreen({ questions, answers, onAnswer, onDone, withinRunCounter, bank, initialIndex = 0 }: QuestionScreenProps) {
+export function QuestionScreen({ questions, answers, onAnswer, onDone, withinRunCounter, bank, initialIndex = 0, admin = false }: QuestionScreenProps) {
   const [index, setIndex] = useState(initialIndex)
   const [infoPanelOpen, setInfoPanelOpen] = useState(false)
   const reducedMotion = usePrefersReducedMotion()
@@ -153,6 +155,7 @@ export function QuestionScreen({ questions, answers, onAnswer, onDone, withinRun
           Back
         </button>
       )}
+      <AdminEditor question={current} onSaved={() => {}} admin={admin} />
       <InfoPanel open={infoPanelOpen} onClose={() => setInfoPanelOpen(false)} />
     </div>
   )

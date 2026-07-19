@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { bank } from './lib/bankInstance'
 import { loadSession, saveSession, clearSession } from './lib/results/store'
 import { scoreAnswers, type Report } from './lib/results/score'
-import { sweepQuestions, recommendedDrilldowns, drilldownQuestions, includeDrafts } from './lib/flow'
+import { sweepQuestions, recommendedDrilldowns, drilldownQuestions, includeDrafts, includeAdmin } from './lib/flow'
 import { IntakeStep } from './components/IntakeStep'
 import { BeltStripeBar } from './components/BeltStripeBar'
 import { QuestionScreen } from './components/QuestionScreen'
@@ -14,6 +14,7 @@ type Screen = 'intro' | 'intake' | 'sweep' | 'interim' | 'category' | 'results'
 
 const positionalCategories = bank.categories.filter(c => c.axis === 'positional')
 const drafts = includeDrafts(window.location.search)
+const admin = includeAdmin(window.location.search)
 const availableCategoryIds = new Set(
   bank.categories
     .filter(c => drilldownQuestions(bank, c.id, drafts).length > 0)
@@ -237,6 +238,7 @@ export default function App() {
           onDone={handleSweepDone}
           bank={bank}
           initialIndex={sweepStartIndex}
+          admin={admin}
         />
       )}
 
@@ -258,6 +260,7 @@ export default function App() {
           onDone={handleCategoryDone}
           withinRunCounter={true}
           bank={bank}
+          admin={admin}
         />
       )}
 

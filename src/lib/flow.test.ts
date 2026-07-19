@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { includeDrafts, sweepQuestions, drilldownQuestions, recommendedDrilldowns, visibleQuestions } from './flow'
+import { includeDrafts, includeAdmin, sweepQuestions, drilldownQuestions, recommendedDrilldowns, visibleQuestions } from './flow'
 import { loadBank } from './bank/load'
 import { scoreAnswers } from './results/score'
 
@@ -53,5 +53,18 @@ describe('flow selection', () => {
   it('draft mode pilot questions never include v0.1 input formats (slider10 or belt_curve)', () => {
     const qs = drilldownQuestions(bank, 'takedowns', true)
     expect(qs.every(q => q.input !== 'slider10' && q.input !== 'belt_curve')).toBe(true)
+  })
+})
+
+describe('includeAdmin', () => {
+  it('returns true when ?admin param is present', () => {
+    expect(includeAdmin('?admin')).toBe(true)
+    expect(includeAdmin('?bank=draft&admin')).toBe(true)
+    expect(includeAdmin('?admin=1')).toBe(true)
+  })
+  it('returns false when admin param is absent', () => {
+    expect(includeAdmin('')).toBe(false)
+    expect(includeAdmin('?bank=draft')).toBe(false)
+    expect(includeAdmin('?other=admin')).toBe(false)
   })
 })

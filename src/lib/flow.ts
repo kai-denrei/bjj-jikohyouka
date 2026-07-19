@@ -5,6 +5,12 @@ export function includeDrafts(search: string): boolean {
   return search.includes('?bank=draft') || search.includes('&bank=draft')
 }
 
+export function includeAdmin(search: string): boolean {
+  // admin param present as standalone key (any value, or no value)
+  const params = new URLSearchParams(search.startsWith('?') ? search.slice(1) : search)
+  return params.has('admin')
+}
+
 export function visibleQuestions(bank: Bank, drafts: boolean): Question[] {
   return bank.questions.filter(q => {
     if (q.status === 'retired') return false
