@@ -222,23 +222,29 @@ describe('App flow', () => {
         fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
       }
     }
-    // find the first available category chip (recommended or other)
-    const chipButtons = screen.getAllByRole('button').filter(
-      b => b.className?.includes('chip') || b.className?.includes('btn-quiet')
-    )
-    const drilldownChip = chipButtons.find(b => b.textContent !== 'Pause' && b.textContent !== 'See results')
-    if (drilldownChip) {
-      fireEvent.click(drilldownChip)
-      // Should be in category drill-down — Pause button present
-      const pauseBtn = screen.getByRole('button', { name: 'Pause' })
-      expect(pauseBtn).toBeInTheDocument()
-      fireEvent.click(pauseBtn)
-      // Should return to interim
-      expect(screen.getByRole('heading', { name: 'First picture' })).toBeInTheDocument()
-    } else {
-      // No drilldowns available — test passes vacuously (draft mode or no pilot categories)
-      expect(screen.getByRole('heading', { name: 'First picture' })).toBeInTheDocument()
-    }
+    // Should now be on interim screen
+    expect(screen.getByRole('heading', { name: 'First picture' })).toBeInTheDocument()
+
+    // Deterministically find the takedowns category chip
+    const takedownsCategory = bank.categories.find(c => c.id === 'takedowns')!
+    const takedownsName = takedownsCategory.name
+    const drilldownChip = screen.getByRole('button', { name: takedownsName })
+    fireEvent.click(drilldownChip)
+
+    // Should be in a drill-down question screen — has within-run counter or question heading (not "First picture")
+    const questionHeadings = screen.getAllByRole('heading')
+    const hasQuestion = questionHeadings.some(h => h.textContent !== 'First picture')
+    expect(hasQuestion).toBe(true)
+
+    // Pause button should be visible
+    const pauseBtn = screen.getByRole('button', { name: 'Pause' })
+    expect(pauseBtn).toBeInTheDocument()
+    fireEvent.click(pauseBtn)
+
+    // Should return to interim with "First picture" heading
+    expect(screen.getByRole('heading', { name: 'First picture' })).toBeInTheDocument()
+    // No question input or within-run counter should remain
+    expect(screen.queryByText(/^\d+ of \d+$/)).not.toBeInTheDocument()
   })
 
   it('results → Back to categories → interim', () => {
