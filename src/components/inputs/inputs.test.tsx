@@ -320,4 +320,21 @@ describe('BellCurveAxis', () => {
     // black: mean=74, sd=14, height=0.34 → exponent = -((12-74)^2)/(2*196) ≈ -9.7 → ~0
     expect(document.querySelector('[data-testid="curve-dot"][data-belt="black"]')).toBeNull()
   })
+
+  it('works/struggles labels appear during hover ghost (no value yet)', () => {
+    render(<BellCurveAxis scale={axis()} value={null} onChange={() => {}} />)
+    const svg = document.querySelector('svg[role="slider"]')!
+    // jsdom returns zero-size rects — mock so clientX=200 maps to a mid-range axis value
+    vi.spyOn(svg, 'getBoundingClientRect').mockReturnValue(
+      { left: 0, width: 400, top: 0, height: 170, right: 400, bottom: 170, x: 0, y: 0, toJSON: () => {} } as DOMRect
+    )
+    // No extra SVG text labels before hover (only Untrained/Elite endpoints)
+    expect(svg.querySelectorAll('text')).toHaveLength(2)
+    // Hover at center — neither edge — should show both labels
+    fireEvent.pointerMove(svg, { pointerType: 'mouse', clientX: 200 })
+    // works and struggles SVG text elements appear inside the svg
+    const svgTexts = Array.from(svg.querySelectorAll('text')).map(t => t.textContent)
+    expect(svgTexts).toContain('works')
+    expect(svgTexts).toContain('struggles')
+  })
 })

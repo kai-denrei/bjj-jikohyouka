@@ -392,14 +392,44 @@ export function BellCurveAxis({ scale, value, onChange, resetKey }: BellCurveAxi
 
         {/* Hover ghost line (mouse/pen hover, no staged) */}
         {hoverLineX !== null && (
-          <line
-            x1={hoverLineX} y1={PLOT_TOP}
-            x2={hoverLineX} y2={AXIS_Y}
-            stroke="var(--accent)"
-            strokeWidth={2}
-            strokeDasharray="4 3"
-            opacity={0.4}
-          />
+          <>
+            <line
+              x1={hoverLineX} y1={PLOT_TOP}
+              x2={hoverLineX} y2={AXIS_Y}
+              stroke="var(--accent)"
+              strokeWidth={2}
+              strokeDasharray="4 3"
+              opacity={0.4}
+            />
+            {/* "works" microlabel — left of hover ghost line */}
+            {hoverLineX > PLOT_X0 + 18 && (
+              <text
+                x={hoverLineX - 6}
+                y={PLOT_TOP + 14}
+                className="mono"
+                fill="var(--accent)"
+                fontSize={10}
+                textAnchor="end"
+                opacity={0.4}
+              >
+                works
+              </text>
+            )}
+            {/* "struggles" microlabel — right of hover ghost line */}
+            {hoverLineX < PLOT_X1 - 24 && (
+              <text
+                x={hoverLineX + 6}
+                y={PLOT_TOP + 14}
+                className="mono"
+                fill="var(--ink-2)"
+                fontSize={10}
+                textAnchor="start"
+                opacity={0.4}
+              >
+                struggles
+              </text>
+            )}
+          </>
         )}
 
         {/* Staged ghost line (dashed, accent color, 0.6 opacity) */}
