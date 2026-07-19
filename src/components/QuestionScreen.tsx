@@ -143,6 +143,7 @@ export function QuestionScreen({ questions, answers, onAnswer, onDone, heading, 
         scale={scale}
         value={currentValue}
         onChange={handleAnswer}
+        resetKey={current.qid}
       />
       {index > 0 && (
         <button type="button" className="btn-quiet" onClick={handleBack}>

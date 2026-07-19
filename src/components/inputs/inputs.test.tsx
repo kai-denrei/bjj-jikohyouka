@@ -227,4 +227,54 @@ describe('BellCurveAxis', () => {
     render(<QuestionInput scale={axis()} value={null} onChange={() => {}} />)
     expect(screen.getByRole('slider')).toBeInTheDocument()
   })
+
+  it('touch pointerUp + synthesized click should NOT commit; Confirm still visible', () => {
+    const fn = vi.fn()
+    render(<BellCurveAxis scale={axis()} value={null} onChange={fn} />)
+    const svg = document.querySelector('svg[role="slider"]')!
+    // Simulate touch tap: pointerDown + pointerUp
+    fireEvent.pointerDown(svg, { pointerType: 'touch', clientX: 150, pointerId: 1 })
+    fireEvent.pointerUp(svg, { pointerType: 'touch', clientX: 180, pointerId: 1 })
+    // Confirm button should be visible (staged)
+    expect(screen.getByRole('button', { name: 'Confirm' })).toBeInTheDocument()
+    // Clear fn calls so far (touch pointerUp shouldn't have called onChange)
+    expect(fn).not.toHaveBeenCalled()
+    fn.mockClear()
+    // Now simulate the synthesized click that follows the touch
+    // In jsdom, a click event from touch won't have pointerType set, so getPointerType returns 'mouse'
+    // But we can manually craft a synthetic event with pointerType to test the guard
+    const clickEvent = new MouseEvent('click', { bubbles: true })
+    Object.defineProperty(clickEvent, 'clientX', { value: 180 })
+    Object.defineProperty(clickEvent, 'pointerType', { value: 'touch' })
+    svg.dispatchEvent(clickEvent)
+    // onChange should NOT have been called by the synthesized click
+    expect(fn).not.toHaveBeenCalled()
+    // Confirm button should still be visible
+    expect(screen.getByRole('button', { name: 'Confirm' })).toBeInTheDocument()
+  })
+
+  it('SVG style contains touch-action: none', () => {
+    render(<BellCurveAxis scale={axis()} value={null} onChange={() => {}} />)
+    const svg = document.querySelector('svg[role="slider"]') as HTMLElement
+    expect(svg.style.touchAction).toBe('none')
+  })
+
+  it('rerender with new resetKey clears staged line and Confirm button', () => {
+    const fn = vi.fn()
+    const { rerender } = render(
+      <BellCurveAxis scale={axis()} value={null} onChange={fn} resetKey="q1" />
+    )
+    const svg = document.querySelector('svg[role="slider"]')!
+    // Stage something
+    fireEvent.pointerDown(svg, { pointerType: 'touch', clientX: 150, pointerId: 1 })
+    fireEvent.pointerMove(svg, { pointerType: 'touch', clientX: 180, pointerId: 1 })
+    fireEvent.pointerUp(svg, { pointerType: 'touch', clientX: 180, pointerId: 1 })
+    expect(screen.getByRole('button', { name: 'Confirm' })).toBeInTheDocument()
+    // Rerender with a new resetKey
+    rerender(<BellCurveAxis scale={axis()} value={null} onChange={fn} resetKey="q2" />)
+    // Confirm button should be gone
+    expect(screen.queryByRole('button', { name: 'Confirm' })).toBeNull()
+    // Staged line should be gone
+    expect(document.querySelector('[data-testid="axis-line-staged"]')).toBeNull()
+  })
 })

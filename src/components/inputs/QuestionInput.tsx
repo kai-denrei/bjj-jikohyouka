@@ -7,10 +7,11 @@ export interface QuestionInputProps {
   scale: Scale
   value: number | number[] | null
   onChange: (v: number | number[] | null) => void
+  resetKey?: string | number
 }
 
 // QuestionInput: dispatcher — kind 'curve' → BeltCurve, kind 'axis' → BellCurveAxis, else → TapScale
-export function QuestionInput({ scale, value, onChange }: QuestionInputProps) {
+export function QuestionInput({ scale, value, onChange, resetKey }: QuestionInputProps) {
   if (scale.kind === 'curve') {
     return (
       <BeltCurve
@@ -26,6 +27,7 @@ export function QuestionInput({ scale, value, onChange }: QuestionInputProps) {
         scale={scale}
         value={value as number | null}
         onChange={onChange as (v: number) => void}
+        resetKey={resetKey}
       />
     )
   }

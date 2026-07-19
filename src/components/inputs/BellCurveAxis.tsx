@@ -19,7 +19,7 @@
  *   skill-mapping contexts.
  */
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import type { Scale } from '../../lib/bank/schema'
 import '../../styles/tokens.css'
 
@@ -27,6 +27,7 @@ export interface BellCurveAxisProps {
   scale: Scale
   value: number | null
   onChange: (v: number) => void
+  resetKey?: string | number
 }
 
 // SVG geometry constants
@@ -129,12 +130,18 @@ function plotRect(svg: SVGSVGElement): { left: number; width: number } {
   }
 }
 
-export function BellCurveAxis({ scale, value, onChange }: BellCurveAxisProps) {
+export function BellCurveAxis({ scale, value, onChange, resetKey }: BellCurveAxisProps) {
   const svgRef = useRef<SVGSVGElement>(null)
   // staged: position placed but not yet committed. null = nothing staged.
   const [staged, setStaged] = useState<number | null>(null)
   // ghostX: mouse-hover ghost position (mouse/pen only, not touch)
   const [ghostX, setGhostX] = useState<number | null>(null)
+
+  // Reset staged/ghost when resetKey changes (indicates a question change)
+  useEffect(() => {
+    setStaged(null)
+    setGhostX(null)
+  }, [resetKey])
 
   const curves = scale.curves ?? []
   const startAnchor = scale.anchors.find(a => a.value === 0)?.label ?? 'Untrained'
@@ -190,6 +197,8 @@ export function BellCurveAxis({ scale, value, onChange }: BellCurveAxisProps) {
   }
 
   function handleSvgClick(e: React.MouseEvent<SVGSVGElement>) {
+    // Synthesized click from touch tap should be ignored; touch commits via Confirm only
+    if (getPointerType(e) === 'touch') return
     // Click commits immediately for mouse/pen
     const axisVal = clientXToAxisFromSvg(e.clientX)
     setGhostX(null)
@@ -289,7 +298,7 @@ export function BellCurveAxis({ scale, value, onChange }: BellCurveAxisProps) {
       <svg
         ref={svgRef}
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
-        style={{ width: '100%', display: 'block', cursor: 'crosshair' }}
+        style={{ width: '100%', display: 'block', cursor: 'crosshair', touchAction: 'none' }}
         role="slider"
         tabIndex={0}
         aria-valuemin={1}
