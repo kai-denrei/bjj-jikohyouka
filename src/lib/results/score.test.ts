@@ -7,11 +7,13 @@ const bank: Bank = {
   categories: [
     { id: 'takedowns', name: 'Takedowns', axis: 'positional', weight: 1.2 },
     { id: 'mount_top', name: 'Mount top', axis: 'positional', weight: 1.0 },
+    { id: 'meta_qualities', name: 'Meta Qualities', axis: 'meta', weight: 1.0 },
   ],
   scales: [
     { id: 'ladder6', kind: 'tap', label: 'L', secondsPerItem: 6, anchors: [{ value: 0, label: 'a' }, { value: 5, label: 'b' }] },
     { id: 'agree3', kind: 'tap', label: 'A', secondsPerItem: 6, anchors: [{ value: 0, label: 'a' }, { value: 2, label: 'b' }] },
     { id: 'know_check', kind: 'tap', label: 'K', secondsPerItem: 6, anchors: [{ value: 0, label: 'a' }, { value: 2, label: 'b' }] },
+    { id: 'frequency10', kind: 'tap', label: 'F', secondsPerItem: 6, anchors: [{ value: 0, label: 'never' }, { value: 3, label: 'always' }] },
   ],
   questions: [
     { qid: 'td_a', v: 1, status: 'active', category: 'takedowns', axis: 'positional', input: 'ladder6', text: 'q', tier: 'core', scoring: { weight: 1, countsToward: 'skill' }, flags: [] },
@@ -20,6 +22,7 @@ const bank: Bank = {
     { qid: 'td_joy', v: 1, status: 'active', category: 'takedowns', axis: 'psychological', input: 'agree3', text: 'q', tier: 'drilldown', scoring: { weight: 1, countsToward: 'none' }, flags: [] },
     { qid: 'td_know', v: 1, status: 'active', category: 'takedowns', axis: 'psychological', input: 'know_check', text: 'q', tier: 'drilldown', scoring: { weight: 1, countsToward: 'none' }, flags: [] },
     { qid: 'mt_a', v: 1, status: 'active', category: 'mount_top', axis: 'positional', input: 'ladder6', text: 'q', tier: 'core', scoring: { weight: 1, countsToward: 'skill' }, flags: [] },
+    { qid: 'mq_inverted', v: 1, status: 'draft', category: 'meta_qualities', axis: 'meta', input: 'frequency10', text: 'q', tier: 'drilldown', scoring: { weight: 1, countsToward: 'skill' }, flags: ['inverted'] },
   ],
 }
 const a = (qid: string, raw: number | number[] | null) => ({ qid, v: 1, raw })
@@ -77,5 +80,18 @@ describe('scoreAnswers (provisional)', () => {
     const td2 = r2.categories.find(c => c.categoryId === 'takedowns')!
     expect(td2.score).toBe(20)
     expect(r2.insights).toEqual([{ categoryId: 'takedowns', kind: 'avoidance', text: expect.stringContaining('loop feeds itself') }])
+  })
+  it('inverted flag: frequency10 raw 3 (max) → category score 0; raw 0 → category score 100', () => {
+    // mq_inverted is a draft frequency10 question with flags: ['inverted'], countsToward: 'skill'
+    // frequency10 normalizes as raw/3; inverted means 1-(raw/3)
+    // raw 3 → norm 1.0 → inverted 0.0 → score 0
+    const rMax = scoreAnswers({ mq_inverted: a('mq_inverted', 3) }, bank)
+    const mqMax = rMax.categories.find(c => c.categoryId === 'meta_qualities')!
+    expect(mqMax.score).toBe(0)
+
+    // raw 0 → norm 0.0 → inverted 1.0 → score 100
+    const rMin = scoreAnswers({ mq_inverted: a('mq_inverted', 0) }, bank)
+    const mqMin = rMin.categories.find(c => c.categoryId === 'meta_qualities')!
+    expect(mqMin.score).toBe(100)
   })
 })

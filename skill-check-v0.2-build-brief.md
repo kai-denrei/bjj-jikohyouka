@@ -169,4 +169,12 @@ Full report lives in `skill-check-research-report.md` (same session). One-line v
 - **Coach-compare (future v0.3+)**: same sweep answered *about* the student by coach/partner; the deltas are the product — Johari-style blind spots (self high/other low) and hidden strengths (self low/other high). Schema hook: `raterMode`.
 - **Observable events**: the master rewrite move for intangibles — "intense relaxed pressure" → partners concede position from weight alone; "flow" → partner doesn't recover guard mid-transition.
 - **"People have told me…"**: received-feedback items double as a window into training-partner quality (good/bad partner), not just effectiveness. New Reputation set born from this.
+- **2026-07-19 — §9 draft content review notes (agent)**: 55 drafts landed (`?bank=draft` to play-test; docs/bank-review.md to read). Items flagged for Gerald's content pass, worst first:
+  - `ogb_butterfly_sweep_live`: "stands or sits in my butterfly guard" — standing opponent is the unusual case; suggest dropping "stands or".
+  - `wl_wrist_lock_live`: "causes them to tap or escape" — escape isn't a successful wrist lock; suggest "that they must urgently defend or tap to".
+  - `rep_beginners_seek_roll`: "because they feel they can learn" infers the beginner's motive; suggest stripping the causal clause.
+  - `mq_no_guard_recovery`: negatively-valenced frequency item — now flagged `inverted` and scored 1−norm mechanically; confirm the direction reads right in results.
+  - `mq_feedback_pressure`: "feel pinned" is a reported sensation, not behavior — spec's own phrasing ("partners concede position from my weight alone") is stronger.
+  - Minor phrasing: `td_kuzushi_live` ("at my level" vs "same-rank"), `cgb_hip_angle` ("so" purpose-phrasing), `hgb_deep_half_live` ("return to top" ambiguity), `mq_adapt_body_type` (ladder6 is a weak scale fit — frequency10?).
+  - `rep_comp_advice`: pre-competition advice is a neutral event — insight copy should not read it as pure endorsement.
 - **Open questions for Gerald** (park here, don't block): Should meta-qualities appear in the sweep or only post-sweep? Gi vs no-gi split scores or one profile? How to phrase negative partner-quality insights kindly? When to start anonymized logging (v0.3?)? Super-axis grouping for the radar hero — which 6–8?

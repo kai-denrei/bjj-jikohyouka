@@ -23,8 +23,8 @@
       "text": "In my last 10 transitions between dominant positions, my partner recovered guard before I settled the new position",
       "tier": "drilldown",
       "scoring": { "weight": 1.0, "countsToward": "skill" },
-      "rationale": "PLACEHOLDER — pending Gerald review; observable-event version of 'flow/connection' — partner interruption rate during transitions (Appendix B 'flow → partner doesn't recover guard mid-transition')",
-      "flags": []
+      "rationale": "PLACEHOLDER — pending Gerald review; observable-event version of 'flow/connection' — partner interruption rate during transitions (Appendix B 'flow → partner doesn't recover guard mid-transition'); scored inverted — higher frequency is worse (flags: inverted)",
+      "flags": ["inverted"]
     },
     {
       "qid": "mq_composure_bad_spot",

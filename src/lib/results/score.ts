@@ -68,6 +68,10 @@ function scoreQuestion(question: Question, answer: StoredAnswer | undefined, ban
   } catch {
     return null
   }
+  // Inverted questions: higher raw = worse outcome, so flip the normalized value
+  if (question.flags.includes('inverted')) {
+    normalized = 1 - normalized
+  }
   return Math.max(0, Math.min(1, normalized)) // Clamp to [0, 1]
 }
 
