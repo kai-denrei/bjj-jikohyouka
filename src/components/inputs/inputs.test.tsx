@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { TapScale } from './TapScale'
 import { BeltCurve } from './BeltCurve'
+import { BellCurveAxis, clientXToAxis } from './BellCurveAxis'
 import { QuestionInput } from './QuestionInput'
 import { loadBank } from '../../lib/bank/load'
 
@@ -50,5 +51,60 @@ describe('QuestionInput', () => {
   it('dispatches curve scales to BeltCurve and tap scales to TapScale', () => {
     render(<QuestionInput scale={scale('belt_curve')} value={null} onChange={() => {}} />)
     expect(screen.getByRole('button', { name: 'Black: 1 of 10' })).toBeInTheDocument()
+  })
+})
+
+describe('clientXToAxis', () => {
+  it('maps clientX to an axis value 1–100, clamped and rounded', () => {
+    const rect = { left: 100, width: 400 }
+    // dead center → 50
+    expect(clientXToAxis(300, rect)).toBe(50)
+    // quarter way → 25
+    expect(clientXToAxis(200, rect)).toBe(25)
+    // exactly at right edge → 100
+    expect(clientXToAxis(500, rect)).toBe(100)
+    // beyond right → clamped to 100
+    expect(clientXToAxis(600, rect)).toBe(100)
+    // at left edge → 0 → clamped to 1
+    expect(clientXToAxis(100, rect)).toBe(1)
+    // before left edge → clamped to 1
+    expect(clientXToAxis(50, rect)).toBe(1)
+    // rounds: 24.5 → 25 (not 24)
+    expect(clientXToAxis(198, rect)).toBe(25) // (198-100)/400 = 0.245 → round to 25
+  })
+})
+
+describe('BellCurveAxis', () => {
+  const axis = () => bank.scales.find(s => s.id === 'ability_axis')!
+  it('renders five belt curves, endpoint labels, and the fixed prompt from scale data', () => {
+    render(<BellCurveAxis scale={axis()} value={null} onChange={() => {}} />)
+    expect(document.querySelectorAll('svg path[data-belt]')).toHaveLength(5)
+    expect(screen.getByText('Untrained')).toBeInTheDocument()
+    expect(screen.getByText('Elite')).toBeInTheDocument()
+    expect(screen.getByText('Where do you start to struggle?')).toBeInTheDocument()
+  })
+  it('has slider semantics and arrow-key movement', () => {
+    const fn = vi.fn()
+    render(<BellCurveAxis scale={axis()} value={50} onChange={fn} />)
+    const slider = screen.getByRole('slider')
+    expect(slider).toHaveAttribute('aria-valuenow', '50')
+    expect(slider.getAttribute('aria-valuetext')).toMatch(/around (White|Blue|Purple|Brown|Black)/)
+    fireEvent.keyDown(slider, { key: 'ArrowRight' })
+    expect(fn).toHaveBeenCalledWith(52)
+  })
+  it('renders the vertical line only when placed, and floor chip stores 0', () => {
+    const fn = vi.fn()
+    const { rerender } = render(<BellCurveAxis scale={axis()} value={null} onChange={fn} />)
+    expect(document.querySelector('[data-testid="axis-line"]')).toBeNull()
+    fireEvent.click(screen.getByRole('button', { name: 'No answer to this yet' }))
+    expect(fn).toHaveBeenCalledWith(0)
+    rerender(<BellCurveAxis scale={axis()} value={62} onChange={fn} />)
+    expect(document.querySelector('[data-testid="axis-line"]')).not.toBeNull()
+    expect(screen.getByText('works')).toBeInTheDocument()
+    expect(screen.getByText('struggles')).toBeInTheDocument()
+  })
+  it('QuestionInput dispatches axis scales to BellCurveAxis', () => {
+    render(<QuestionInput scale={axis()} value={null} onChange={() => {}} />)
+    expect(screen.getByRole('slider')).toBeInTheDocument()
   })
 })
