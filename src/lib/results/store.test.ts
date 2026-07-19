@@ -3,7 +3,7 @@ import { loadSession, saveSession, clearSession, finishSession, listHistory, exp
 import type { AssessmentSession } from './types'
 
 const session = (over: Partial<AssessmentSession> = {}): AssessmentSession => ({
-  bankVersion: '1.0.0', startedAt: '2026-07-19T10:00:00Z', updatedAt: '2026-07-19T10:00:00Z',
+  bankVersion: '1.0.0', startedAt: '2026-07-18T10:00:00Z', updatedAt: '2026-07-18T10:00:00Z',
   intake: null, answers: { td_002: { qid: 'td_002', v: 1, raw: [8, 6, 4, 2, 1] } },
   completedCategories: ['takedowns'], ...over,
 })
@@ -14,7 +14,7 @@ describe('results store', () => {
     saveSession(session())
     const loaded = loadSession()!
     expect(loaded.answers.td_002.raw).toEqual([8, 6, 4, 2, 1])
-    expect(loaded.updatedAt >= '2026-07-19T10:00:00Z').toBe(true)
+    expect(loaded.updatedAt >= '2026-07-18T10:00:00Z').toBe(true)
   })
   it('returns null on corrupt storage instead of throwing', () => {
     localStorage.setItem('skillcheck.session.v1', '{nope')

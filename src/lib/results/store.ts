@@ -54,7 +54,7 @@ export function saveSession(s: AssessmentSession): void {
   const now = new Date().toISOString()
   const updated: AssessmentSession = {
     ...s,
-    updatedAt: s.updatedAt > now ? s.updatedAt : now,
+    updatedAt: now,
   }
   writeJson(SESSION_KEY, updated)
 }
