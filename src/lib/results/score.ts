@@ -135,9 +135,9 @@ export function scoreAnswers(answers: Record<string, StoredAnswer>, bank: Bank):
     const skillAnswers = answersByCategory[category.id] || []
     const psychAnswers = psychAnswersByCategory[category.id] || []
 
-    // Count active skill questions for this category
+    // Count active skill questions for this category (exclude drafts from activeCount denominator)
     const activeSkillQuestions = bank.questions.filter(
-      q => q.category === category.id && (q.status === 'active' || q.status === 'draft') && q.scoring.countsToward === 'skill'
+      q => q.category === category.id && q.status === 'active' && q.scoring.countsToward === 'skill'
     )
 
     let score: number | null = null
@@ -167,9 +167,7 @@ export function scoreAnswers(answers: Record<string, StoredAnswer>, bank: Bank):
       const answeredCount = skillAnswers.length
       const activeCount = activeSkillQuestions.length
 
-      if (answeredCount === 0) {
-        uncertainty = 'none'
-      } else if (answeredCount === 1) {
+      if (answeredCount === 1) {
         uncertainty = 'wide'
       } else if (answeredCount < activeCount) {
         uncertainty = 'medium'
@@ -209,7 +207,7 @@ export function scoreAnswers(answers: Record<string, StoredAnswer>, bank: Bank):
     }
 
     // Check if any agree3 answer in this category has raw === 0
-    const hasZeroAvoidance = psychAnswers.some(a => a.raw === 0)
+    const hasZeroAvoidance = psychAnswers.some(a => a.question.input === 'agree3' && a.raw === 0)
 
     if (hasZeroAvoidance && categoryScore.score < 40) {
       insights.push({

@@ -11,11 +11,14 @@ const bank: Bank = {
   scales: [
     { id: 'ladder6', kind: 'tap', label: 'L', secondsPerItem: 6, anchors: [{ value: 0, label: 'a' }, { value: 5, label: 'b' }] },
     { id: 'agree3', kind: 'tap', label: 'A', secondsPerItem: 6, anchors: [{ value: 0, label: 'a' }, { value: 2, label: 'b' }] },
+    { id: 'know_check', kind: 'tap', label: 'K', secondsPerItem: 6, anchors: [{ value: 0, label: 'a' }, { value: 2, label: 'b' }] },
   ],
   questions: [
     { qid: 'td_a', v: 1, status: 'active', category: 'takedowns', axis: 'positional', input: 'ladder6', text: 'q', tier: 'core', scoring: { weight: 1, countsToward: 'skill' }, flags: [] },
     { qid: 'td_b', v: 1, status: 'active', category: 'takedowns', axis: 'positional', input: 'ladder6', text: 'q', tier: 'drilldown', scoring: { weight: 2, countsToward: 'skill' }, flags: [] },
+    { qid: 'td_draft', v: 1, status: 'draft', category: 'takedowns', axis: 'positional', input: 'ladder6', text: 'q', tier: 'drilldown', scoring: { weight: 1, countsToward: 'skill' }, flags: [] },
     { qid: 'td_joy', v: 1, status: 'active', category: 'takedowns', axis: 'psychological', input: 'agree3', text: 'q', tier: 'drilldown', scoring: { weight: 1, countsToward: 'none' }, flags: [] },
+    { qid: 'td_know', v: 1, status: 'active', category: 'takedowns', axis: 'psychological', input: 'know_check', text: 'q', tier: 'drilldown', scoring: { weight: 1, countsToward: 'none' }, flags: [] },
     { qid: 'mt_a', v: 1, status: 'active', category: 'mount_top', axis: 'positional', input: 'ladder6', text: 'q', tier: 'core', scoring: { weight: 1, countsToward: 'skill' }, flags: [] },
   ],
 }
@@ -50,5 +53,29 @@ describe('scoreAnswers (provisional)', () => {
     const r = scoreAnswers({ td_a: a('td_a', 5), td_b: a('td_b', 5) }, bank)
     const td = r.categories.find(c => c.categoryId === 'takedowns')!
     expect(td.band).toBe('Weapon'); expect(td.toNextBand).toBeNull()
+  })
+  it('draft skill question answered but not counted in activeCount → uncertainty is narrow when all active answered', () => {
+    const r = scoreAnswers({ td_a: a('td_a', 3), td_b: a('td_b', 2), td_draft: a('td_draft', 4) }, bank)
+    const td = r.categories.find(c => c.categoryId === 'takedowns')!
+    // activeCount should exclude draft (only td_a and td_b are active) = 2
+    expect(td.activeCount).toBe(2)
+    // answered is 3 (td_a, td_b, td_draft all answered)
+    expect(td.answered).toBe(3)
+    // answered >= activeCount → narrow
+    expect(td.uncertainty).toBe('narrow')
+  })
+  it('avoidance insight only fires for agree3 raw 0; know_check raw 0 does not trigger', () => {
+    // answer td_b low (score 20) and both psychological questions with raw 0
+    const r = scoreAnswers({ td_b: a('td_b', 1), td_know: a('td_know', 0), td_joy: a('td_joy', 1) }, bank)
+    const td = r.categories.find(c => c.categoryId === 'takedowns')!
+    expect(td.score).toBe(20)
+    // No insight: td_know (know_check) raw 0 does not count, td_joy (agree3) raw 1 (not 0)
+    expect(r.insights).toEqual([])
+
+    // Same scenario but td_joy raw 0 with agree3 → insight fires
+    const r2 = scoreAnswers({ td_b: a('td_b', 1), td_know: a('td_know', 0), td_joy: a('td_joy', 0) }, bank)
+    const td2 = r2.categories.find(c => c.categoryId === 'takedowns')!
+    expect(td2.score).toBe(20)
+    expect(r2.insights).toEqual([{ categoryId: 'takedowns', kind: 'avoidance', text: expect.stringContaining('loop feeds itself') }])
   })
 })
