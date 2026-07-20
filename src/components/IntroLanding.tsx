@@ -22,14 +22,22 @@ import '../styles/tokens.css'
 
 // ── SVG geometry ─────────────────────────────────────────────────────────────
 // Kept intentionally identical to BellCurveAxis so curves look the same.
-const VIEW_W   = 360
-const VIEW_H   = 170
-const PLOT_X0  = 10
-const PLOT_X1  = 350
-const PLOT_W   = PLOT_X1 - PLOT_X0   // 340
-const PLOT_H   = 120
-const AXIS_Y   = 138
-const LABEL_Y  = 155
+const VIEW_W        = 360
+const VIEW_H        = 185   // +15 for micro-label row below the axis-endpoint labels
+const PLOT_X0       = 10
+const PLOT_X1       = 350
+const PLOT_W        = PLOT_X1 - PLOT_X0   // 340
+const PLOT_H        = 120
+const AXIS_Y        = 138
+const LABEL_Y       = 155
+const MICRO_LABEL_Y = 171   // row below LABEL_Y for the overlap annotation
+
+// ── Overlap pair rendering constants ─────────────────────────────────────────
+// Dots 2 and 3 sit at x=42 and x=43 — near-coincident. Small horizontal nudges
+// (≤3 x-units) keep them at their honest positions while ensuring both are
+// individually visible. Smaller pip radius so pips don't swallow each other.
+const OVERLAP_PIP_R = 7           // radius for the overlap-pair dots (vs 9 for others)
+const OVERLAP_NUDGE = 2           // x-units each dot moves away from the midpoint
 
 // Belt render order (same as BellCurveAxis — white on bottom, black on top)
 const BELT_ORDER = ['white', 'blue', 'purple', 'brown', 'black'] as const
@@ -92,16 +100,17 @@ function dotSvgY(dot: IntroDot): number {
 // ── Reduced motion hook ──────────────────────────────────────────────────────
 
 function usePrefersReducedMotion(): boolean {
-  // If matchMedia is not available (jsdom, old environments) → treat as reduced.
-  if (typeof window === 'undefined' || !window.matchMedia) return true
-  const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-  // Stateful so it reacts to OS changes mid-session.
-  const [reduced, setReduced] = useState(mq.matches)
+  // Default true: no-matchMedia environments (jsdom, SSR) render final state immediately.
+  const [reduced, setReduced] = useState(true)
   useEffect(() => {
+    // Guard inside the effect — hooks are always called unconditionally.
+    if (typeof window.matchMedia !== 'function') return
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setReduced(mq.matches)
     const handler = (e: MediaQueryListEvent) => setReduced(e.matches)
     mq.addEventListener('change', handler)
     return () => mq.removeEventListener('change', handler)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [])
   return reduced
 }
 
@@ -234,44 +243,66 @@ export function IntroLanding({ onStart }: IntroLandingProps) {
           Elite
         </text>
 
-        {/* Overlap bracket — faint vertical bracket linking dots 2 and 3 */}
-        {bracketVisible && (
-          <g style={{ transition: reduced ? 'none' : 'opacity 0.3s ease-in' }}>
-            {/* Vertical line */}
-            <line
-              x1={overlapX + 14} y1={bracketTop - 4}
-              x2={overlapX + 14} y2={bracketBottom + 4}
-              stroke="var(--line-strong)"
-              strokeWidth={1}
-              strokeDasharray="3 2"
-            />
-            {/* Top tick */}
-            <line
-              x1={overlapX + 10} y1={bracketTop - 4}
-              x2={overlapX + 18} y2={bracketTop - 4}
-              stroke="var(--line-strong)"
-              strokeWidth={1}
-            />
-            {/* Bottom tick */}
-            <line
-              x1={overlapX + 10} y1={bracketBottom + 4}
-              x2={overlapX + 18} y2={bracketBottom + 4}
-              stroke="var(--line-strong)"
-              strokeWidth={1}
-            />
-          </g>
-        )}
+        {/* Overlap bracket — clear connector linking dots 2 and 3.
+            Always in DOM; opacity-only animation prevents layout shift. */}
+        <g
+          data-intro-bracket
+          style={{
+            opacity: bracketVisible ? 1 : 0,
+            transition: reduced ? 'none' : 'opacity 0.3s ease-in',
+          }}
+        >
+          {/* Vertical connector — solid 1.5px in --accent, to the right of dots */}
+          <line
+            x1={overlapX + 14} y1={bracketTop - 5}
+            x2={overlapX + 14} y2={bracketBottom + 5}
+            stroke="var(--accent)"
+            strokeWidth={1.5}
+          />
+          {/* Top tick */}
+          <line
+            x1={overlapX + 9}  y1={bracketTop - 5}
+            x2={overlapX + 19} y2={bracketTop - 5}
+            stroke="var(--accent)"
+            strokeWidth={1.5}
+          />
+          {/* Bottom tick */}
+          <line
+            x1={overlapX + 9}  y1={bracketBottom + 5}
+            x2={overlapX + 19} y2={bracketBottom + 5}
+            stroke="var(--accent)"
+            strokeWidth={1.5}
+          />
+          {/* Micro-label — centered in its own row below "Untrained / Elite".
+              Anchored to the overlap x so it reads as pointing at the bracket. */}
+          <text
+            x={overlapX}
+            y={MICRO_LABEL_Y}
+            fontFamily="var(--font-mono)"
+            fontSize={9}
+            fill="var(--accent)"
+            textAnchor="middle"
+          >
+            same ability, different belt
+          </text>
+        </g>
 
         {/* Numbered dots — each belt-colored pip with Plex Mono number */}
         {INTRO_DOTS.map((dot, i) => {
-          const cx = axisToSvgX(dot.x)
+          // Overlap pair (n=2 and n=3): nudge apart so both pips are individually visible.
+          const isOverlap = dot.n === 2 || dot.n === 3
+          const nudgeDir  = dot.n === 2 ? -1 : dot.n === 3 ? 1 : 0
+          const cx = axisToSvgX(dot.x) + nudgeDir * (OVERLAP_NUDGE / 100) * PLOT_W
           const cy = dotSvgY(dot)
           const visible = i < dotsVisible
           const belt = dot.belt as BeltName
+          const pipR = isOverlap ? OVERLAP_PIP_R : 9
 
-          // Dot stroke: both-extremes rule
-          const dotStroke =
-            belt === 'white' ? 'var(--line)'
+          // Dot stroke: overlap pair gets a clear 1px --mat outline so a partly-
+          // overlapping back pip still reads; others use the both-extremes rule.
+          const dotStroke = isOverlap
+            ? 'var(--mat)'
+            : belt === 'white' ? 'var(--line)'
             : belt === 'black' ? 'var(--line-strong)'
             : 'var(--belt-white)'
 
@@ -289,7 +320,7 @@ export function IntroLanding({ onStart }: IntroLandingProps) {
               <circle
                 cx={cx}
                 cy={cy}
-                r={9}
+                r={pipR}
                 fill={BELT_FILL[belt]}
                 stroke={dotStroke}
                 strokeWidth={1.5}
@@ -297,9 +328,9 @@ export function IntroLanding({ onStart }: IntroLandingProps) {
               {/* Number label */}
               <text
                 x={cx}
-                y={cy + 4}
+                y={cy + 3}
                 fontFamily="var(--font-mono)"
-                fontSize={10}
+                fontSize={isOverlap ? 9 : 10}
                 fontWeight={600}
                 fill={belt === 'white' ? 'var(--mat)' : belt === 'black' ? 'var(--ink)' : 'var(--mat)'}
                 textAnchor="middle"
@@ -310,21 +341,6 @@ export function IntroLanding({ onStart }: IntroLandingProps) {
           )
         })}
       </svg>
-
-      {/* Overlap micro-label (below chart, above legend) */}
-      {bracketVisible && (
-        <p
-          className="mono"
-          style={{
-            fontSize: 11,
-            color: 'var(--ink-2)',
-            margin: '0 0 12px',
-            textAlign: 'center',
-          }}
-        >
-          same ability, different belt
-        </p>
-      )}
 
       {/* ── Ability-ordered legend ── */}
       <ol

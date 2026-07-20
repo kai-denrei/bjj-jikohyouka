@@ -26,9 +26,10 @@ while [[ $# -gt 0 ]]; do
       cat <<EOF
 usage: bust.sh [--target <dir>] [--quiet]
 
-Generates a fresh 32-bit hex token and rewrites it across the project's
-asset URLs, meta tag, and (if present) favicon. Idempotent per token —
-running with no source changes produces the same result.
+Derives a cache-bust token from the HEAD git SHA (--short=8) and rewrites it
+across the project's asset URLs, meta tag, and (if present) favicon. Falls
+back to a random 32-bit hex token outside a git work tree. Idempotent per
+token — running with no source changes produces the same result.
 EOF
       exit 0 ;;
     *) echo "unknown arg: $1" >&2; exit 1 ;;

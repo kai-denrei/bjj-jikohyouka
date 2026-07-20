@@ -60,7 +60,7 @@ export const INTRO_DOTS: IntroDot[] = [
   { n: 1, belt: 'white',  x: 3,  label: 'Beginner white belt'           },
   { n: 2, belt: 'brown',  x: 42, label: 'Brown belt, out-of-shape'      },
   { n: 3, belt: 'blue',   x: 43, label: 'Blue belt, wrestling background'},
-  { n: 4, belt: 'purple', x: 67, label: 'Purple belt, 3 years'          },
+  { n: 4, belt: 'purple', x: 67, label: 'Purple belt — 18, training since 5' },
   { n: 5, belt: 'black',  x: 74, label: 'Black belt, average'           },
   { n: 6, belt: 'black',  x: 94, label: 'Black belt, competitor'        },
 ]

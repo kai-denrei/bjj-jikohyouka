@@ -51,7 +51,7 @@ describe('dotY', () => {
     expect(Math.abs(dotY(dot) - 0.142)).toBeLessThan(tolerance)
   })
 
-  it('purple 3-years (x=67) height ≈ 0.057', () => {
+  it('purple age-18 training-since-5 (x=67) height ≈ 0.057', () => {
     const dot = INTRO_DOTS.find(d => d.n === 4)!
     expect(Math.abs(dotY(dot) - 0.057)).toBeLessThan(tolerance)
   })

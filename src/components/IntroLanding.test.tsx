@@ -48,8 +48,9 @@ describe('IntroLanding', () => {
     expect(brownIdx).toBeLessThan(blueIdx)
   })
 
-  it('renders the overlap micro-label', () => {
+  it('renders the overlap micro-label in the SVG at the bracket', () => {
     render(<IntroLanding onStart={() => {}} />)
+    // Micro-label is a single SVG text element anchored to the bracket midpoint.
     expect(screen.getByText('same ability, different belt')).toBeInTheDocument()
   })
 
