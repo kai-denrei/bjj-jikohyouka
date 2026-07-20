@@ -3736,13 +3736,13 @@
       "category": "takedowns",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "Standing Exchanges — takedown against full resistance",
+      "text": "Standing Exchanges \u2014 takedown against full resistance",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of td_002 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of td_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "Standing Exchanges",
@@ -3757,13 +3757,13 @@
       "category": "guard_top",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "Their Guard — passing before they threaten a sweep or submission",
+      "text": "Their Guard \u2014 passing before they threaten a sweep or submission",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of gt_002 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of gt_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "Their Guard",
@@ -3778,13 +3778,13 @@
       "category": "guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "My guard — Maintaining Guard before they pass or get leverage",
+      "text": "My guard \u2014 Maintaining Guard before they pass or get leverage",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of gb_002 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of gb_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "my guard",
@@ -3799,13 +3799,13 @@
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "Their closed guard — Keeping posture and opening their guard before they get sub attempts or leverage",
+      "text": "Their closed guard \u2014 Keeping posture and opening their guard before they get sub attempts or leverage",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of cgt_002 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of cgt_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "their closed guard",
@@ -3820,13 +3820,13 @@
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "My closed guard — Breaking their posture before and attacking before they open",
+      "text": "My closed guard \u2014 Breaking their posture before and attacking before they open",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of cgb_001 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of cgb_001 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "my closed guard",
@@ -3841,13 +3841,13 @@
       "category": "open_guard_top",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "Their butterfly guard — Keeping posture while clearing their hooks",
+      "text": "Their butterfly guard \u2014 Keeping posture while clearing their hooks",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of ogt_002 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of ogt_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "their butterfly guard",
@@ -3862,13 +3862,13 @@
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "My butterfly guard — Sweeping or advancing position before they clear the hooks",
+      "text": "My butterfly guard \u2014 Sweeping or advancing position before they clear the hooks",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of ogb_002 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of ogb_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "my butterfly guard",
@@ -3883,13 +3883,13 @@
       "category": "half_guard_top",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "Their half guard bottom — Clearing their knee shield and advancing to side control or KoB/NS",
+      "text": "Their half guard bottom \u2014 Clearing their knee shield and advancing to side control or KoB/NS",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgt_002 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of hgt_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "Their half guard bottom",
@@ -3904,13 +3904,13 @@
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "My Half-Guard Bottom — Deny crossface and seize the attack tempo",
+      "text": "My Half-Guard Bottom \u2014 Deny crossface and seize the attack tempo",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgb_005 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of hgb_005 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "My Half-Guard Bottom",
@@ -3925,13 +3925,13 @@
       "category": "mount_top",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "My mount — Denying their mount escape attempts",
+      "text": "My mount \u2014 Denying their mount escape attempts",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of mt_001 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of mt_001 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "My mount",
@@ -3946,13 +3946,13 @@
       "category": "mount_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "Their mount — Framing, Escaping, reaching half-guard before they attack",
+      "text": "Their mount \u2014 Framing, Escaping, reaching half-guard before they attack",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of mb_002 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of mb_002 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "Their mount",
@@ -3967,13 +3967,13 @@
       "category": "back_mount_top",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "My back control — Keeping control and attacking RNC or Keeping control while transitioning",
+      "text": "My back control \u2014 Keeping control and attacking RNC or Keeping control while transitioning",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of bmt_001 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of bmt_001 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "my back control",
@@ -3988,13 +3988,13 @@
       "category": "back_mount_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "Their back control — Getting my back to the ground while protecting my neck and preventing follow-up attacks",
+      "text": "Their back control \u2014 Getting my back to the ground while protecting my neck and preventing follow-up attacks",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of bmb_003 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of bmb_003 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "their back control",
@@ -4009,13 +4009,13 @@
       "category": "leg_locks",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "Leg Entanglement — Controlling ankle lock and removing slack before they step or use their secondary leg to free themselves",
+      "text": "Leg Entanglement \u2014 Controlling ankle lock and removing slack before they step or use their secondary leg to free themselves",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of ll_003 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of ll_003 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "Leg Entanglement",
@@ -4030,13 +4030,13 @@
       "category": "wrist_locks",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "Wrist Locks — Finishing Wristlocks from various positions",
+      "text": "Wrist Locks \u2014 Finishing Wristlocks from various positions",
       "tier": "core",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of wl_003 using observable-event pattern (outcome + resistance + opponent context)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of wl_003 using observable-event pattern (outcome + resistance + opponent context)",
       "flags": [],
       "slots": {
         "what": "Wrist Locks",
@@ -4056,7 +4056,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; frequency-of-execution item for takedown pilot drilldown",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; frequency-of-execution item for takedown pilot drilldown",
       "flags": []
     },
     {
@@ -4072,7 +4072,7 @@
         "weight": 1,
         "countsToward": "none"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; enjoyment/psychological item for takedown pilot drilldown",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; enjoyment/psychological item for takedown pilot drilldown",
       "flags": []
     },
     {
@@ -4084,16 +4084,16 @@
       "axis": "positional",
       "input": "ability_axis",
       "slots": {
-        "what": "standing grip exchanges",
-        "problem": "Does your grip fighting create an opening for entry before they reset?"
+        "what": "Standing grip exchanges",
+        "problem": "Winning the grip battle to create an entry before they reset"
       },
-      "text": "Standing grip exchanges — Does your grip fighting create an opening for entry before they reset?",
+      "text": "Standing grip exchanges \u2014 Winning the grip battle to create an entry before they reset",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of td_006 using observable-event pattern",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of td_006 using observable-event pattern; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -4105,16 +4105,16 @@
       "axis": "positional",
       "input": "ability_axis",
       "slots": {
-        "what": "a double-leg drill",
-        "problem": "Do you change levels, drive through, and finish with correct head position?"
+        "what": "A double-leg drill",
+        "problem": "Changing levels, driving through, and finishing with head position"
       },
-      "text": "A double-leg drill — Do you change levels, drive through, and finish with correct head position?",
+      "text": "A double-leg drill \u2014 Changing levels, driving through, and finishing with head position",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of td_009 using observable-event pattern",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of td_009 using observable-event pattern; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -4126,16 +4126,16 @@
       "axis": "positional",
       "input": "ability_axis",
       "slots": {
-        "what": "free rolling from standing",
-        "problem": "Do you shoot and complete a double-leg against full resistance?"
+        "what": "Free rolling from standing",
+        "problem": "Shooting and finishing a double-leg against full resistance"
       },
-      "text": "Free rolling from standing — Do you shoot and complete a double-leg against full resistance?",
+      "text": "Free rolling from standing \u2014 Shooting and finishing a double-leg against full resistance",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of td_010 using observable-event pattern",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of td_010 using observable-event pattern; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -4147,16 +4147,16 @@
       "axis": "positional",
       "input": "ability_axis",
       "slots": {
-        "what": "their takedown shot",
-        "problem": "Do you sprawl or redirect and end up on top or back to neutral?"
+        "what": "Their takedown shot",
+        "problem": "Sprawling or redirecting to top or neutral"
       },
-      "text": "Their takedown shot — Do you sprawl or redirect and end up on top or back to neutral?",
+      "text": "Their takedown shot \u2014 Sprawling or redirecting to top or neutral",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of td_011 using observable-event pattern",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of td_011 using observable-event pattern; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -4168,16 +4168,16 @@
       "axis": "positional",
       "input": "ability_axis",
       "slots": {
-        "what": "a standing clinch",
-        "problem": "Do you create a takedown entry within 10 seconds?"
+        "what": "A standing clinch",
+        "problem": "Creating a takedown entry before the clinch stalls"
       },
-      "text": "A standing clinch — Do you create a takedown entry within 10 seconds?",
+      "text": "A standing clinch \u2014 Creating a takedown entry before the clinch stalls",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of td_012 using observable-event pattern",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of td_012 using observable-event pattern; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -4193,7 +4193,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; frequency-of-execution item for closed guard bottom pilot drilldown",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; frequency-of-execution item for closed guard bottom pilot drilldown",
       "flags": []
     },
     {
@@ -4209,7 +4209,7 @@
         "weight": 1,
         "countsToward": "none"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; enjoyment/psychological item for closed guard bottom pilot drilldown",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; enjoyment/psychological item for closed guard bottom pilot drilldown",
       "flags": []
     },
     {
@@ -4221,16 +4221,16 @@
       "axis": "positional",
       "input": "ability_axis",
       "slots": {
-        "what": "my closed guard after posture break",
-        "problem": "Do you enter a submission they must actively defend?"
+        "what": "My closed guard after posture break",
+        "problem": "Threading a submission they must defend before they recover posture"
       },
-      "text": "My closed guard after posture break — Do you enter a submission they must actively defend?",
+      "text": "My closed guard after posture break \u2014 Threading a submission they must defend before they recover posture",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of cgb_002 using observable-event pattern",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of cgb_002 using observable-event pattern; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -4242,16 +4242,16 @@
       "axis": "positional",
       "input": "ability_axis",
       "slots": {
-        "what": "my closed guard attacks",
-        "problem": "Do you shift hips off-center before each attack to weaken their frame?"
+        "what": "My closed guard attacks",
+        "problem": "Shifting hips off-center before each attack to break their frame"
       },
-      "text": "My closed guard attacks — Do you shift hips off-center before each attack to weaken their frame?",
+      "text": "My closed guard attacks \u2014 Shifting hips off-center before each attack to break their frame",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of cgb_005 using observable-event pattern",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of cgb_005 using observable-event pattern; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -4263,16 +4263,16 @@
       "axis": "positional",
       "input": "ability_axis",
       "slots": {
-        "what": "my closed guard when submissions stall",
-        "problem": "Do you complete a hip-bump or scissor sweep when they shut down your attacks?"
+        "what": "My closed guard when submissions stall",
+        "problem": "Hip-bump or scissor sweep when they shut down attacks"
       },
-      "text": "My closed guard when submissions stall — Do you complete a hip-bump or scissor sweep when they shut down your attacks?",
+      "text": "My closed guard when submissions stall \u2014 Hip-bump or scissor sweep when they shut down attacks",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of cgb_006 using observable-event pattern",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of cgb_006 using observable-event pattern; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -4284,16 +4284,16 @@
       "axis": "positional",
       "input": "ability_axis",
       "slots": {
-        "what": "my closed guard when they stand",
-        "problem": "Do you break their base before they begin a pass?"
+        "what": "My closed guard when they stand",
+        "problem": "Breaking their base before they begin a pass"
       },
-      "text": "My closed guard when they stand — Do you break their base before they begin a pass?",
+      "text": "My closed guard when they stand \u2014 Breaking their base before they begin a pass",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of cgb_011 using observable-event pattern",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of cgb_011 using observable-event pattern; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -4309,7 +4309,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; frequency-of-execution item for half guard bottom pilot drilldown",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; frequency-of-execution item for half guard bottom pilot drilldown",
       "flags": []
     },
     {
@@ -4325,7 +4325,7 @@
         "weight": 1,
         "countsToward": "none"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; enjoyment/psychological item for half guard bottom pilot drilldown",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; enjoyment/psychological item for half guard bottom pilot drilldown",
       "flags": []
     },
     {
@@ -4337,16 +4337,16 @@
       "axis": "positional",
       "input": "ability_axis",
       "slots": {
-        "what": "my half guard under crossface",
-        "problem": "Do you frame and swim to the underhook before they flatten you?"
+        "what": "My half guard under crossface",
+        "problem": "Framing and swimming to the underhook before they flatten you"
       },
-      "text": "My half guard under crossface — Do you frame and swim to the underhook before they flatten you?",
+      "text": "My half guard under crossface \u2014 Framing and swimming to the underhook before they flatten you",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgb_004 using observable-event pattern",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of hgb_004 using observable-event pattern; style-aligned to Gerald's 2026-07-20 pass",
       "flags": [
         "needs_gerald_review"
       ]
@@ -4360,16 +4360,16 @@
       "axis": "positional",
       "input": "ability_axis",
       "slots": {
-        "what": "my half guard under their pass",
-        "problem": "Do you retain the leg entanglement or recover guard before they reach side control?"
+        "what": "My half guard under their pass",
+        "problem": "Retaining the entanglement or recovering guard before they reach side control"
       },
-      "text": "My half guard under their pass — Do you retain the leg entanglement or recover guard before they reach side control?",
+      "text": "My half guard under their pass \u2014 Retaining the entanglement or recovering guard before they reach side control",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgb_006 using observable-event pattern",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of hgb_006 using observable-event pattern; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -4381,16 +4381,16 @@
       "axis": "positional",
       "input": "ability_axis",
       "slots": {
-        "what": "my deep half guard",
-        "problem": "Do you sweep or return to top against their defensive base?"
+        "what": "My deep half guard",
+        "problem": "Sweeping or reaching top against their defensive base"
       },
-      "text": "My deep half guard — Do you sweep or return to top against their defensive base?",
+      "text": "My deep half guard \u2014 Sweeping or reaching top against their defensive base",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgb_009 using observable-event pattern",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of hgb_009 using observable-event pattern; style-aligned to Gerald's 2026-07-20 pass",
       "flags": [
         "needs_gerald_review"
       ]
@@ -4404,16 +4404,16 @@
       "axis": "positional",
       "input": "ability_axis",
       "slots": {
-        "what": "my half guard under heavy crossface",
-        "problem": "Do you frame, create space, and regain initiative within five seconds?"
+        "what": "My half guard under heavy crossface",
+        "problem": "Framing, creating space, and regaining initiative before they flatten you"
       },
-      "text": "My half guard under heavy crossface — Do you frame, create space, and regain initiative within five seconds?",
+      "text": "My half guard under heavy crossface \u2014 Framing, creating space, and regaining initiative before they flatten you",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; rewrite of hgb_012 using observable-event pattern",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; rewrite of hgb_012 using observable-event pattern; style-aligned to Gerald's 2026-07-20 pass",
       "flags": [
         "needs_gerald_review"
       ]

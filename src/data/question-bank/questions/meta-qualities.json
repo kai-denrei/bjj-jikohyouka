@@ -8,16 +8,16 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "what": "my top pins",
-        "problem": "Do they give up the position before you attack?"
+        "what": "My top pins",
+        "problem": "Opponents conceding position before you attack"
       },
-      "text": "My top pins — Do they give up the position before you attack?",
+      "text": "My top pins \u2014 Opponents conceding position before you attack",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; observable-event version of 'heavy pressure' — partner concedes without requiring an attack (Appendix B 'intense relaxed pressure' note)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; observable-event version of 'heavy pressure' \u2014 partner concedes without requiring an attack (Appendix B 'intense relaxed pressure' note); style-aligned to Gerald's 2026-07-20 pass",
       "flags": [
         "needs_gerald_review"
       ]
@@ -35,7 +35,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; observable-event version of 'flow/connection' — partner interruption rate during transitions (Appendix B 'flow → partner doesn't recover guard mid-transition'); scored inverted — higher frequency is worse (flags: inverted)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; observable-event version of 'flow/connection' \u2014 partner interruption rate during transitions (Appendix B 'flow \u2192 partner doesn't recover guard mid-transition'); scored inverted \u2014 higher frequency is worse (flags: inverted)",
       "flags": [
         "inverted"
       ]
@@ -48,16 +48,16 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "what": "their dominant position",
-        "problem": "Do you frame, breathe, and plan before they attack?"
+        "what": "Their dominant position",
+        "problem": "Framing, breathing, and planning before they attack"
       },
-      "text": "Their dominant position — Do you frame, breathe, and plan before they attack?",
+      "text": "Their dominant position \u2014 Framing, breathing, and planning before they attack",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; composure under pressure — action-based (frame, breathe, plan) rather than felt quality",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; composure under pressure \u2014 action-based (frame, breathe, plan) rather than felt quality; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -68,16 +68,16 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "what": "a shifted base or broken grip",
-        "problem": "Do you enter before they can reset?"
+        "what": "A shifted base or broken grip",
+        "problem": "Entering before they reset"
       },
-      "text": "A shifted base or broken grip — Do you enter before they can reset?",
+      "text": "A shifted base or broken grip \u2014 Entering before they reset",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; timing/anticipation — entry on moment of imbalance rather than general 'good timing'",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; timing/anticipation \u2014 entry on moment of imbalance rather than general 'good timing'; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -88,16 +88,16 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "what": "my first submission attempt",
-        "problem": "Does their defense put them into your next attack?"
+        "what": "My first submission attempt",
+        "problem": "Their defense feeding your next attack"
       },
-      "text": "My first submission attempt — Does their defense put them into your next attack?",
+      "text": "My first submission attempt \u2014 Their defense feeding your next attack",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; chaining — second attack enters from the shell of the first, observable from partner's reaction path",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; chaining \u2014 second attack enters from the shell of the first, observable from partner's reaction path; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -108,16 +108,16 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "what": "their submission setup",
-        "problem": "Do you strip the grip or frame before they reach a finishing position?"
+        "what": "Their submission setup",
+        "problem": "Stripping the grip or framing before they reach a finish"
       },
-      "text": "Their submission setup — Do you strip the grip or frame before they reach a finishing position?",
+      "text": "Their submission setup \u2014 Stripping the grip or framing before they reach a finish",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; early-stage defense — pre-empt before danger zone (vs mid/late escape which is after the hold is set)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; early-stage defense \u2014 pre-empt before danger zone (vs mid/late escape which is after the hold is set); style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -128,16 +128,16 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "what": "a near-finished submission",
-        "problem": "Do you create space or change the angle before you tap?"
+        "what": "A near-finished submission",
+        "problem": "Creating space or changing the angle before tapping"
       },
-      "text": "A near-finished submission — Do you create space or change the angle before you tap?",
+      "text": "A near-finished submission \u2014 Creating space or changing the angle before tapping",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; late-stage escape — surviving a near-finish, distinct from early defense",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; late-stage escape \u2014 surviving a near-finish, distinct from early defense; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -148,16 +148,16 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "what": "an unfamiliar guard style",
-        "problem": "Do you find a passing entry within the first minute?"
+        "what": "An unfamiliar guard style",
+        "problem": "Finding a passing entry before the first minute ends"
       },
-      "text": "An unfamiliar guard style — Do you find a passing entry within the first minute?",
+      "text": "An unfamiliar guard style \u2014 Finding a passing entry before the first minute ends",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; adaptability to unfamiliar guard — time-bounded observable outcome, not 'I can handle anything'",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; adaptability to unfamiliar guard \u2014 time-bounded observable outcome, not 'I can handle anything'; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -168,16 +168,16 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "what": "a size or reach mismatch",
-        "problem": "Does your attack rate stay above zero in the first two rounds?"
+        "what": "A size or reach mismatch",
+        "problem": "Keeping your attack rate above zero through the first two rounds"
       },
-      "text": "A size or reach mismatch — Does your attack rate stay above zero in the first two rounds?",
+      "text": "A size or reach mismatch \u2014 Keeping your attack rate above zero through the first two rounds",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; adaptability to body type — attack-rate proxy for adaptation, concrete and measurable in memory",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; adaptability to body type \u2014 attack-rate proxy for adaptation, concrete and measurable in memory; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -193,7 +193,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; received-feedback version of pressure quality — external observer's report of the felt experience",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; received-feedback version of pressure quality \u2014 external observer's report of the felt experience",
       "flags": []
     }
   ]
