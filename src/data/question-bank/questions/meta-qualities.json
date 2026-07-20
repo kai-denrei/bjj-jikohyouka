@@ -8,7 +8,6 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "who": "same rank",
         "what": "my top pins",
         "problem": "Do they give up the position before you attack?"
       },
@@ -49,7 +48,6 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "who": "same rank",
         "what": "their dominant position",
         "problem": "Do you frame, breathe, and plan before they attack?"
       },
@@ -70,7 +68,6 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "who": "same rank",
         "what": "a shifted base or broken grip",
         "problem": "Do you enter before they can reset?"
       },
@@ -91,7 +88,6 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "who": "same rank",
         "what": "my first submission attempt",
         "problem": "Does their defense put them into your next attack?"
       },
@@ -112,7 +108,6 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "who": "same rank",
         "what": "their submission setup",
         "problem": "Do you strip the grip or frame before they reach a finishing position?"
       },
@@ -133,7 +128,6 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "who": "same rank",
         "what": "a near-finished submission",
         "problem": "Do you create space or change the angle before you tap?"
       },
@@ -154,7 +148,6 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "who": "any rank",
         "what": "an unfamiliar guard style",
         "problem": "Do you find a passing entry within the first minute?"
       },
@@ -175,7 +168,6 @@
       "axis": "meta",
       "input": "ability_axis",
       "slots": {
-        "who": "bigger, same rank",
         "what": "a size or reach mismatch",
         "problem": "Does your attack rate stay above zero in the first two rounds?"
       },
