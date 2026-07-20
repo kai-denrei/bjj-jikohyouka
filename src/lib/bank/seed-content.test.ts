@@ -36,13 +36,16 @@ describe('§9 seed drafts', () => {
 
 describe('§10 ability-axis rework', () => {
   const bank = loadBank()
-  it('all axis drafts carry complete slots with fixed who-vocabulary', () => {
+  it('all axis drafts carry complete slots', () => {
+    // Format per Gerald's 2026-07-20 edit pass: problem is a short precise
+    // phrase, NOT a "Do you…?" question — the fixed axis prompt carries the
+    // question-ness. The who slot is on its way out (verdict #4).
     const axisDrafts = bank.questions.filter(q => q.status === 'draft' && q.input === 'ability_axis')
     expect(axisDrafts.length).toBeGreaterThanOrEqual(25)
     for (const q of axisDrafts) {
       expect(q.slots, q.qid).toBeDefined()
-      expect(['same rank', 'any rank', 'bigger, same rank', 'higher belts'], q.qid).toContain(q.slots!.who)
-      expect(q.slots!.problem.endsWith('?'), q.qid).toBe(true)
+      expect(q.slots!.what.length, q.qid).toBeGreaterThan(0)
+      expect(q.slots!.problem.length, q.qid).toBeGreaterThan(0)
     }
   })
   it('slots are linter-clean on axis drafts', () => {
