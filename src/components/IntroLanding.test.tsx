@@ -119,4 +119,23 @@ describe('IntroLanding', () => {
     render(<IntroLanding onStart={() => {}} />)
     expect(screen.getByText(/Where does my game start to struggle\?/)).toBeInTheDocument()
   })
+
+  it('focusing a dot (keyboard Tab) shows its overlay', () => {
+    render(<IntroLanding onStart={() => {}} />)
+    const dot1 = document.querySelector('[data-intro-dot="1"]')!
+    expect(dot1).not.toBeNull()
+
+    // Before focus: no overlay
+    expect(document.querySelector('[data-dot-overlay="1"]')).toBeNull()
+
+    // Fire focus on dot 1 — simulates keyboard Tab landing on the dot
+    fireEvent.focus(dot1)
+    const overlay = document.querySelector('[data-dot-overlay="1"]')
+    expect(overlay).not.toBeNull()
+    expect(overlay!.textContent).toContain('Beginner white belt')
+
+    // Blur hides it
+    fireEvent.blur(dot1)
+    expect(document.querySelector('[data-dot-overlay="1"]')).toBeNull()
+  })
 })

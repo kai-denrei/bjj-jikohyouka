@@ -373,6 +373,17 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
             }
           }
 
+          function handleFocus() {
+            setActiveDot(dot.n)
+          }
+
+          function handleBlur() {
+            // Only clear if this dot is currently active; next dot's onFocus re-sets.
+            if (activeDot === dot.n) {
+              setActiveDot(null)
+            }
+          }
+
           return (
             <g
               key={dot.n}
@@ -386,13 +397,14 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
                 opacity: visible ? 1 : 0,
                 transition: reduced ? 'none' : 'opacity 0.2s ease-in',
                 cursor: 'pointer',
-                outline: 'none',
               }}
               onPointerDown={handlePointerDown}
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onKeyDown={handleKeyDown}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             >
               {/* Belt-colored circle */}
               <circle
@@ -403,6 +415,18 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
                 stroke={dotStroke}
                 strokeWidth={1.5}
               />
+              {/* Focus ring — visible accent stroke when dot is active/focused */}
+              {isActive && (
+                <circle
+                  cx={cx}
+                  cy={cy}
+                  r={pipR + 3}
+                  fill="none"
+                  stroke="var(--accent)"
+                  strokeWidth={1.5}
+                  pointerEvents="none"
+                />
+              )}
               {/* Number label */}
               <text
                 x={cx}
@@ -416,9 +440,11 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
                 {dot.n}
               </text>
 
-              {/* Per-dot overlay — only visible when this dot is active */}
+              {/* Per-dot overlay — only visible when this dot is active.
+                  pointerEvents:none prevents touch taps on the overlay text
+                  from bubbling up to the dot toggle and dismissing it. */}
               {isActive && (
-                <g data-dot-overlay={dot.n}>
+                <g data-dot-overlay={dot.n} style={{ pointerEvents: 'none' }}>
                   <rect
                     x={overlayX}
                     y={overlayY}

@@ -20,7 +20,7 @@ export interface IntroDot {
   belt: BeltName
   /** Position on the 0–100 ability axis */
   x: number
-  /** Full human-readable label (used in the legend only) */
+  /** Full human-readable label (shown in the per-dot overlay) */
   label: string
 }
 
