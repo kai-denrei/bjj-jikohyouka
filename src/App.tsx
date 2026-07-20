@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { bank } from './lib/bankInstance'
 import { loadSession, saveSession, clearSession } from './lib/results/store'
 import { scoreAnswers, type Report } from './lib/results/score'
@@ -18,11 +18,11 @@ export default function App() {
   const search = window.location.search
   const admin = includeAdmin(search)
   const drafts = includeDrafts(search) || admin
-  const availableCategoryIds = new Set(
+  const availableCategoryIds = useMemo(() => new Set(
     bank.categories
       .filter(c => drilldownQuestions(bank, c.id, drafts).length > 0)
       .map(c => c.id)
-  )
+  ), [drafts])
   const [screen, setScreen] = useState<Screen>('intro')
   const [session, setSession] = useState<AssessmentSession | null>(null)
   const sessionRef = useRef<AssessmentSession | null>(null)

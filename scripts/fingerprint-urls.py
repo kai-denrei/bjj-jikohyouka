@@ -57,6 +57,8 @@ def is_external(url):
     u = url.strip().lower()
     if not u:
         return True
+    if u.startswith("/src/"):
+        return True
     return u.startswith((
         "http://", "https://", "//", "data:", "blob:",
         "javascript:", "mailto:", "tel:", "#",
