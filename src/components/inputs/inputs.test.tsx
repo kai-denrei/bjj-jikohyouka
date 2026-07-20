@@ -337,4 +337,26 @@ describe('BellCurveAxis', () => {
     expect(svgTexts).toContain('works')
     expect(svgTexts).toContain('struggles')
   })
+
+  it('sets data-kb on keydown and clears it on pointerdown', () => {
+    render(<BellCurveAxis scale={axis()} value={null} onChange={() => {}} />)
+    const svg = document.querySelector('svg[role="slider"]') as HTMLElement
+    // Keydown should set data-kb
+    fireEvent.keyDown(svg, { key: 'ArrowRight' })
+    expect(svg.getAttribute('data-kb')).toBe('1')
+    // Pointerdown should clear data-kb
+    fireEvent.pointerDown(svg, { pointerType: 'mouse' })
+    expect(svg.getAttribute('data-kb')).toBeNull()
+  })
+
+  it('clears data-kb on touch pointerdown', () => {
+    render(<BellCurveAxis scale={axis()} value={null} onChange={() => {}} />)
+    const svg = document.querySelector('svg[role="slider"]') as HTMLElement
+    // Set data-kb first
+    fireEvent.keyDown(svg, { key: 'ArrowLeft' })
+    expect(svg.getAttribute('data-kb')).toBe('1')
+    // Touch pointerdown clears it
+    fireEvent.pointerDown(svg, { pointerType: 'touch' })
+    expect(svg.getAttribute('data-kb')).toBeNull()
+  })
 })

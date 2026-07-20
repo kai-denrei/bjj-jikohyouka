@@ -230,6 +230,8 @@ export function BellCurveAxis({ scale, value, onChange, resetKey }: BellCurveAxi
   // ── Touch handlers ───────────────────────────────────────────────────────
 
   function handlePointerDown(e: React.PointerEvent<SVGSVGElement>) {
+    // Clear keyboard-ring state for ALL pointer types (mouse, touch, pen)
+    e.currentTarget.removeAttribute('data-kb')
     const pt = getPointerType(e)
     if (pt !== 'touch') return
     // Capture pointer so move events come to us even if touch leaves the element
@@ -263,6 +265,8 @@ export function BellCurveAxis({ scale, value, onChange, resetKey }: BellCurveAxi
   // ── Keyboard handler ─────────────────────────────────────────────────────
 
   function handleKeyDown(e: React.KeyboardEvent) {
+    // Mark keyboard navigation so focus ring is visible
+    ;(e.currentTarget as HTMLElement).setAttribute('data-kb', '1')
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       e.preventDefault()
       // Initialize from staged > committed > 50 (unplaced)
@@ -318,6 +322,7 @@ export function BellCurveAxis({ scale, value, onChange, resetKey }: BellCurveAxi
       {/* SVG chart — role slider for keyboard/aria. aria-valuemin=1 because value 0 is the floor chip's, a separate control */}
       <svg
         ref={svgRef}
+        className="axis-svg"
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
         style={{ width: '100%', display: 'block', cursor: 'crosshair', touchAction: 'none' }}
         role="slider"

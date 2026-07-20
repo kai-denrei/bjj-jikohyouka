@@ -7,12 +7,23 @@
   --font-display:'Bricolage Grotesque', system-ui, sans-serif;
   --font-body:'Atkinson Hyperlegible', system-ui, sans-serif;
   --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+  /* diverging heat ramp — data-viz only, per verdict #6; not for UI chrome */
+  --heat-learning: #7A4538;
+  --heat-drilling: #7A6238;
+  --heat-positional: #4A6B5E;
+  --heat-rolling: #3D6E68;
+  --heat-weapon: #356978;
 }
-body { background: var(--mat); color: var(--ink); font-family: var(--font-body); margin: 0; }
+body { background: var(--mat); color: var(--ink); font-family: var(--font-body); margin: 0; -webkit-tap-highlight-color: transparent; }
 #root { max-width: 560px; margin: 0 auto; padding: 16px; min-height: 100dvh; }
 h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.01em; }
 button { font: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* Suppress :focus-visible ring after pointer taps on the axis SVG.
+   role=slider makes browsers apply :focus-visible on pointer click.
+   Keyboard state is tracked via data-kb attribute set on keydown / cleared on pointerdown. */
+.axis-svg:focus-visible { outline: none; }
+.axis-svg[data-kb]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .btn { min-height: var(--tap); width: 100%; border: 0; border-radius: var(--radius); background: var(--accent); color: var(--mat); font-weight: 600; cursor: pointer; }
 .btn-quiet { min-height: var(--tap); width: 100%; border: 1px solid var(--line); border-radius: var(--radius); background: transparent; color: var(--ink); cursor: pointer; }
 .chip { min-height: var(--tap); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); cursor: pointer; padding: 8px 12px; text-align: left; }
