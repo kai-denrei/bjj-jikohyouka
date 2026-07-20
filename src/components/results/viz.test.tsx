@@ -152,6 +152,27 @@ describe('HeatMap', () => {
     expect(screen.getByText('Guard Pass')).toBeInTheDocument()
     expect(screen.getByText('Guard Ret.')).toBeInTheDocument()
   })
+
+  it('HeatMap band-conditional text color: Weapon band → var(--mat), Learning band → var(--ink)', () => {
+    const fixtureWithBands: CategoryScore[] = [
+      cat('wp', 'Weapon Test', 'Weapon', 80, 'Weapon'),
+      cat('ln', 'Learning Test', 'Learning', 30, 'Learning'),
+    ]
+    render(<HeatMap categories={fixtureWithBands} />)
+
+    // Find cells via aria-label
+    const weaponCell = screen.getByRole('cell', { name: /Weapon Test.*Weapon/i })
+    const learningCell = screen.getByRole('cell', { name: /Learning Test.*Learning/i })
+
+    // Query the shortName span within each cell and check its color
+    const weaponSpan = weaponCell.querySelector('span')
+    expect(weaponSpan).toBeInTheDocument()
+    expect(weaponSpan!.style.color).toBe('var(--mat)')
+
+    const learningSpan = learningCell.querySelector('span')
+    expect(learningSpan).toBeInTheDocument()
+    expect(learningSpan!.style.color).toBe('var(--ink)')
+  })
 })
 
 // ─── VizTabs ──────────────────────────────────────────────────────────────────

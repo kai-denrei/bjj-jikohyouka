@@ -362,6 +362,38 @@ describe('App flow', () => {
     expectDashboard()
   })
 
+  // Regression: bar-tap recompute path — dashboard answer count reflects drill-down answers
+  it('bar-tap from drilldown (after answering one question) reflects new answer in dashboard', () => {
+    render(<App />)
+    // Complete the sweep via instant-advance pattern
+    completeSweep()
+    // Should be on dashboard
+    expectDashboard()
+
+    // Enter the takedowns drill-down
+    const rows = screen.getAllByTestId('category-row')
+    const takedownsRow = rows.find(r => r.textContent?.includes('Takedowns'))
+    expect(takedownsRow).toBeTruthy()
+    fireEvent.click(takedownsRow!)
+
+    // Should be in drill-down screen (question visible, not dashboard)
+    expect(screen.queryByRole('tablist')).not.toBeInTheDocument()
+
+    // Answer ONE question: click chip "5"
+    fireEvent.click(screen.getByRole('button', { name: '5' }))
+
+    // Click "Back to your map" bar button to return to dashboard
+    fireEvent.click(screen.getByRole('button', { name: 'Back to your map' }))
+
+    // Dashboard should render (VizTabs tablist visible)
+    expectDashboard()
+
+    // Takedowns row should now show "1/…" (regex to check first part is "1/")
+    const updatedRows = screen.getAllByTestId('category-row')
+    const updatedTakedownsRow = updatedRows.find(r => r.textContent?.includes('Takedowns'))
+    expect(updatedTakedownsRow?.textContent).toMatch(/1\/\d+/)
+  })
+
   // Fix 3 pin: after Finish & save, Back to categories button is absent
   it('Back to categories button absent after Finish & save', async () => {
     render(<App />)
