@@ -1,9 +1,23 @@
 /**
- * Screenshot walkthrough for BJJ Skill-Check v0.2
+ * Screenshot walkthrough for BJJ Skill-Check v0.2 — dark redesign (verdict #5)
  *
  * Captures the full assessment flow in mobile viewport (390×844, 2x DPR).
  * Run with: node scripts/screenshot-walkthrough.mjs
  * Requires: npm i -D playwright && npx playwright install chromium
+ *
+ * Screens captured:
+ *   01-intro            — landing page (dark)
+ *   02-intake           — belt/experience intake form
+ *   03-sweep-question   — first sweep question (chip input)
+ *   04-dashboard        — post-sweep dashboard hub (Spider tab, VizTabs + Deep dives)
+ *   05-results          — full results page (full-page)
+ *   06-draft-mode       — first draft-mode axis question
+ *   07-axis-widget      — after click: vertical line + wash visible
+ *   08-info-panel       — "How this chart works" modal
+ *   09-dashboard        — dashboard again (Spider tab active, post-sweep)
+ *   10-viz-depth        — dashboard with Depth tab active
+ *   11-viz-heat         — dashboard with Heat tab active
+ *   12-dimensions       — "What we measure" DimensionsPanel open
  */
 
 import { chromium } from 'playwright'
@@ -98,14 +112,16 @@ async function runMainFlow(browser) {
     }
   }
 
-  // After Q15, app calls onDone → navigates to interim ("First picture")
-  await page.waitForSelector('h2:has-text("First picture")', { timeout: 8000 })
+  // After Q15, app calls onDone → navigates to 'dashboard' screen (not interim).
+  // Wait for the Dashboard to appear: it renders VizTabs which has a tablist.
+  await page.waitForSelector('[role="tablist"]', { timeout: 10000 })
+  await page.waitForTimeout(400) // let SVG/fonts settle
 
-  // 04-interim
-  await save(page, '04-interim')
+  // 04-dashboard — post-sweep, Spider tab (default)
+  await save(page, '04-dashboard')
 
-  // Click "See results"
-  await page.click('button:has-text("See results")')
+  // Click "Full report"
+  await page.click('button:has-text("Full report")')
   // Wait for results to render (h1 or h2 on results page)
   await page.waitForSelector('h1, h2', { timeout: 8000 })
   // Give radar SVG time to paint
@@ -194,6 +210,104 @@ async function runDraftMode(browser) {
   return draftQ1Text
 }
 
+/**
+ * Run the full sweep (all 15 questions) in a fresh context, then capture:
+ *   09-dashboard  — Spider tab active (same as post-sweep, but framed more deliberately)
+ *   10-viz-depth  — click Depth tab
+ *   11-viz-heat   — click Heat tab
+ *   12-dimensions — open "What we measure" DimensionsPanel
+ */
+async function runDashboardExtra(browser) {
+  console.log('\n── Dashboard extra captures ────────────────────')
+  const ctx = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    deviceScaleFactor: 2,
+  })
+  await ctx.addInitScript(() => {
+    try { window.localStorage.clear() } catch (_) {}
+  })
+
+  const page = await ctx.newPage()
+  await page.goto(BASE_URL, { waitUntil: 'networkidle' })
+
+  // Start sweep
+  await page.waitForSelector('button.btn:has-text("Start the sweep")', { timeout: 10000 })
+  await page.click('button.btn:has-text("Start the sweep")')
+  await page.waitForSelector('button.btn-quiet:has-text("Skip for now")', { timeout: 6000 })
+  await page.click('button.btn-quiet:has-text("Skip for now")')
+  await page.waitForSelector('h2', { timeout: 8000 })
+
+  // Answer all 15 sweep questions
+  for (let i = 0; i < TOTAL_SWEEP; i++) {
+    const textBefore = await page.locator('h2').first().textContent()
+    const chipText = await clickThirdChip(page)
+    console.log(`  Q${i + 1}: clicked chip "${chipText}"`)
+
+    if (i < TOTAL_SWEEP - 1) {
+      try {
+        await page.waitForFunction(
+          (prev) => {
+            const el = document.querySelector('h2')
+            return el && el.textContent !== prev
+          },
+          textBefore,
+          { timeout: 6000 }
+        )
+      } catch {
+        await page.waitForTimeout(700)
+      }
+    }
+  }
+
+  // Wait for dashboard
+  await page.waitForSelector('[role="tablist"]', { timeout: 10000 })
+  await page.waitForTimeout(600) // let Spider SVG render
+
+  // 09-dashboard — Spider tab (default after sweep)
+  await save(page, '09-dashboard')
+  console.log('  Captured 09-dashboard (Spider tab)')
+
+  // 10-viz-depth — click Depth tab
+  const depthTab = page.locator('[role="tab"]:has-text("Depth")')
+  await depthTab.waitFor({ state: 'visible', timeout: 5000 })
+  await depthTab.click()
+  await page.waitForTimeout(400) // let DepthBars SVG render
+
+  // 10-viz-depth
+  await save(page, '10-viz-depth')
+  console.log('  Captured 10-viz-depth (Depth tab)')
+
+  // 11-viz-heat — click Heat tab
+  const heatTab = page.locator('[role="tab"]:has-text("Heat")')
+  await heatTab.waitFor({ state: 'visible', timeout: 5000 })
+  await heatTab.click()
+  await page.waitForTimeout(400) // let HeatMap render
+
+  // 11-viz-heat
+  await save(page, '11-viz-heat')
+  console.log('  Captured 11-viz-heat (Heat tab)')
+
+  // 12-dimensions — click "What we measure" button to open DimensionsPanel
+  // Scroll back to Spider first so we can see the footer buttons
+  const spiderTab = page.locator('[role="tab"]:has-text("Spider")')
+  await spiderTab.click()
+  await page.waitForTimeout(200)
+
+  const dimBtn = page.locator('button:has-text("What we measure")')
+  await dimBtn.waitFor({ state: 'visible', timeout: 5000 })
+  await dimBtn.click()
+
+  // Wait for DimensionsPanel dialog
+  await page.waitForSelector('[role="dialog"]', { state: 'visible', timeout: 5000 })
+  await page.waitForTimeout(300) // let panel settle
+
+  // 12-dimensions — DimensionsPanel open
+  await save(page, '12-dimensions')
+  console.log('  Captured 12-dimensions (DimensionsPanel open)')
+
+  await ctx.close()
+}
+
 async function main() {
   await mkdir(OUT_DIR, { recursive: true })
 
@@ -202,6 +316,7 @@ async function main() {
   try {
     const activeQ1 = await runMainFlow(browser)
     const draftQ1 = await runDraftMode(browser)
+    await runDashboardExtra(browser)
 
     const differ = activeQ1 !== draftQ1
     console.log(`\n  Active Q1 vs Draft Q1 differ: ${differ ? 'YES ✓' : 'NO — may indicate draft bank has no draft cores'}`)
