@@ -119,14 +119,14 @@ export function HeatMap({ categories }: HeatMapProps) {
           </div>
         ))}
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: 340, margin: '6px auto 0', padding: '0 2px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: 340, margin: '6px auto 0', padding: '0 2px' }} aria-label="Heat map legend">
         <span className="mono" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-          <span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 2, background: 'var(--heat-learning)' }} />
+          <span aria-hidden="true" style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 2, background: 'var(--heat-learning)' }} />
           needs work
         </span>
         <span className="mono" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           strong
-          <span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 2, background: 'var(--heat-weapon)' }} />
+          <span aria-hidden="true" style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 2, background: 'var(--heat-weapon)' }} />
         </span>
       </div>
     </>

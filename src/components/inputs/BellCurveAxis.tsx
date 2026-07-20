@@ -338,6 +338,7 @@ export function BellCurveAxis({ scale, value, onChange, resetKey }: BellCurveAxi
         onPointerMove={handleUnifiedPointerMove}
         onPointerUp={handlePointerUp}
         onPointerLeave={handlePointerLeave}
+        onBlur={(e) => e.currentTarget.removeAttribute('data-kb')}
       >
         {/* Left-of-line wash (tracks staged/hover/committed, appears behind curves) */}
         {showWash && washLineX !== null && (

@@ -183,6 +183,12 @@ describe('HeatMap', () => {
       expect(nameSpan.style.color).toBe('var(--ink)')
     })
   })
+
+  it('legend renders with both needs work and strong texts', () => {
+    render(<HeatMap categories={scored3} />)
+    expect(screen.getByText('needs work')).toBeInTheDocument()
+    expect(screen.getByText('strong')).toBeInTheDocument()
+  })
 })
 
 // ─── VizTabs ──────────────────────────────────────────────────────────────────
