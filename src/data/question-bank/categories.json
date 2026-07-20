@@ -43,7 +43,7 @@
     {
       "id": "open_guard_top",
       "name": "Open Guard Passing (Top)",
-      "shortName": "Open Pass Top",
+      "shortName": "Open Guard Top",
       "axis": "positional",
       "weight": 1,
       "description": "Passing various open guard styles"

@@ -44,11 +44,13 @@ describe('dark tokens (same gi, dyed deeper)', () => {
     // It should use var(--surface)
     expect(css).toMatch(/\.chip[^}]*background:\s*var\(--surface\)/)
   })
-  it('.btn color uses a token or known-safe #fff for button text on accent background', () => {
-    // #fff on accent background (--accent:#8FA7E8) is acceptable because it ensures
-    // sufficient contrast for white text on the washed-indigo button.
-    // Justified: this is button-label-over-accent, not a background token.
-    expect(css).toMatch(/\.btn[^}]*color:\s*#fff/)
+  it('.btn color uses var(--mat) for dark label on washed-indigo accent (6.78:1 WCAG)', () => {
+    // Dark label on accent background passes WCAG AA contrast.
+    expect(css).toMatch(/\.btn[^}]*color:\s*var\(--mat\)/)
+  })
+  it('no #fff appears anywhere in tokens.css', () => {
+    // Eliminates any remaining light-text literals.
+    expect(css).not.toContain('#fff')
   })
   it('no pure #000 anywhere in the file', () => {
     // #000 (no alpha/opacity modifier) is banned — use #14161C (belt-black) instead
