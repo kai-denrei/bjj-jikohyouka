@@ -51,7 +51,7 @@ export function BeltStripeBar({ total, done, current = null, label, annotation }
             color: 'var(--ink-2)',
           }}
         >
-          <span>{label}</span>
+          <span style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>{label}</span>
           <span>{annotation}</span>
         </div>
       )}

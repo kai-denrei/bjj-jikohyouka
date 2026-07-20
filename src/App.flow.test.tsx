@@ -7,6 +7,11 @@ import { BeltStripeBar } from './components/BeltStripeBar'
 
 const sweepQs = sweepQuestions(bank, false)
 
+/** Helper: assert we are on the dashboard (has VizTabs tablist) */
+function expectDashboard() {
+  expect(screen.getByRole('tablist')).toBeInTheDocument()
+}
+
 describe('BeltStripeBar', () => {
   it('renders total segments with correct data-state attributes', () => {
     render(<BeltStripeBar total={5} done={2} current={2} label="Category" annotation="2/5" />)
@@ -29,6 +34,20 @@ describe('BeltStripeBar', () => {
     render(<BeltStripeBar total={15} done={7} />)
     expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '7')
     expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuemax', '15')
+  })
+
+  // Header layout regression pins (Task 3 MUST-FIX)
+  it('label span has text-overflow ellipsis style for long category names', () => {
+    const { container } = render(
+      <BeltStripeBar total={15} done={3} label="Takedowns & Wrestling" annotation="3/15" />
+    )
+    // Find any span that contains the label text
+    const spans = container.querySelectorAll('span')
+    const labelSpan = Array.from(spans).find(s => s.textContent === 'Takedowns & Wrestling')
+    expect(labelSpan).toBeTruthy()
+    expect(labelSpan!.style.textOverflow).toBe('ellipsis')
+    expect(labelSpan!.style.overflow).toBe('hidden')
+    expect(labelSpan!.style.whiteSpace).toBe('nowrap')
   })
 })
 
@@ -108,8 +127,8 @@ describe('App flow', () => {
     expect(screen.getByRole('button', { name: 'Start over' })).toBeInTheDocument()
   })
 
-  // Fix 3 pin: fully-answered sweep with no completed categories routes to interim on resume
-  it('resume routes to interim when all sweep questions are answered but no categories completed', () => {
+  // Fix 3 pin: fully-answered sweep with no completed categories routes to dashboard on resume
+  it('resume routes to dashboard when all sweep questions are answered but no categories completed', () => {
     // Build answers for all 15 active sweep qids with valid raw values
     const answers: Record<string, { qid: string; v: number; raw: number | number[] }> = {}
     for (const q of sweepQs) {
@@ -127,13 +146,13 @@ describe('App flow', () => {
     }))
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'Continue where you left off' }))
-    // Should show interim "First picture" heading, not a sweep question
-    expect(screen.getByRole('heading', { name: 'First picture' })).toBeInTheDocument()
+    // Should show dashboard (VizTabs tablist), not a sweep question
+    expectDashboard()
   })
 
-  // Fix 1 structural pin: last-question answer is reflected in interim recommended chips
+  // Fix 1 structural pin: last-question answer is reflected in dashboard recommended rows
   // jsdom lacks matchMedia → usePrefersReducedMotion returns true → instant advance (no timers)
-  it('interim recommended chips reflect all sweep answers including the final question', () => {
+  it('dashboard rows reflect all sweep answers including the final question', () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
     fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
@@ -153,12 +172,14 @@ describe('App flow', () => {
       }
     }
 
-    // Should now be on interim screen
-    expect(screen.getByRole('heading', { name: 'First picture' })).toBeInTheDocument()
+    // Should now be on dashboard (VizTabs tablist present)
+    expectDashboard()
 
-    // wrist_locks scored 0 (slider10 raw=1) — must be in recommended chips
-    // If Fix 1 was broken, wrist_locks answer would be missing from the report
-    expect(screen.getByRole('button', { name: 'Wrist Locks' })).toBeInTheDocument()
+    // wrist_locks scored 0 (slider10 raw=1) — should appear in the category rows
+    // If Fix 1 was broken, the drill-down state wouldn't be computed for wrist_locks
+    const rows = screen.getAllByTestId('category-row')
+    const wristRow = rows.find(r => r.textContent?.includes('Wrist'))
+    expect(wristRow).toBeTruthy()
   })
 
   // Regression: sweepStartIndex stabilization — answering Q1 must NOT immediately jump to Q2
@@ -261,11 +282,11 @@ describe('App flow', () => {
     expect(screen.getByRole('heading', { name: q2Text })).toBeInTheDocument()
   })
 
-  it('mid-drilldown Pause → goes to interim', () => {
+  it('mid-drilldown Pause → goes to dashboard', () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
     fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
-    // Complete entire sweep to reach interim
+    // Complete entire sweep to reach dashboard
     for (const q of sweepQs) {
       if (q.input === 'slider10') {
         fireEvent.click(screen.getByRole('button', { name: '5' }))
@@ -273,18 +294,18 @@ describe('App flow', () => {
         fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
       }
     }
-    // Should now be on interim screen
-    expect(screen.getByRole('heading', { name: 'First picture' })).toBeInTheDocument()
+    // Should now be on dashboard screen
+    expectDashboard()
 
-    // Deterministically find the takedowns category chip
-    const takedownsCategory = bank.categories.find(c => c.id === 'takedowns')!
-    const takedownsName = takedownsCategory.name
-    const drilldownChip = screen.getByRole('button', { name: takedownsName })
-    fireEvent.click(drilldownChip)
+    // Deterministically find the takedowns category row and click it
+    const rows = screen.getAllByTestId('category-row')
+    const takedownsRow = rows.find(r => r.textContent?.includes('Takedowns'))
+    expect(takedownsRow).toBeTruthy()
+    fireEvent.click(takedownsRow!)
 
-    // Should be in a drill-down question screen — has within-run counter or question heading (not "First picture")
+    // Should be in a drill-down question screen — has question heading (not dashboard)
     const questionHeadings = screen.getAllByRole('heading')
-    const hasQuestion = questionHeadings.some(h => h.textContent !== 'First picture')
+    const hasQuestion = questionHeadings.some(h => !h.textContent?.includes('Deep dives'))
     expect(hasQuestion).toBe(true)
 
     // Pause button should be visible
@@ -292,13 +313,13 @@ describe('App flow', () => {
     expect(pauseBtn).toBeInTheDocument()
     fireEvent.click(pauseBtn)
 
-    // Should return to interim with "First picture" heading
-    expect(screen.getByRole('heading', { name: 'First picture' })).toBeInTheDocument()
+    // Should return to dashboard
+    expectDashboard()
     // No question input or within-run counter should remain
     expect(screen.queryByText(/^\d+ of \d+$/)).not.toBeInTheDocument()
   })
 
-  it('results → Back to categories → interim', () => {
+  it('results → Back to categories → dashboard', () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
     fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
@@ -310,12 +331,35 @@ describe('App flow', () => {
         fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
       }
     }
-    // On interim → go to results
-    fireEvent.click(screen.getByRole('button', { name: 'See results' }))
-    expect(screen.queryByRole('heading', { name: 'First picture' })).not.toBeInTheDocument()
+    // On dashboard → go to results via Full report
+    fireEvent.click(screen.getByRole('button', { name: 'Full report' }))
+    // Should no longer be on dashboard
+    expect(screen.queryByRole('tablist')).not.toBeInTheDocument()
     // Back to categories button
     fireEvent.click(screen.getByRole('button', { name: 'Back to categories' }))
-    expect(screen.getByRole('heading', { name: 'First picture' })).toBeInTheDocument()
+    expectDashboard()
+  })
+
+  // Task 3: bar-tap returns to dashboard from results screen
+  it('tapping belt-stripe bar from results returns to dashboard', () => {
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
+    // Complete sweep
+    for (const q of sweepQs) {
+      if (q.input === 'slider10') {
+        fireEvent.click(screen.getByRole('button', { name: '5' }))
+      } else {
+        fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
+      }
+    }
+    // Go to results
+    fireEvent.click(screen.getByRole('button', { name: 'Full report' }))
+    expect(screen.queryByRole('tablist')).not.toBeInTheDocument()
+
+    // Click "Back to your map" bar button
+    fireEvent.click(screen.getByRole('button', { name: 'Back to your map' }))
+    expectDashboard()
   })
 
   // Fix 3 pin: after Finish & save, Back to categories button is absent
@@ -331,8 +375,8 @@ describe('App flow', () => {
         fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
       }
     }
-    // On interim → go to results
-    fireEvent.click(screen.getByRole('button', { name: 'See results' }))
+    // On dashboard → go to results
+    fireEvent.click(screen.getByRole('button', { name: 'Full report' }))
     expect(screen.getByRole('button', { name: 'Back to categories' })).toBeInTheDocument()
 
     // Finish & save
@@ -342,5 +386,17 @@ describe('App flow', () => {
 
     // Back to categories must be gone
     expect(screen.queryByRole('button', { name: 'Back to categories' })).not.toBeInTheDocument()
+  })
+
+  // Task 3: Pause button style pins
+  it('Pause button has width auto and flexShrink 0 during sweep', () => {
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
+
+    const pauseBtn = screen.getByRole('button', { name: 'Pause' })
+    expect(pauseBtn).toBeInTheDocument()
+    expect(pauseBtn.style.width).toBe('auto')
+    expect(pauseBtn.style.flexShrink).toBe('0')
   })
 })

@@ -2,15 +2,15 @@ import { useState, useEffect, useRef, useMemo } from 'react'
 import { bank } from './lib/bankInstance'
 import { loadSession, saveSession, clearSession } from './lib/results/store'
 import { scoreAnswers, type Report } from './lib/results/score'
-import { sweepQuestions, recommendedDrilldowns, drilldownQuestions, includeDrafts, includeAdmin } from './lib/flow'
+import { sweepQuestions, drilldownQuestions, includeDrafts, includeAdmin } from './lib/flow'
 import { IntakeStep } from './components/IntakeStep'
 import { BeltStripeBar } from './components/BeltStripeBar'
 import { QuestionScreen } from './components/QuestionScreen'
-import { InterimScreen } from './components/InterimScreen'
+import { Dashboard } from './components/Dashboard'
 import { ResultsPage } from './components/results/ResultsPage'
 import type { AssessmentSession, StoredAnswer, Intake } from './lib/results/types'
 
-type Screen = 'intro' | 'intake' | 'sweep' | 'interim' | 'category' | 'results'
+type Screen = 'intro' | 'intake' | 'sweep' | 'dashboard' | 'category' | 'results'
 
 const positionalCategories = bank.categories.filter(c => c.axis === 'positional')
 
@@ -70,15 +70,15 @@ export default function App() {
     if (resumeSession.completedCategories.length > 0) {
       const rep = scoreAnswers(resumeSession.answers, bank)
       setReport(rep)
-      setScreen('interim')
+      setScreen('dashboard')
     } else {
-      // Fix 3: if all sweep questions already answered, go straight to interim
+      // Fix 3: if all sweep questions already answered, go straight to dashboard
       const sweepQs = sweepQuestions(bank, drafts)
       const allAnswered = sweepQs.every(q => q.qid in resumeSession.answers)
       if (allAnswered) {
         const rep = scoreAnswers(resumeSession.answers, bank)
         setReport(rep)
-        setScreen('interim')
+        setScreen('dashboard')
       } else {
         const firstUnanswered = sweepQs.findIndex(q => !(q.qid in resumeSession.answers))
         setSweepStartIndex(firstUnanswered === -1 ? 0 : firstUnanswered)
@@ -111,11 +111,11 @@ export default function App() {
   }
 
   function handlePauseDrilldown() {
-    // Pause during drill-down: recompute report and go to interim
+    // Pause during drill-down: recompute report and go to dashboard
     if (!sessionRef.current) return
     const rep = scoreAnswers(sessionRef.current.answers, bank)
     setReport(rep)
-    setScreen('interim')
+    setScreen('dashboard')
   }
 
   function handleAnswer(a: StoredAnswer) {
@@ -130,7 +130,7 @@ export default function App() {
     if (!sessionRef.current) return
     const rep = scoreAnswers(sessionRef.current.answers, bank)
     setReport(rep)
-    setScreen('interim')
+    setScreen('dashboard')
   }
 
   function handlePickCategory(categoryId: string) {
@@ -150,11 +150,10 @@ export default function App() {
     const rep = scoreAnswers(newSession.answers, bank)
     setReport(rep)
     setActiveCategory(null)
-    setScreen('interim')
+    setScreen('dashboard')
   }
 
   const sweepQs = sweepQuestions(bank, drafts)
-  const recommended = report ? recommendedDrilldowns(report, bank) : []
 
   const activeCategoryName = activeCategory
     ? bank.categories.find(c => c.id === activeCategory)?.name ?? activeCategory
@@ -170,6 +169,9 @@ export default function App() {
   const sweepCurrentCategory = sweepCurrentIndex >= 0 && sweepCurrentIndex < sweepQs.length
     ? (bank.categories.find(c => c.id === sweepQs[sweepCurrentIndex].category)?.name ?? 'Sweep')
     : 'Sweep'
+
+  // The bar becomes a "Back to your map" button when a report exists and we're not on dashboard/sweep
+  const barIsClickable = report !== null && screen !== 'dashboard' && screen !== 'sweep'
 
   return (
     <main>
@@ -190,38 +192,70 @@ export default function App() {
           admin
         </div>
       )}
-      {(screen === 'sweep' || screen === 'interim' || screen === 'category' || screen === 'results') && (
+      {(screen === 'sweep' || screen === 'dashboard' || screen === 'category' || screen === 'results') && (
         <div style={{ marginBottom: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <div style={{ flex: 1 }}>
-              <BeltStripeBar
-                total={positionalCategories.length}
-                done={screen === 'sweep' ? sweepAnsweredCount : completedCategories.length}
-                current={
-                  screen === 'sweep'
-                    ? (sweepCurrentIndex >= 0 ? sweepCurrentIndex : null)
-                    : screen === 'category'
-                    ? positionalCategories.findIndex(c => c.id === activeCategory)
-                    : null
-                }
-                label={
-                  screen === 'sweep' ? sweepCurrentCategory
-                    : screen === 'category' ? activeCategoryName
-                    : screen === 'interim' ? 'First picture'
-                    : 'Results'
-                }
-                annotation={
-                  screen === 'sweep'
-                    ? `${sweepAnsweredCount}/${sweepQs.length}`
-                    : `${completedCategories.length}/${positionalCategories.length}`
-                }
-              />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              {barIsClickable ? (
+                <button
+                  type="button"
+                  aria-label="Back to your map"
+                  onClick={() => setScreen('dashboard')}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    margin: 0,
+                    cursor: 'pointer',
+                    display: 'block',
+                    width: '100%',
+                    textAlign: 'left',
+                  }}
+                >
+                  <BeltStripeBar
+                    total={positionalCategories.length}
+                    done={completedCategories.length}
+                    current={
+                      screen === 'category'
+                        ? positionalCategories.findIndex(c => c.id === activeCategory)
+                        : null
+                    }
+                    label={
+                      screen === 'category' ? activeCategoryName : 'Results'
+                    }
+                    annotation={`${completedCategories.length}/${positionalCategories.length}`}
+                  />
+                </button>
+              ) : (
+                <BeltStripeBar
+                  total={positionalCategories.length}
+                  done={screen === 'sweep' ? sweepAnsweredCount : completedCategories.length}
+                  current={
+                    screen === 'sweep'
+                      ? (sweepCurrentIndex >= 0 ? sweepCurrentIndex : null)
+                      : screen === 'category'
+                      ? positionalCategories.findIndex(c => c.id === activeCategory)
+                      : null
+                  }
+                  label={
+                    screen === 'sweep' ? sweepCurrentCategory
+                      : screen === 'category' ? activeCategoryName
+                      : screen === 'dashboard' ? 'Your map'
+                      : 'Results'
+                  }
+                  annotation={
+                    screen === 'sweep'
+                      ? `${sweepAnsweredCount}/${sweepQs.length}`
+                      : `${completedCategories.length}/${positionalCategories.length}`
+                  }
+                />
+              )}
             </div>
             {(screen === 'sweep' || screen === 'category') && (
               <button
                 type="button"
                 className="btn-quiet"
-                style={{ flexShrink: 0 }}
+                style={{ flexShrink: 0, width: 'auto', padding: '0 16px' }}
                 onClick={screen === 'sweep' ? handlePauseSweep : handlePauseDrilldown}
               >
                 Pause
@@ -263,13 +297,14 @@ export default function App() {
         />
       )}
 
-      {screen === 'interim' && report && (
-        <InterimScreen
+      {screen === 'dashboard' && report && (
+        <Dashboard
           report={report}
+          session={session}
           onPick={handlePickCategory}
           onResults={() => setScreen('results')}
-          recommended={recommended}
           availableCategoryIds={availableCategoryIds}
+          drafts={drafts}
         />
       )}
 
@@ -302,7 +337,7 @@ export default function App() {
               <button
                 type="button"
                 className="btn-quiet"
-                onClick={() => setScreen('interim')}
+                onClick={() => setScreen('dashboard')}
               >
                 Back to categories
               </button>
