@@ -4,6 +4,7 @@ import { loadSession, saveSession, clearSession } from './lib/results/store'
 import { scoreAnswers, type Report } from './lib/results/score'
 import { sweepQuestions, drilldownQuestions, includeDrafts, includeAdmin } from './lib/flow'
 import { IntakeStep } from './components/IntakeStep'
+import { IntroLanding } from './components/IntroLanding'
 import { BeltStripeBar } from './components/BeltStripeBar'
 import { QuestionScreen } from './components/QuestionScreen'
 import { Dashboard } from './components/Dashboard'
@@ -269,16 +270,22 @@ export default function App() {
 
       {screen === 'intro' && (
         <>
-          <h1>Skill-Check</h1>
-          <p>A structured mirror for your grappling — not a verdict. Self-assessed skill correlates about r ≈ .29 with measured skill, so treat every number here as a starting point for a conversation with your training.</p>
-          {resumeSession && (
-            <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
-              <button className="btn" onClick={handleResume}>Continue where you left off</button>
-              <button className="btn-quiet" onClick={handleStartOver}>Start over</button>
-            </div>
-          )}
-          {!resumeSession && (
-            <button className="btn" onClick={() => setScreen('intake')}>Start the sweep</button>
+          {resumeSession ? (
+            <>
+              <h1 style={{ fontFamily: 'var(--font-display)', marginBottom: 8 }}>
+                Belts are a rough map. Ability is the territory.
+              </h1>
+              <p style={{ color: 'var(--ink-2)', fontSize: 14, marginBottom: 16 }}>
+                Belt color tracks ability loosely — and self-ratings track it even more loosely,
+                about r&nbsp;≈&nbsp;.29. This is a mirror, not a measurement.
+              </p>
+              <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
+                <button className="btn" onClick={handleResume}>Continue where you left off</button>
+                <button className="btn-quiet" onClick={handleStartOver}>Start over</button>
+              </div>
+            </>
+          ) : (
+            <IntroLanding onStart={() => setScreen('intake')} />
           )}
         </>
       )}
