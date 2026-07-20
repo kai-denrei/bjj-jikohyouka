@@ -20,11 +20,11 @@ interface DimensionsPanelProps {
 /** 15 positional situations — read from the bank so the panel never drifts from categories.json */
 const POSITIONAL_CATEGORIES = bank.categories
   .filter(c => c.axis === 'positional')
-  .map(c => ({ shortName: c.shortName ?? c.name, description: c.description ?? '' }))
+  .map(c => ({ id: c.id, shortName: c.shortName ?? c.name, description: c.description ?? '' }))
 
 /**
- * 7 cross-cutting qualities — labels hardcoded; one-line text is the `text` field
- * of the first question for each quality in meta-qualities.json.
+ * 7 cross-cutting qualities — labels hardcoded; text is sourced from meta-qualities.json.
+ * For Defense depth, both early (mq_defense_early) and late (mq_defense_late) stages are shown.
  * Source: src/data/question-bank/questions/meta-qualities.json
  */
 const CROSS_CUTTING_QUALITIES = [
@@ -50,7 +50,10 @@ const CROSS_CUTTING_QUALITIES = [
   },
   {
     label: 'Defense depth',
-    text: 'Their submission setup — Stripping the grip or framing before they reach a finish',
+    textLines: [
+      'Their submission setup — Stripping the grip or framing before they reach a finish',
+      'A near-finished submission — Creating space or changing the angle before tapping',
+    ],
   },
   {
     label: 'Adaptability',
@@ -146,7 +149,7 @@ export function DimensionsPanel({ open, onClose }: DimensionsPanelProps) {
         <div style={{ marginBottom: '24px' }}>
           {POSITIONAL_CATEGORIES.map(cat => (
             <div
-              key={cat.shortName}
+              key={cat.id}
               style={{
                 padding: '8px 0',
                 borderBottom: '1px solid var(--line)',
@@ -163,7 +166,7 @@ export function DimensionsPanel({ open, onClose }: DimensionsPanelProps) {
 
         {/* Cross-cutting qualities */}
         <div style={{ marginBottom: '20px' }}>
-          <p
+          <h3
             style={{
               margin: '0 0 12px',
               fontSize: 12,
@@ -174,7 +177,7 @@ export function DimensionsPanel({ open, onClose }: DimensionsPanelProps) {
             }}
           >
             Cross-cutting qualities
-          </p>
+          </h3>
           {CROSS_CUTTING_QUALITIES.map(q => (
             <div
               key={q.label}
@@ -187,7 +190,15 @@ export function DimensionsPanel({ open, onClose }: DimensionsPanelProps) {
             >
               <span style={{ fontWeight: 700 }}>{q.label}</span>
               {' — '}
-              <span style={{ color: 'var(--ink-2)' }}>{q.text}</span>
+              {('text' in q) ? (
+                <span style={{ color: 'var(--ink-2)' }}>{q.text}</span>
+              ) : (
+                <div style={{ color: 'var(--ink-2)' }}>
+                  {q.textLines.map((line, idx) => (
+                    <div key={idx}>{line}</div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

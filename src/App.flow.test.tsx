@@ -472,4 +472,29 @@ describe('post-finish stranding fix', () => {
     // Should navigate back to intake (or intro) — the sweep button is gone
     expect(screen.queryByRole('tablist')).not.toBeInTheDocument()
   })
+
+  it('after Finish & save → bar-tap to dashboard, assert finished state and reset path', async () => {
+    render(<App />)
+    completeSweep()
+    // Go to results
+    fireEvent.click(screen.getByRole('button', { name: 'Full report' }))
+    // Finish & save
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Finish & save' }))
+    })
+    // Tap bar to return to dashboard
+    fireEvent.click(screen.getByRole('button', { name: 'Back to your map' }))
+    // Assert Dashboard received finished state: "Start new assessment" button is present
+    expect(screen.getByRole('button', { name: 'Start new assessment' })).toBeInTheDocument()
+    // Assert zero category-row buttons (all rows are divs in finished mode, not clickable)
+    const rows = screen.getAllByTestId('category-row')
+    expect(rows.length).toBeGreaterThan(0)
+    for (const row of rows) {
+      expect(row.tagName.toLowerCase()).not.toBe('button')
+    }
+    // Click "Start new assessment" and assert intake screen renders (full reset path)
+    fireEvent.click(screen.getByRole('button', { name: 'Start new assessment' }))
+    // Intake or intro screen should be visible — no dashboard
+    expect(screen.queryByRole('tablist')).not.toBeInTheDocument()
+  })
 })
