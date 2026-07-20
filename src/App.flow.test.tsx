@@ -32,9 +32,60 @@ describe('BeltStripeBar', () => {
   })
 })
 
+describe('admin chip', () => {
+  afterEach(() => {
+    // Reset search to empty after each test
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: { ...window.location, search: '' },
+    })
+  })
+
+  it('renders admin chip when ?admin is in search', () => {
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: { ...window.location, search: '?admin' },
+    })
+    render(<App />)
+    expect(screen.getByText('admin')).toBeInTheDocument()
+  })
+
+  it('renders admin chip when ?=admin (empty-key value form) is in search', () => {
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: { ...window.location, search: '?=admin' },
+    })
+    render(<App />)
+    expect(screen.getByText('admin')).toBeInTheDocument()
+  })
+
+  it('renders admin chip when ?mode=admin is in search', () => {
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: { ...window.location, search: '?mode=admin' },
+    })
+    render(<App />)
+    expect(screen.getByText('admin')).toBeInTheDocument()
+  })
+
+  it('does not render admin chip without admin in search', () => {
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: { ...window.location, search: '' },
+    })
+    render(<App />)
+    expect(screen.queryByText('admin')).not.toBeInTheDocument()
+  })
+})
+
 describe('App flow', () => {
   beforeEach(() => {
     localStorage.clear()
+    // Ensure no admin/draft search params bleed from other describe blocks
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: { ...window.location, search: '' },
+    })
   })
   afterEach(() => {
     localStorage.clear()

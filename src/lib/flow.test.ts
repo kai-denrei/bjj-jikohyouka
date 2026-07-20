@@ -57,14 +57,40 @@ describe('flow selection', () => {
 })
 
 describe('includeAdmin', () => {
-  it('returns true when ?admin param is present', () => {
+  it('returns true when ?admin param is present (key forms)', () => {
     expect(includeAdmin('?admin')).toBe(true)
     expect(includeAdmin('?bank=draft&admin')).toBe(true)
     expect(includeAdmin('?admin=1')).toBe(true)
   })
+  it('returns true when value is "admin" (value forms)', () => {
+    // ?=admin — empty key, value "admin"
+    expect(includeAdmin('?=admin')).toBe(true)
+    // ?mode=admin — arbitrary key with value "admin"
+    expect(includeAdmin('?mode=admin')).toBe(true)
+    // case-insensitive value
+    expect(includeAdmin('?mode=Admin')).toBe(true)
+    // mixed: ?bank=draft&mode=admin
+    expect(includeAdmin('?bank=draft&mode=admin')).toBe(true)
+  })
   it('returns false when admin param is absent', () => {
     expect(includeAdmin('')).toBe(false)
     expect(includeAdmin('?bank=draft')).toBe(false)
-    expect(includeAdmin('?other=admin')).toBe(false)
+    // substring match in value must NOT count — only exact "admin" value
+    expect(includeAdmin('?mode=administrator')).toBe(false)
+  })
+})
+
+describe('includeDrafts', () => {
+  it('returns true for ?bank=draft', () => {
+    expect(includeDrafts('?bank=draft')).toBe(true)
+    expect(includeDrafts('?other=x&bank=draft')).toBe(true)
+  })
+  it('returns false for empty search', () => {
+    expect(includeDrafts('')).toBe(false)
+  })
+  it('returns false when bank param has a different value', () => {
+    // Regression: substring "draft" inside a longer value must NOT match
+    expect(includeDrafts('?bank=predraft')).toBe(false)
+    expect(includeDrafts('?bank=DRAFT')).toBe(false)
   })
 })

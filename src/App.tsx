@@ -13,15 +13,16 @@ import type { AssessmentSession, StoredAnswer, Intake } from './lib/results/type
 type Screen = 'intro' | 'intake' | 'sweep' | 'interim' | 'category' | 'results'
 
 const positionalCategories = bank.categories.filter(c => c.axis === 'positional')
-const drafts = includeDrafts(window.location.search)
-const admin = includeAdmin(window.location.search)
-const availableCategoryIds = new Set(
-  bank.categories
-    .filter(c => drilldownQuestions(bank, c.id, drafts).length > 0)
-    .map(c => c.id)
-)
 
 export default function App() {
+  const search = window.location.search
+  const admin = includeAdmin(search)
+  const drafts = includeDrafts(search) || admin
+  const availableCategoryIds = new Set(
+    bank.categories
+      .filter(c => drilldownQuestions(bank, c.id, drafts).length > 0)
+      .map(c => c.id)
+  )
   const [screen, setScreen] = useState<Screen>('intro')
   const [session, setSession] = useState<AssessmentSession | null>(null)
   const sessionRef = useRef<AssessmentSession | null>(null)
@@ -172,6 +173,23 @@ export default function App() {
 
   return (
     <main>
+      {admin && (
+        <div
+          className="mono"
+          style={{
+            position: 'fixed',
+            left: 12,
+            bottom: 12,
+            zIndex: 50,
+            padding: '2px 8px',
+            border: '1px solid var(--accent)',
+            background: 'var(--mat)',
+            borderRadius: 'var(--radius)',
+          }}
+        >
+          admin
+        </div>
+      )}
       {(screen === 'sweep' || screen === 'interim' || screen === 'category' || screen === 'results') && (
         <div style={{ marginBottom: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

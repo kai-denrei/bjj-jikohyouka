@@ -2,13 +2,18 @@ import type { Bank, Question } from './bank/schema'
 import type { Report } from './results/score'
 
 export function includeDrafts(search: string): boolean {
-  return search.includes('?bank=draft') || search.includes('&bank=draft')
+  const params = new URLSearchParams(search.startsWith('?') ? search.slice(1) : search)
+  return params.get('bank') === 'draft'
 }
 
 export function includeAdmin(search: string): boolean {
-  // admin param present as standalone key (any value, or no value)
+  // Liberal parsing: return true when ANY param has key 'admin' OR value 'admin'
+  // (case-insensitive on both). Covers ?admin, ?admin=1, ?=admin, ?mode=admin, etc.
   const params = new URLSearchParams(search.startsWith('?') ? search.slice(1) : search)
-  return params.has('admin')
+  for (const [key, value] of params.entries()) {
+    if (key.toLowerCase() === 'admin' || value.toLowerCase() === 'admin') return true
+  }
+  return false
 }
 
 export function visibleQuestions(bank: Bank, drafts: boolean): Question[] {
