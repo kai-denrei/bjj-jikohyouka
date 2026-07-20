@@ -44,13 +44,16 @@ const LABEL_Y = 155  // y of endpoint labels
 const BELT_ORDER = ['white', 'blue', 'purple', 'brown', 'black'] as const
 type BeltName = typeof BELT_ORDER[number]
 
-// Token lookup: white curve uses --line stroke (matches background on --mat)
+// Token lookup: both extremes get an outline for visibility on dark ground.
+// White: --line stroke (light curve on dark mat — needs definition against background).
+// Black: --line-strong stroke (dark curve on dark mat — the inverse problem).
+// Middle belts (blue/purple/brown) are self-sufficient on the dark palette.
 const BELT_STROKE: Record<BeltName, string> = {
   white:  'var(--line)',
   blue:   'var(--belt-blue)',
   purple: 'var(--belt-purple)',
   brown:  'var(--belt-brown)',
-  black:  'var(--belt-black)',
+  black:  'var(--line-strong)',
 }
 const BELT_FILL: Record<BeltName, string> = {
   white:  'var(--belt-white)',
@@ -339,7 +342,7 @@ export function BellCurveAxis({ scale, value, onChange, resetKey }: BellCurveAxi
             width={washLineX - PLOT_X0}
             height={AXIS_Y - PLOT_TOP}
             fill="var(--accent)"
-            fillOpacity={showStagedLine ? 0.05 : 0.07}
+            fillOpacity={0.10}
           />
         )}
 
@@ -353,7 +356,7 @@ export function BellCurveAxis({ scale, value, onChange, resetKey }: BellCurveAxi
               data-belt={belt}
               d={buildGaussianPath(curve.mean, curve.sd, curve.height)}
               fill={BELT_FILL[belt]}
-              fillOpacity={0.28}
+              fillOpacity={0.34}
               stroke={BELT_STROKE[belt]}
               strokeWidth={1.5}
             />
@@ -525,7 +528,11 @@ export function BellCurveAxis({ scale, value, onChange, resetKey }: BellCurveAxi
             .map(curve => {
               const h = gaussianAxisHeight(dotsAxisValue, curve.mean, curve.sd, curve.height)
               const cy = AXIS_Y - h * PLOT_H
-              const isWhite = curve.belt === 'white'
+              // Both extremes get outlined: white → --line; black → --line-strong; others → belt-white ring
+              const dotStroke =
+                curve.belt === 'white' ? 'var(--line)'
+                : curve.belt === 'black' ? 'var(--line-strong)'
+                : 'var(--belt-white)'
               return (
                 <circle
                   key={curve.belt}
@@ -535,7 +542,7 @@ export function BellCurveAxis({ scale, value, onChange, resetKey }: BellCurveAxi
                   cy={cy}
                   r={4.5}
                   fill={`var(--belt-${curve.belt})`}
-                  stroke={isWhite ? 'var(--line)' : 'var(--belt-white)'}
+                  stroke={dotStroke}
                   strokeWidth={1}
                 />
               )

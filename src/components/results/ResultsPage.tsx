@@ -151,7 +151,7 @@ export function ResultsPage({ report, onRetakeCategory, availableCategoryIds, be
             <div
               key={i}
               style={{
-                background: '#fff',
+                background: 'var(--surface)',
                 border: '1px solid var(--line)',
                 borderRadius: 'var(--radius)',
                 padding: '12px 16px',

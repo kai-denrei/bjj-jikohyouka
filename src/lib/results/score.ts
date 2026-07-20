@@ -6,6 +6,7 @@ export type Band = 'Unmapped' | 'Learning' | 'Drilling' | 'Positional' | 'Rollin
 export interface CategoryScore {
   categoryId: string
   name: string
+  shortName?: string        // copied from bank Category.shortName; consumed by Radar/heatmap/depth chart
   axis: string
   score: number | null
   band: Band | null
@@ -197,6 +198,7 @@ export function scoreAnswers(answers: Record<string, StoredAnswer>, bank: Bank):
     categories.push({
       categoryId: category.id,
       name: category.name,
+      ...(category.shortName !== undefined ? { shortName: category.shortName } : {}),
       axis: category.axis,
       score,
       band,

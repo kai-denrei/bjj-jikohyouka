@@ -50,13 +50,13 @@ export function InfoPanel({ open, onClose }: InfoPanelProps) {
         aria-modal="true"
         aria-labelledby="info-panel-title"
         style={{
-          background: '#fff',
+          background: 'var(--surface)',
           borderRadius: 'var(--radius)',
           padding: '24px',
           maxWidth: '560px',
           maxHeight: '80vh',
           overflowY: 'auto',
-          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)',
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.40)',
         }}
       >
         {/* Header with Close button */}

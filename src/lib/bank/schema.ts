@@ -21,6 +21,7 @@ export const ScaleSchema = z.object({
 export const CategorySchema = z.object({
   id: z.string().regex(/^[a-z0-9_]+$/),
   name: z.string(),
+  shortName: z.string().max(14).optional(), // ≤14 chars, Title Case; consumed by Radar/heatmap/depth chart
   axis: z.string(),
   weight: z.number().positive(),
   description: z.string().optional(),

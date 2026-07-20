@@ -3,6 +3,7 @@
     {
       "id": "takedowns",
       "name": "Takedowns & Wrestling",
+      "shortName": "Takedowns",
       "axis": "positional",
       "weight": 1.2,
       "description": "Standing grappling, throws, and takedown techniques"
@@ -10,6 +11,7 @@
     {
       "id": "guard_top",
       "name": "Guard Passing (Top)",
+      "shortName": "Guard Pass",
       "axis": "positional",
       "weight": 1.2,
       "description": "Passing opponent's guard from top position"
@@ -17,6 +19,7 @@
     {
       "id": "guard_bottom",
       "name": "Guard Retention (Bottom)",
+      "shortName": "Guard Ret.",
       "axis": "positional",
       "weight": 1.2,
       "description": "Maintaining and recovering guard from bottom position"
@@ -24,6 +27,7 @@
     {
       "id": "closed_guard_top",
       "name": "Closed Guard (Top)",
+      "shortName": "Closed Top",
       "axis": "positional",
       "weight": 1,
       "description": "Breaking and passing closed guard"
@@ -31,6 +35,7 @@
     {
       "id": "closed_guard_bottom",
       "name": "Closed Guard (Bottom)",
+      "shortName": "Closed Bottom",
       "axis": "positional",
       "weight": 1,
       "description": "Attacking and controlling from closed guard"
@@ -38,6 +43,7 @@
     {
       "id": "open_guard_top",
       "name": "Open Guard Passing (Top)",
+      "shortName": "Open Pass Top",
       "axis": "positional",
       "weight": 1,
       "description": "Passing various open guard styles"
@@ -45,6 +51,7 @@
     {
       "id": "open_guard_bottom",
       "name": "Open Guard (Bottom)",
+      "shortName": "Open Guard",
       "axis": "positional",
       "weight": 1,
       "description": "Playing various open guard styles"
@@ -52,6 +59,7 @@
     {
       "id": "half_guard_top",
       "name": "Half Guard (Top)",
+      "shortName": "Half Top",
       "axis": "positional",
       "weight": 1,
       "description": "Passing and controlling from half guard top"
@@ -59,6 +67,7 @@
     {
       "id": "half_guard_bottom",
       "name": "Half Guard (Bottom)",
+      "shortName": "Half Bottom",
       "axis": "positional",
       "weight": 1,
       "description": "Playing and attacking from half guard bottom"
@@ -66,6 +75,7 @@
     {
       "id": "mount_top",
       "name": "Mount (Top)",
+      "shortName": "Mount Top",
       "axis": "positional",
       "weight": 1.2,
       "description": "Controlling and attacking from mount"
@@ -73,6 +83,7 @@
     {
       "id": "mount_bottom",
       "name": "Mount (Bottom)",
+      "shortName": "Mount Bottom",
       "axis": "positional",
       "weight": 1.2,
       "description": "Escaping and defending from mount bottom"
@@ -80,6 +91,7 @@
     {
       "id": "back_mount_top",
       "name": "Back Mount (Top)",
+      "shortName": "Back Take",
       "axis": "positional",
       "weight": 1.2,
       "description": "Controlling and attacking from back mount"
@@ -87,6 +99,7 @@
     {
       "id": "back_mount_bottom",
       "name": "Back Mount (Bottom)",
+      "shortName": "Back Escape",
       "axis": "positional",
       "weight": 1.2,
       "description": "Escaping and defending from back mount bottom"
@@ -94,6 +107,7 @@
     {
       "id": "leg_locks",
       "name": "Leg Locks (Attack/Defense)",
+      "shortName": "Leg Locks",
       "axis": "positional",
       "weight": 0.8,
       "description": "Attacking with and defending against leg locks"
@@ -101,6 +115,7 @@
     {
       "id": "wrist_locks",
       "name": "Wrist Locks",
+      "shortName": "Wrist Locks",
       "axis": "positional",
       "weight": 0.5,
       "description": "Attacking with and defending against wrist locks"
@@ -108,6 +123,7 @@
     {
       "id": "meta_qualities",
       "name": "Meta-qualities",
+      "shortName": "Meta",
       "axis": "meta",
       "weight": 1.0,
       "description": "What makes someone hard to deal with, regardless of position"
@@ -115,6 +131,7 @@
     {
       "id": "reputation",
       "name": "Reputation & partners",
+      "shortName": "Reputation",
       "axis": "reputation",
       "weight": 1.0,
       "description": "What people have told you — memories of events, not self-judgment"
