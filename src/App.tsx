@@ -202,7 +202,7 @@ export default function App() {
                 <button
                   type="button"
                   aria-label="Back to your map"
-                  onClick={() => setScreen('dashboard')}
+                  onClick={() => screen === 'category' ? handlePauseDrilldown() : setScreen('dashboard')}
                   style={{
                     background: 'none',
                     border: 'none',

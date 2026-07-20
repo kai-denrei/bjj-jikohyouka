@@ -93,30 +93,38 @@ export function HeatMap({ categories }: HeatMapProps) {
                   overflow: 'hidden',
                 }}
               >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 10,
-                    color: isUnscored ? 'var(--ink-2)' : 'var(--ink)',
-                    textAlign: 'center',
-                    lineHeight: 1.2,
-                    padding: '0 2px',
-                    wordBreak: 'break-word',
-                  }}
-                >
-                  {label}
-                </span>
-                {cat.score !== null && (
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: 8,
-                      color: 'var(--ink-2)',
-                    }}
-                  >
-                    {cat.score}
-                  </span>
-                )}
+                {(() => {
+                  const opacity = cat.band && cat.band !== 'Unmapped' ? BAND_OPACITY[cat.band] : 0
+                  const useLightText = opacity >= 0.65
+                  return (
+                    <>
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: 10,
+                          color: isUnscored ? 'var(--ink-2)' : (useLightText ? 'var(--mat)' : 'var(--ink)'),
+                          textAlign: 'center',
+                          lineHeight: 1.2,
+                          padding: '0 2px',
+                          wordBreak: 'break-word',
+                        }}
+                      >
+                        {label}
+                      </span>
+                      {cat.score !== null && (
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: 8,
+                            color: useLightText ? 'var(--mat)' : 'var(--ink)',
+                          }}
+                        >
+                          {cat.score}
+                        </span>
+                      )}
+                    </>
+                  )
+                })()}
               </div>
             )
           })}
