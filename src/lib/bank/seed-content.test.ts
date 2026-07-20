@@ -15,9 +15,9 @@ describe('§9 bank cutover 1.1.0 — post-cutover invariants', () => {
     expect(retired.filter(q => q.input === 'ability_axis')).toHaveLength(0)
   })
 
-  it('active count = 28, all ability_axis', () => {
+  it('active count = 25, all ability_axis', () => {
     const active = bank.questions.filter(q => q.status === 'active')
-    expect(active).toHaveLength(28)
+    expect(active).toHaveLength(25)
     expect(active.every(q => q.input === 'ability_axis')).toBe(true)
   })
 
@@ -26,7 +26,7 @@ describe('§9 bank cutover 1.1.0 — post-cutover invariants', () => {
     const cores = active.filter(q => q.tier === 'core')
     const drilldowns = active.filter(q => q.tier === 'drilldown')
     expect(cores).toHaveLength(15)
-    expect(drilldowns).toHaveLength(13)
+    expect(drilldowns).toHaveLength(10)
   })
 
   it('15 active sweep cores, one per positional category, ability_axis, with lineage', () => {
@@ -74,7 +74,7 @@ describe('§10 ability-axis rework — post-cutover', () => {
 
   it('all active ability_axis items carry complete slots', () => {
     const axisActive = bank.questions.filter(q => q.status === 'active' && q.input === 'ability_axis')
-    expect(axisActive.length).toBeGreaterThanOrEqual(28)
+    expect(axisActive.length).toBe(25)
     for (const q of axisActive) {
       expect(q.slots, q.qid).toBeDefined()
       expect(q.slots!.what.length, q.qid).toBeGreaterThan(0)

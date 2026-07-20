@@ -68,6 +68,6 @@ describe('validateBank', () => {
       .map(f => ({ file: f, data: JSON.parse(readFileSync(join(archDir, f), 'utf8')) }))
     const r = validateBank(loadRawBank(), archives)
     expect(r.errors).toEqual([])
-    expect(r.report.totalActive).toBe(28)
+    expect(r.report.totalActive).toBe(25)
   })
 })

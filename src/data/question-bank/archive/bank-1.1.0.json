@@ -5120,7 +5120,7 @@
     {
       "qid": "hgb_underhook_live",
       "v": 1,
-      "status": "active",
+      "status": "draft",
       "replaces": "hgb_004",
       "category": "half_guard_bottom",
       "axis": "positional",
@@ -5164,7 +5164,7 @@
     {
       "qid": "hgb_deep_half_live",
       "v": 1,
-      "status": "active",
+      "status": "draft",
       "replaces": "hgb_009",
       "category": "half_guard_bottom",
       "axis": "positional",
@@ -5187,7 +5187,7 @@
     {
       "qid": "hgb_crossface_deal",
       "v": 1,
-      "status": "active",
+      "status": "draft",
       "replaces": "hgb_012",
       "category": "half_guard_bottom",
       "axis": "positional",

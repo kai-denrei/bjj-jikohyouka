@@ -4,7 +4,7 @@
 
 - **Cutover v0.1→v0.2:** activated 28 ability_axis questions (15 positional sweep cores, one per positional category + 13 pilot drilldowns across takedowns/closed_guard_bottom/half_guard_bottom). Retired all 173 v0.1 questions (148 slider10 + 25 belt_curve) non-destructively — they remain in-file as status:retired.
 - Active bank shape: 28 active items, all ability_axis input. Sweep (non-draft) returns 15 ability_axis cores, one per positional category.
-- Kept draft (pending Gerald review): 3 new meta categories (pressure/connection/mind_games) with 9 ability_axis drafts + 2 flagged needs_gerald_review; 8 meta_qualities rework drafts; 8 reputation items; 6 pilot frequency10/agree3 drilldown supplements.
+- Kept draft (pending Gerald review): 3 new meta categories (pressure/connection/mind_games) with 10 ability_axis drafts + 3 flagged needs_gerald_review; 7 meta_qualities rework drafts; 8 reputation items; 6 pilot frequency10/agree3 drilldown supplements.
 - 12 non-pilot positional categories have active core but no active drilldowns (dashboard shows "Not yet written") — correct by design, no drilldowns fabricated.
 
 ## [Unreleased — drafts]
@@ -22,3 +22,5 @@
 
 - Initial conversion of v0.1 `skill-assessment.json` (173 questions, 15 categories). All records `active`, inputs `slider10`/`belt_curve`, qids preserved from v0.1.
 - Review flags (verdict #6 review): `pr_top_pressure_core` — `what` names the dimension itself ("Top pressure — Relaxed pressure…", double-pressure circularity; consider a concrete moment like "A dominant pin"); `mg_exchange_core` — "The exchange" under-specifies the situation. Both from Gerald's stems — his wording call. The earlier `mq_pressure_weight` opponent-subject note: that item now lives in the pressure category, framing unchanged.
+
+- Correction (deploy gate): 3 half_guard_bottom drilldowns (hgb_underhook_live, hgb_deep_half_live, hgb_crossface_deal) carry needs_gerald_review and were held DRAFT rather than activated — active count 25, not 28. Pending Gerald's content pass.
