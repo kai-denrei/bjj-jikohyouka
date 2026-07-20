@@ -4,35 +4,23 @@
  * Full-screen panel explaining the dimensions we measure.
  * Mirrors the InfoPanel dialog pattern.
  *
- * Positional list: hardcoded from categories.json (15 positional categories).
+ * Positional list: derived live from the bank (axis=positional) — stays in
+ * sync with categories.json automatically.
  * Cross-cutting qualities: hardcoded labels + one-line item text.
  * Source for quality names: src/data/question-bank/questions/meta-qualities.json
  */
 import { useEffect } from 'react'
+import { bank } from '../lib/bankInstance'
 
 interface DimensionsPanelProps {
   open: boolean
   onClose: () => void
 }
 
-/** 15 positional situations — derived from categories.json (axis=positional) */
-const POSITIONAL_CATEGORIES = [
-  { shortName: 'Takedowns', description: 'Standing grappling, throws, and takedown techniques' },
-  { shortName: 'Guard Pass', description: "Passing opponent's guard from top position" },
-  { shortName: 'Guard Ret.', description: 'Maintaining and recovering guard from bottom position' },
-  { shortName: 'Closed Top', description: 'Breaking and passing closed guard' },
-  { shortName: 'Closed Bottom', description: 'Attacking and controlling from closed guard' },
-  { shortName: 'Open Guard Top', description: 'Passing various open guard styles' },
-  { shortName: 'Open Guard', description: 'Playing various open guard styles' },
-  { shortName: 'Half Top', description: 'Passing and controlling from half guard top' },
-  { shortName: 'Half Bottom', description: 'Playing and attacking from half guard bottom' },
-  { shortName: 'Mount Top', description: 'Controlling and attacking from mount' },
-  { shortName: 'Mount Bottom', description: 'Escaping and defending from mount bottom' },
-  { shortName: 'Back Take', description: 'Controlling and attacking from back mount' },
-  { shortName: 'Back Escape', description: 'Escaping and defending from back mount bottom' },
-  { shortName: 'Leg Locks', description: 'Attacking with and defending against leg locks' },
-  { shortName: 'Wrist Locks', description: 'Attacking with and defending against wrist locks' },
-] as const
+/** 15 positional situations — read from the bank so the panel never drifts from categories.json */
+const POSITIONAL_CATEGORIES = bank.categories
+  .filter(c => c.axis === 'positional')
+  .map(c => ({ shortName: c.shortName ?? c.name, description: c.description ?? '' }))
 
 /**
  * 7 cross-cutting qualities — labels hardcoded; one-line text is the `text` field
