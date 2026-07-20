@@ -3,7 +3,7 @@
     {
       "qid": "td_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "takedowns",
       "axis": "positional",
       "input": "slider10",
@@ -25,7 +25,7 @@
     {
       "qid": "td_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "takedowns",
       "axis": "positional",
       "input": "belt_curve",
@@ -50,7 +50,7 @@
     {
       "qid": "td_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "takedowns",
       "axis": "positional",
       "input": "slider10",
@@ -71,7 +71,7 @@
     {
       "qid": "td_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "takedowns",
       "axis": "positional",
       "input": "slider10",
@@ -92,7 +92,7 @@
     {
       "qid": "td_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "takedowns",
       "axis": "psychological",
       "input": "slider10",
@@ -113,7 +113,7 @@
     {
       "qid": "td_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "takedowns",
       "axis": "positional",
       "input": "slider10",
@@ -134,7 +134,7 @@
     {
       "qid": "td_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "takedowns",
       "axis": "positional",
       "input": "belt_curve",
@@ -157,7 +157,7 @@
     {
       "qid": "td_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "takedowns",
       "axis": "positional",
       "input": "slider10",
@@ -178,7 +178,7 @@
     {
       "qid": "td_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "takedowns",
       "axis": "positional",
       "input": "slider10",
@@ -199,7 +199,7 @@
     {
       "qid": "td_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "takedowns",
       "axis": "positional",
       "input": "belt_curve",
@@ -222,7 +222,7 @@
     {
       "qid": "td_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "takedowns",
       "axis": "positional",
       "input": "belt_curve",
@@ -245,7 +245,7 @@
     {
       "qid": "td_012",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "takedowns",
       "axis": "positional",
       "input": "slider10",
@@ -266,7 +266,7 @@
     {
       "qid": "td_013",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "takedowns",
       "axis": "positional",
       "input": "slider10",
@@ -287,7 +287,7 @@
     {
       "qid": "gt_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -309,7 +309,7 @@
     {
       "qid": "gt_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_top",
       "axis": "positional",
       "input": "belt_curve",
@@ -334,7 +334,7 @@
     {
       "qid": "gt_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_top",
       "axis": "psychological",
       "input": "slider10",
@@ -355,7 +355,7 @@
     {
       "qid": "gt_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -376,7 +376,7 @@
     {
       "qid": "gt_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -397,7 +397,7 @@
     {
       "qid": "gt_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -418,7 +418,7 @@
     {
       "qid": "gt_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -439,7 +439,7 @@
     {
       "qid": "gt_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -460,7 +460,7 @@
     {
       "qid": "gt_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -481,7 +481,7 @@
     {
       "qid": "gt_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -502,7 +502,7 @@
     {
       "qid": "gt_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -523,7 +523,7 @@
     {
       "qid": "gt_012",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -544,7 +544,7 @@
     {
       "qid": "gb_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -566,7 +566,7 @@
     {
       "qid": "gb_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -589,7 +589,7 @@
     {
       "qid": "gb_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -610,7 +610,7 @@
     {
       "qid": "gb_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_bottom",
       "axis": "psychological",
       "input": "slider10",
@@ -631,7 +631,7 @@
     {
       "qid": "gb_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -652,7 +652,7 @@
     {
       "qid": "gb_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -673,7 +673,7 @@
     {
       "qid": "gb_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -694,7 +694,7 @@
     {
       "qid": "gb_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -715,7 +715,7 @@
     {
       "qid": "gb_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -736,7 +736,7 @@
     {
       "qid": "gb_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -757,7 +757,7 @@
     {
       "qid": "gb_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -778,7 +778,7 @@
     {
       "qid": "gb_012",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "guard_bottom",
       "axis": "positional",
       "input": "belt_curve",
@@ -801,7 +801,7 @@
     {
       "qid": "cgt_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -823,7 +823,7 @@
     {
       "qid": "cgt_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "belt_curve",
@@ -848,7 +848,7 @@
     {
       "qid": "cgt_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -869,7 +869,7 @@
     {
       "qid": "cgt_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -890,7 +890,7 @@
     {
       "qid": "cgt_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -911,7 +911,7 @@
     {
       "qid": "cgt_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -932,7 +932,7 @@
     {
       "qid": "cgt_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -953,7 +953,7 @@
     {
       "qid": "cgt_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -974,7 +974,7 @@
     {
       "qid": "cgt_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -995,7 +995,7 @@
     {
       "qid": "cgt_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "belt_curve",
@@ -1018,7 +1018,7 @@
     {
       "qid": "cgt_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1039,7 +1039,7 @@
     {
       "qid": "cgb_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "belt_curve",
@@ -1064,7 +1064,7 @@
     {
       "qid": "cgb_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1086,7 +1086,7 @@
     {
       "qid": "cgb_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_bottom",
       "axis": "psychological",
       "input": "slider10",
@@ -1107,7 +1107,7 @@
     {
       "qid": "cgb_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1128,7 +1128,7 @@
     {
       "qid": "cgb_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1149,7 +1149,7 @@
     {
       "qid": "cgb_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1170,7 +1170,7 @@
     {
       "qid": "cgb_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "belt_curve",
@@ -1193,7 +1193,7 @@
     {
       "qid": "cgb_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1214,7 +1214,7 @@
     {
       "qid": "cgb_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1235,7 +1235,7 @@
     {
       "qid": "cgb_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1256,7 +1256,7 @@
     {
       "qid": "cgb_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1277,7 +1277,7 @@
     {
       "qid": "cgb_012",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "belt_curve",
@@ -1300,7 +1300,7 @@
     {
       "qid": "ogt_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1322,7 +1322,7 @@
     {
       "qid": "ogt_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_top",
       "axis": "positional",
       "input": "belt_curve",
@@ -1347,7 +1347,7 @@
     {
       "qid": "ogt_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1368,7 +1368,7 @@
     {
       "qid": "ogt_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1389,7 +1389,7 @@
     {
       "qid": "ogt_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1410,7 +1410,7 @@
     {
       "qid": "ogt_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1431,7 +1431,7 @@
     {
       "qid": "ogt_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1452,7 +1452,7 @@
     {
       "qid": "ogt_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1473,7 +1473,7 @@
     {
       "qid": "ogt_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1494,7 +1494,7 @@
     {
       "qid": "ogt_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1515,7 +1515,7 @@
     {
       "qid": "ogt_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1536,7 +1536,7 @@
     {
       "qid": "ogb_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1558,7 +1558,7 @@
     {
       "qid": "ogb_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "belt_curve",
@@ -1583,7 +1583,7 @@
     {
       "qid": "ogb_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_bottom",
       "axis": "psychological",
       "input": "slider10",
@@ -1604,7 +1604,7 @@
     {
       "qid": "ogb_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1625,7 +1625,7 @@
     {
       "qid": "ogb_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1646,7 +1646,7 @@
     {
       "qid": "ogb_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1667,7 +1667,7 @@
     {
       "qid": "ogb_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1688,7 +1688,7 @@
     {
       "qid": "ogb_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1709,7 +1709,7 @@
     {
       "qid": "ogb_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1730,7 +1730,7 @@
     {
       "qid": "ogb_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1751,7 +1751,7 @@
     {
       "qid": "ogb_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1772,7 +1772,7 @@
     {
       "qid": "ogb_012",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -1793,7 +1793,7 @@
     {
       "qid": "hgt_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1815,7 +1815,7 @@
     {
       "qid": "hgt_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_top",
       "axis": "positional",
       "input": "belt_curve",
@@ -1840,7 +1840,7 @@
     {
       "qid": "hgt_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1861,7 +1861,7 @@
     {
       "qid": "hgt_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1882,7 +1882,7 @@
     {
       "qid": "hgt_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1903,7 +1903,7 @@
     {
       "qid": "hgt_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1924,7 +1924,7 @@
     {
       "qid": "hgt_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1945,7 +1945,7 @@
     {
       "qid": "hgt_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1966,7 +1966,7 @@
     {
       "qid": "hgt_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -1987,7 +1987,7 @@
     {
       "qid": "hgt_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -2008,7 +2008,7 @@
     {
       "qid": "hgt_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_top",
       "axis": "positional",
       "input": "slider10",
@@ -2029,7 +2029,7 @@
     {
       "qid": "hgb_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2051,7 +2051,7 @@
     {
       "qid": "hgb_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2073,7 +2073,7 @@
     {
       "qid": "hgb_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_bottom",
       "axis": "psychological",
       "input": "slider10",
@@ -2094,7 +2094,7 @@
     {
       "qid": "hgb_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2115,7 +2115,7 @@
     {
       "qid": "hgb_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "belt_curve",
@@ -2139,7 +2139,7 @@
     {
       "qid": "hgb_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2160,7 +2160,7 @@
     {
       "qid": "hgb_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2181,7 +2181,7 @@
     {
       "qid": "hgb_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2202,7 +2202,7 @@
     {
       "qid": "hgb_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2223,7 +2223,7 @@
     {
       "qid": "hgb_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2244,7 +2244,7 @@
     {
       "qid": "hgb_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2265,7 +2265,7 @@
     {
       "qid": "hgb_012",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2286,7 +2286,7 @@
     {
       "qid": "mt_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_top",
       "axis": "positional",
       "input": "belt_curve",
@@ -2311,7 +2311,7 @@
     {
       "qid": "mt_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2333,7 +2333,7 @@
     {
       "qid": "mt_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2354,7 +2354,7 @@
     {
       "qid": "mt_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_top",
       "axis": "positional",
       "input": "belt_curve",
@@ -2377,7 +2377,7 @@
     {
       "qid": "mt_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2398,7 +2398,7 @@
     {
       "qid": "mt_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2419,7 +2419,7 @@
     {
       "qid": "mt_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2440,7 +2440,7 @@
     {
       "qid": "mt_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2461,7 +2461,7 @@
     {
       "qid": "mt_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_top",
       "axis": "positional",
       "input": "belt_curve",
@@ -2484,7 +2484,7 @@
     {
       "qid": "mt_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2505,7 +2505,7 @@
     {
       "qid": "mt_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_top",
       "axis": "psychological",
       "input": "slider10",
@@ -2526,7 +2526,7 @@
     {
       "qid": "mt_012",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2547,7 +2547,7 @@
     {
       "qid": "mb_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2569,7 +2569,7 @@
     {
       "qid": "mb_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_bottom",
       "axis": "positional",
       "input": "belt_curve",
@@ -2594,7 +2594,7 @@
     {
       "qid": "mb_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2615,7 +2615,7 @@
     {
       "qid": "mb_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2636,7 +2636,7 @@
     {
       "qid": "mb_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2657,7 +2657,7 @@
     {
       "qid": "mb_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2678,7 +2678,7 @@
     {
       "qid": "mb_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2699,7 +2699,7 @@
     {
       "qid": "mb_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2720,7 +2720,7 @@
     {
       "qid": "mb_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_bottom",
       "axis": "positional",
       "input": "belt_curve",
@@ -2743,7 +2743,7 @@
     {
       "qid": "mb_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -2764,7 +2764,7 @@
     {
       "qid": "mb_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "mount_bottom",
       "axis": "psychological",
       "input": "slider10",
@@ -2785,7 +2785,7 @@
     {
       "qid": "bmt_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_top",
       "axis": "positional",
       "input": "belt_curve",
@@ -2810,7 +2810,7 @@
     {
       "qid": "bmt_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2832,7 +2832,7 @@
     {
       "qid": "bmt_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_top",
       "axis": "positional",
       "input": "belt_curve",
@@ -2855,7 +2855,7 @@
     {
       "qid": "bmt_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2876,7 +2876,7 @@
     {
       "qid": "bmt_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2897,7 +2897,7 @@
     {
       "qid": "bmt_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2918,7 +2918,7 @@
     {
       "qid": "bmt_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2939,7 +2939,7 @@
     {
       "qid": "bmt_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2960,7 +2960,7 @@
     {
       "qid": "bmt_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -2981,7 +2981,7 @@
     {
       "qid": "bmt_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_top",
       "axis": "positional",
       "input": "slider10",
@@ -3002,7 +3002,7 @@
     {
       "qid": "bmt_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_top",
       "axis": "psychological",
       "input": "slider10",
@@ -3023,7 +3023,7 @@
     {
       "qid": "bmb_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -3045,7 +3045,7 @@
     {
       "qid": "bmb_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -3067,7 +3067,7 @@
     {
       "qid": "bmb_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_bottom",
       "axis": "positional",
       "input": "belt_curve",
@@ -3091,7 +3091,7 @@
     {
       "qid": "bmb_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_bottom",
       "axis": "positional",
       "input": "belt_curve",
@@ -3114,7 +3114,7 @@
     {
       "qid": "bmb_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -3135,7 +3135,7 @@
     {
       "qid": "bmb_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -3156,7 +3156,7 @@
     {
       "qid": "bmb_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -3177,7 +3177,7 @@
     {
       "qid": "bmb_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -3198,7 +3198,7 @@
     {
       "qid": "bmb_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_bottom",
       "axis": "psychological",
       "input": "slider10",
@@ -3219,7 +3219,7 @@
     {
       "qid": "bmb_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -3240,7 +3240,7 @@
     {
       "qid": "bmb_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "back_mount_bottom",
       "axis": "positional",
       "input": "slider10",
@@ -3261,7 +3261,7 @@
     {
       "qid": "ll_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "leg_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3283,7 +3283,7 @@
     {
       "qid": "ll_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "leg_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3305,7 +3305,7 @@
     {
       "qid": "ll_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "leg_locks",
       "axis": "positional",
       "input": "belt_curve",
@@ -3329,7 +3329,7 @@
     {
       "qid": "ll_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "leg_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3350,7 +3350,7 @@
     {
       "qid": "ll_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "leg_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3371,7 +3371,7 @@
     {
       "qid": "ll_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "leg_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3392,7 +3392,7 @@
     {
       "qid": "ll_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "leg_locks",
       "axis": "psychological",
       "input": "slider10",
@@ -3413,7 +3413,7 @@
     {
       "qid": "ll_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "leg_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3434,7 +3434,7 @@
     {
       "qid": "ll_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "leg_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3455,7 +3455,7 @@
     {
       "qid": "ll_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "leg_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3476,7 +3476,7 @@
     {
       "qid": "ll_011",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "leg_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3497,7 +3497,7 @@
     {
       "qid": "ll_012",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "leg_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3518,7 +3518,7 @@
     {
       "qid": "wl_001",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "wrist_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3540,7 +3540,7 @@
     {
       "qid": "wl_002",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "wrist_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3562,7 +3562,7 @@
     {
       "qid": "wl_003",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "wrist_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3584,7 +3584,7 @@
     {
       "qid": "wl_004",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "wrist_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3605,7 +3605,7 @@
     {
       "qid": "wl_005",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "wrist_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3626,7 +3626,7 @@
     {
       "qid": "wl_006",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "wrist_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3647,7 +3647,7 @@
     {
       "qid": "wl_007",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "wrist_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3668,7 +3668,7 @@
     {
       "qid": "wl_008",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "wrist_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3689,7 +3689,7 @@
     {
       "qid": "wl_009",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "wrist_locks",
       "axis": "positional",
       "input": "slider10",
@@ -3710,7 +3710,7 @@
     {
       "qid": "wl_010",
       "v": 1,
-      "status": "active",
+      "status": "retired",
       "category": "wrist_locks",
       "axis": "psychological",
       "input": "slider10",
@@ -3731,7 +3731,7 @@
     {
       "qid": "td_takedown_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "td_002",
       "category": "takedowns",
       "axis": "positional",
@@ -3752,7 +3752,7 @@
     {
       "qid": "gt_guard_pass_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "gt_002",
       "category": "guard_top",
       "axis": "positional",
@@ -3773,7 +3773,7 @@
     {
       "qid": "gb_guard_retention_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "gb_002",
       "category": "guard_bottom",
       "axis": "positional",
@@ -3794,7 +3794,7 @@
     {
       "qid": "cgt_closed_break_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "cgt_002",
       "category": "closed_guard_top",
       "axis": "positional",
@@ -3815,7 +3815,7 @@
     {
       "qid": "cgb_posture_break_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "cgb_001",
       "category": "closed_guard_bottom",
       "axis": "positional",
@@ -3836,7 +3836,7 @@
     {
       "qid": "ogt_open_pass_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "ogt_002",
       "category": "open_guard_top",
       "axis": "positional",
@@ -3857,7 +3857,7 @@
     {
       "qid": "ogb_butterfly_sweep_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "ogb_002",
       "category": "open_guard_bottom",
       "axis": "positional",
@@ -3878,7 +3878,7 @@
     {
       "qid": "hgt_half_pass_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "hgt_002",
       "category": "half_guard_top",
       "axis": "positional",
@@ -3899,7 +3899,7 @@
     {
       "qid": "hgb_half_sweep_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "hgb_005",
       "category": "half_guard_bottom",
       "axis": "positional",
@@ -3920,7 +3920,7 @@
     {
       "qid": "mt_mount_hold_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "mt_001",
       "category": "mount_top",
       "axis": "positional",
@@ -3941,7 +3941,7 @@
     {
       "qid": "mb_mount_escape_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "mb_002",
       "category": "mount_bottom",
       "axis": "positional",
@@ -3962,7 +3962,7 @@
     {
       "qid": "bmt_back_hold_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "bmt_001",
       "category": "back_mount_top",
       "axis": "positional",
@@ -3983,7 +3983,7 @@
     {
       "qid": "bmb_back_escape_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "bmb_003",
       "category": "back_mount_bottom",
       "axis": "positional",
@@ -4004,7 +4004,7 @@
     {
       "qid": "ll_ankle_lock_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "ll_003",
       "category": "leg_locks",
       "axis": "positional",
@@ -4025,7 +4025,7 @@
     {
       "qid": "wl_wrist_lock_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "wl_003",
       "category": "wrist_locks",
       "axis": "positional",
@@ -4078,7 +4078,7 @@
     {
       "qid": "td_kuzushi_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "td_006",
       "category": "takedowns",
       "axis": "positional",
@@ -4099,7 +4099,7 @@
     {
       "qid": "td_double_leg_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "td_009",
       "category": "takedowns",
       "axis": "positional",
@@ -4120,7 +4120,7 @@
     {
       "qid": "td_double_leg_live_roll",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "td_010",
       "category": "takedowns",
       "axis": "positional",
@@ -4141,7 +4141,7 @@
     {
       "qid": "td_defend_counter_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "td_011",
       "category": "takedowns",
       "axis": "positional",
@@ -4162,7 +4162,7 @@
     {
       "qid": "td_clinch_entry",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "td_012",
       "category": "takedowns",
       "axis": "positional",
@@ -4215,7 +4215,7 @@
     {
       "qid": "cgb_break_to_sub",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "cgb_002",
       "category": "closed_guard_bottom",
       "axis": "positional",
@@ -4236,7 +4236,7 @@
     {
       "qid": "cgb_hip_angle",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "cgb_005",
       "category": "closed_guard_bottom",
       "axis": "positional",
@@ -4257,7 +4257,7 @@
     {
       "qid": "cgb_sweep_when_needed",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "cgb_006",
       "category": "closed_guard_bottom",
       "axis": "positional",
@@ -4278,7 +4278,7 @@
     {
       "qid": "cgb_posture_break_standing",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "cgb_011",
       "category": "closed_guard_bottom",
       "axis": "positional",
@@ -4331,7 +4331,7 @@
     {
       "qid": "hgb_underhook_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "hgb_004",
       "category": "half_guard_bottom",
       "axis": "positional",
@@ -4354,7 +4354,7 @@
     {
       "qid": "hgb_pass_prevent",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "hgb_006",
       "category": "half_guard_bottom",
       "axis": "positional",
@@ -4375,7 +4375,7 @@
     {
       "qid": "hgb_deep_half_live",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "hgb_009",
       "category": "half_guard_bottom",
       "axis": "positional",
@@ -4398,7 +4398,7 @@
     {
       "qid": "hgb_crossface_deal",
       "v": 1,
-      "status": "draft",
+      "status": "active",
       "replaces": "hgb_012",
       "category": "half_guard_bottom",
       "axis": "positional",
