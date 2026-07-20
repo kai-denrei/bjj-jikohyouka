@@ -80,8 +80,12 @@ describe('axis scale + slots (phase 3)', () => {
     expect(result.success).toBe(true)
   })
   it('accepts slots on a question and rejects empty slot strings', () => {
-    const q = { ...validQuestion, slots: { who: 'same rank', what: 'their closed guard', problem: 'Do you pass before they threaten a sweep or submission?' } }
+    const q = { ...validQuestion, slots: { what: 'their closed guard', problem: 'Do you pass before they threaten a sweep or submission?' } }
     expect(QuestionSchema.parse(q).slots?.what).toBe('their closed guard')
-    expect(() => QuestionSchema.parse({ ...validQuestion, slots: { who: '', what: 'x', problem: 'y' } })).toThrow()
+    // strict schema rejects unknown key 'who'
+    expect(() => QuestionSchema.parse({ ...validQuestion, slots: { who: 'x', what: 'x', problem: 'y' } })).toThrow()
+    // empty what or problem should throw
+    expect(() => QuestionSchema.parse({ ...validQuestion, slots: { what: '', problem: 'y' } })).toThrow()
+    expect(() => QuestionSchema.parse({ ...validQuestion, slots: { what: 'x', problem: '' } })).toThrow()
   })
 })

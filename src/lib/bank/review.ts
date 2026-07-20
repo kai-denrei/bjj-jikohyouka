@@ -21,8 +21,8 @@ export function renderReview(bank: Bank): string {
     const fmt = (q: Question) => {
       const prefix = q.status === 'draft' ? '🚧 DRAFT — ' : ''
       if (q.slots) {
-        const { who, what, problem } = q.slots
-        return `- ${prefix}vs ${who} — ${what} — ${problem}` +
+        const { what, problem } = q.slots
+        return `- ${prefix}${what} — ${problem}` +
           `\n  _${q.text}_` +
           `  \n  \`${q.qid}\` v${q.v} · ${q.tier} · ${q.input}${q.flags.length ? ' · ' + q.flags.join(', ') : ''}`
       }

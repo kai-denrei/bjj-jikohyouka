@@ -10,7 +10,6 @@ const DRAFT_QUESTION = {
   axis: 'positional',
   input: 'ability_axis',
   slots: {
-    who: 'same rank',
     what: 'standing exchanges',
     problem: 'Do you complete a takedown against full resistance?',
   },
@@ -110,7 +109,7 @@ describe('applyBankEdit', () => {
   it('rejects a change that empties a slot (schema violation)', () => {
     const fileContent = makeFile([DRAFT_QUESTION])
     const result = applyBankEdit(fileContent, 'td_test_draft', {
-      slots: { who: '', what: 'standing exchanges', problem: 'Do you complete a takedown?' },
+      slots: { what: '', problem: 'Do you complete a takedown?' },
     })
     expect(result.ok).toBe(false)
     if (result.ok) return
@@ -121,8 +120,7 @@ describe('applyBankEdit', () => {
     const fileContent = makeFile([DRAFT_QUESTION])
     const result = applyBankEdit(fileContent, 'td_test_draft', {
       slots: {
-        who: 'any rank',
-        what: 'standing exchanges',
+        what: 'live sparring exchanges',
         problem: 'Do you finish the takedown?',
       },
     })
@@ -130,7 +128,7 @@ describe('applyBankEdit', () => {
     if (!result.ok) return
     const parsed = JSON.parse(result.updated)
     const q = parsed.questions.find((q: { qid: string }) => q.qid === 'td_test_draft')
-    expect(q.slots.who).toBe('any rank')
+    expect(q.slots.what).toBe('live sparring exchanges')
     expect(q.slots.problem).toBe('Do you finish the takedown?')
   })
 

@@ -32,7 +32,7 @@ describe('wording linter (brief §4.4)', () => {
 
 describe('lintQuestion (slots-aware)', () => {
   it('flags vague words inside slot strings', () => {
-    const w = lintQuestion({ qid: 'q1', text: 'clean text', slots: { who: 'same rank', what: 'their guard', problem: 'Do you reliably pass?' } })
+    const w = lintQuestion({ qid: 'q1', text: 'clean text', slots: { what: 'their guard', problem: 'Do you reliably pass?' } })
     expect(w).toEqual([{ qid: 'q1', kind: 'vague', match: 'reliably' }])
   })
   it('is identical to lintText when no slots', () => {

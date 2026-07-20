@@ -48,7 +48,6 @@ export const QuestionSchema = z.object({
   abTestGroup: z.string().optional(),
   raterMode: z.enum(['self', 'observer']).optional(),
   slots: z.object({
-    who: z.string().min(1),
     what: z.string().min(1),
     problem: z.string().min(1),
   }).strict().optional(),
