@@ -82,11 +82,9 @@ describe('DimensionsPanel', () => {
     expect(screen.getByText('Cross-cutting qualities')).toBeInTheDocument()
   })
 
-  it('lists all 7 quality labels: pressure, connection, composure, timing, chaining, defense depth, adaptability', () => {
+  it('lists the 5 cross-cutting quality labels', () => {
     render(<DimensionsPanel open onClose={() => {}} />)
     const labels = [
-      'Pressure',
-      'Connection',
       'Composure',
       'Timing',
       'Chaining',
@@ -96,6 +94,20 @@ describe('DimensionsPanel', () => {
     for (const label of labels) {
       expect(screen.getByText(label)).toBeInTheDocument()
     }
+  })
+
+  it('renders "Meta-quality dimensions" section with three first-class dimension names and no residual Meta row', () => {
+    render(<DimensionsPanel open onClose={() => {}} />)
+    // Section heading present
+    expect(screen.getByText('Meta-quality dimensions')).toBeInTheDocument()
+    // Three first-class dimensions from verdict #6
+    expect(screen.getByText('Pressure')).toBeInTheDocument()
+    expect(screen.getByText('Connection')).toBeInTheDocument()
+    expect(screen.getByText('Mind Games')).toBeInTheDocument()
+    // Residual meta_qualities bucket description must NOT appear
+    expect(
+      screen.queryByText('What makes someone hard to deal with, regardless of position'),
+    ).toBeNull()
   })
 
   it('renders closing line about feedback', () => {

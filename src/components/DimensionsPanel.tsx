@@ -25,9 +25,13 @@ const POSITIONAL_CATEGORIES = bank.categories
   .filter(c => c.axis === 'positional')
   .map(c => ({ id: c.id, shortName: c.shortName ?? c.name, description: c.description ?? '' }))
 
-/** Meta-quality dimensions — bank-derived (axis=meta) — pressure, connection, mind_games are first-class categories */
+/**
+ * Meta-quality dimensions — bank-derived (axis=meta); residual meta_qualities bucket excluded
+ * because its qualities are itemized in the Cross-cutting section below.
+ * The three first-class dimensions (verdict #6) — pressure, connection, mind_games — render here.
+ */
 const META_CATEGORIES = bank.categories
-  .filter(c => c.axis === 'meta')
+  .filter(c => c.axis === 'meta' && c.id !== 'meta_qualities')
   .map(c => ({ id: c.id, shortName: c.shortName ?? c.name, description: c.description ?? '' }))
 
 /**
