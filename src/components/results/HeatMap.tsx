@@ -1,9 +1,9 @@
 /**
  * HeatMap — band heat grid (Task 2, verdict #5)
  *
- * Single-hue indigo ramp keyed to bands. 5 cells per row.
+ * Diverging palette (rust→blue-green) keyed to bands per verdict #6. 5 cells per row.
  * Unscored cells: hatch/outline only — gaps visible, never hidden.
- * Scored cells: fill = accent at band opacity, shortName + score.
+ * Scored cells: fill = BAND_FILL diverging ramp, shortName + score, all text var(--ink).
  * Each cell has role="cell" and aria-label for a11y.
  * Hand-rolled SVG grid via CSS. Tokens only.
  */
@@ -13,22 +13,14 @@ interface HeatMapProps {
   categories: CategoryScore[]
 }
 
-// Band → fill opacity on --accent
-const BAND_OPACITY: Record<Band, number> = {
-  Unmapped: 0,   // use --surface for Unmapped
-  Learning: 0.25,
-  Drilling: 0.45,
-  Positional: 0.65,
-  Rolling: 0.85,
-  Weapon: 1.0,
-}
-
-function getCellBackground(band: Band | null): string {
-  if (band === null) return 'transparent'
-  if (band === 'Unmapped') return 'var(--surface)'
-  const opacity = BAND_OPACITY[band]
-  // Build a color-mix or use inline style with opacity
-  return `color-mix(in srgb, var(--accent) ${Math.round(opacity * 100)}%, transparent)`
+// Diverging fill palette keyed to bands (verdict #6)
+const BAND_FILL: Record<Band, string> = {
+  Unmapped:   'var(--surface)',
+  Learning:   'var(--heat-learning)',
+  Drilling:   'var(--heat-drilling)',
+  Positional: 'var(--heat-positional)',
+  Rolling:    'var(--heat-rolling)',
+  Weapon:     'var(--heat-weapon)',
 }
 
 function ariaLabel(name: string, band: Band | null): string {
@@ -41,6 +33,7 @@ function shortLabel(shortName: string | undefined, name: string): string {
 
 // Hatch pattern as a CSS background (SVG data URI)
 // %2339415A equals var(--line) #39415A — CSS custom properties cannot reach inside SVG data URIs; keep in sync with tokens.css
+// Used for unscored cells only (scored cells use BAND_FILL diverging ramp).
 const HATCH_BG =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cline x1='0' y1='0' x2='0' y2='6' stroke='%2339415A' stroke-width='0.5'/%3E%3C/svg%3E\")"
 
@@ -55,81 +48,87 @@ export function HeatMap({ categories }: HeatMapProps) {
   }
 
   return (
-    <div
-      data-testid="heat-map"
-      role="table"
-      aria-label="Skill heat map"
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(5, 1fr)',
-        gap: 4,
-        maxWidth: 340,
-        margin: '0 auto',
-      }}
-    >
-      {rows.map((row, rowIdx) => (
-        <div key={`row-${rowIdx}`} role="row" style={{ display: 'contents' }}>
-          {row.map(cat => {
-            const isUnscored = cat.score === null
-            const label = shortLabel(cat.shortName, cat.name)
+    <>
+      <div
+        data-testid="heat-map"
+        role="table"
+        aria-label="Skill heat map"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(5, 1fr)',
+          gap: 4,
+          maxWidth: 340,
+          margin: '0 auto',
+        }}
+      >
+        {rows.map((row, rowIdx) => (
+          <div key={`row-${rowIdx}`} role="row" style={{ display: 'contents' }}>
+            {row.map(cat => {
+              const isUnscored = cat.score === null
+              const label = shortLabel(cat.shortName, cat.name)
 
-            return (
-              <div
-                key={cat.categoryId}
-                role="cell"
-                aria-label={ariaLabel(cat.name, cat.band)}
-                style={{
-                  position: 'relative',
-                  height: 48,
-                  borderRadius: 3,
-                  border: '1px solid var(--line)',
-                  background: isUnscored
-                    ? `${HATCH_BG}, transparent`
-                    : getCellBackground(cat.band),
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  overflow: 'hidden',
-                }}
-              >
-                {(() => {
-                  const opacity = cat.band && cat.band !== 'Unmapped' ? BAND_OPACITY[cat.band] : 0
-                  const useLightText = opacity >= 0.65
-                  return (
-                    <>
+              return (
+                <div
+                  key={cat.categoryId}
+                  role="cell"
+                  aria-label={ariaLabel(cat.name, cat.band)}
+                  style={{
+                    position: 'relative',
+                    height: 48,
+                    borderRadius: 3,
+                    border: '1px solid var(--line)',
+                    background: isUnscored
+                      ? `${HATCH_BG}, transparent`
+                      : cat.band === null ? 'transparent' : BAND_FILL[cat.band],
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: 10,
+                        color: isUnscored ? 'var(--ink-2)' : 'var(--ink)',
+                        textAlign: 'center',
+                        lineHeight: 1.2,
+                        padding: '0 2px',
+                        wordBreak: 'break-word',
+                      }}
+                    >
+                      {label}
+                    </span>
+                    {cat.score !== null && (
                       <span
                         style={{
                           fontFamily: 'var(--font-mono)',
-                          fontSize: 10,
-                          color: isUnscored ? 'var(--ink-2)' : (useLightText ? 'var(--mat)' : 'var(--ink)'),
-                          textAlign: 'center',
-                          lineHeight: 1.2,
-                          padding: '0 2px',
-                          wordBreak: 'break-word',
+                          fontSize: 8,
+                          color: 'var(--ink)',
                         }}
                       >
-                        {label}
+                        {cat.score}
                       </span>
-                      {cat.score !== null && (
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-mono)',
-                            fontSize: 8,
-                            color: useLightText ? 'var(--mat)' : 'var(--ink)',
-                          }}
-                        >
-                          {cat.score}
-                        </span>
-                      )}
-                    </>
-                  )
-                })()}
-              </div>
-            )
-          })}
-        </div>
-      ))}
-    </div>
+                    )}
+                  </>
+                </div>
+              )
+            })}
+          </div>
+        ))}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: 340, margin: '6px auto 0', padding: '0 2px' }}>
+        <span className="mono" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 2, background: 'var(--heat-learning)' }} />
+          needs work
+        </span>
+        <span className="mono" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          strong
+          <span style={{ display: 'inline-block', width: 10, height: 10, borderRadius: 2, background: 'var(--heat-weapon)' }} />
+        </span>
+      </div>
+    </>
   )
 }

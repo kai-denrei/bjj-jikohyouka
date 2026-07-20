@@ -8,7 +8,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { VizTabs } from './VizTabs'
 import { DepthBars } from './DepthBars'
 import { HeatMap } from './HeatMap'
-import type { CategoryScore } from '../../lib/results/score'
+import type { CategoryScore, Band } from '../../lib/results/score'
 
 // ─── shared fixtures ──────────────────────────────────────────────────────────
 
@@ -153,25 +153,35 @@ describe('HeatMap', () => {
     expect(screen.getByText('Guard Ret.')).toBeInTheDocument()
   })
 
-  it('HeatMap band-conditional text color: Weapon band → var(--mat), Learning band → var(--ink)', () => {
-    const fixtureWithBands: CategoryScore[] = [
-      cat('wp', 'Weapon Test', 'Weapon', 80, 'Weapon'),
+  it('scored cells use diverging BAND_FILL palette (Learning band has rust fill)', () => {
+    const fixture: CategoryScore[] = [
       cat('ln', 'Learning Test', 'Learning', 30, 'Learning'),
     ]
-    render(<HeatMap categories={fixtureWithBands} />)
+    render(<HeatMap categories={fixture} />)
+    const cell = screen.getByRole('cell', { name: /Learning Test.*Learning/i })
+    expect(cell).toHaveStyle({ background: 'var(--heat-learning)' })
+  })
 
-    // Find cells via aria-label
-    const weaponCell = screen.getByRole('cell', { name: /Weapon Test.*Weapon/i })
-    const learningCell = screen.getByRole('cell', { name: /Learning Test.*Learning/i })
+  it('scored cells use diverging BAND_FILL palette (Weapon band has blue-green fill)', () => {
+    const fixture: CategoryScore[] = [
+      cat('wp', 'Weapon Test', 'Weapon', 90, 'Weapon'),
+    ]
+    render(<HeatMap categories={fixture} />)
+    const cell = screen.getByRole('cell', { name: /Weapon Test.*Weapon/i })
+    expect(cell).toHaveStyle({ background: 'var(--heat-weapon)' })
+  })
 
-    // Query the shortName span within each cell and check its color
-    const weaponSpan = weaponCell.querySelector('span')
-    expect(weaponSpan).toBeInTheDocument()
-    expect(weaponSpan!.style.color).toBe('var(--mat)')
-
-    const learningSpan = learningCell.querySelector('span')
-    expect(learningSpan).toBeInTheDocument()
-    expect(learningSpan!.style.color).toBe('var(--ink)')
+  it('all scored bands use var(--ink) text color (no text-flip)', () => {
+    const bands: Band[] = ['Learning', 'Drilling', 'Positional', 'Rolling', 'Weapon']
+    const fixture: CategoryScore[] = bands.map((b, i) =>
+      cat(`${b.toLowerCase()}-${i}`, `${b} Test`, b, 50 + i * 5, b)
+    )
+    render(<HeatMap categories={fixture} />)
+    bands.forEach(b => {
+      const cell = screen.getByRole('cell', { name: new RegExp(`${b} Test.*${b}`, 'i') })
+      const nameSpan = cell.querySelector('span')!
+      expect(nameSpan.style.color).toBe('var(--ink)')
+    })
   })
 })
 
