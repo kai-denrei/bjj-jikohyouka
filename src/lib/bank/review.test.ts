@@ -17,18 +17,18 @@ describe('renderReview', () => {
       expect(md).toContain(q.text)
   })
   it('excludes retired questions and marks drafts', () => {
-    // Use a known active question without slots to test the DRAFT prefix rendering
+    // After cutover, all active items have slots (ability_axis). Use an active item directly.
     const bank = loadBank()
-    const activeNoSlots = bank.questions.find(q => q.status === 'active' && !q.slots)!
-    const idx = bank.questions.indexOf(activeNoSlots)
-    bank.questions[idx] = { ...activeNoSlots, status: 'draft' }
-    const retireIdx = bank.questions.findIndex((q, i) => i !== idx && q.category === activeNoSlots.category)
+    const activeItem = bank.questions.find(q => q.status === 'active')!
+    const idx = bank.questions.indexOf(activeItem)
+    bank.questions[idx] = { ...activeItem, status: 'draft' }
+    const retireIdx = bank.questions.findIndex((q, i) => i !== idx && q.category === activeItem.category)
     bank.questions[retireIdx] = { ...bank.questions[retireIdx], status: 'retired' }
     const md2 = renderReview(bank)
-    expect(md2).toContain(`🚧 DRAFT — ${activeNoSlots.text}`)
+    expect(md2).toContain(`🚧 DRAFT — ${activeItem.text}`)
     expect(md2).not.toContain(bank.questions[retireIdx].text)
   })
   it('shows anchor labels so Gerald never reads JSON', () => {
-    expect(md).toContain('highest confidence')  // slider10 anchor label
+    expect(md).toContain('Untrained')  // ability_axis anchor label (all active items are ability_axis)
   })
 })

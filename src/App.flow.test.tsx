@@ -113,8 +113,12 @@ describe('App flow', () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
     fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
-    const firstCore = bank.questions.find(q => q.tier === 'core' && q.category === bank.categories[0].id)!
-    expect(screen.getByRole('heading', { name: firstCore.text })).toBeInTheDocument()
+    const firstCore = bank.questions.find(q => q.tier === 'core' && q.status === 'active' && q.category === bank.categories[0].id)!
+    // After cutover, all active questions have slots. QuestionCard renders slots.problem (capitalized) as the h2.
+    const headingText = firstCore.slots
+      ? firstCore.slots.problem.charAt(0).toUpperCase() + firstCore.slots.problem.slice(1)
+      : firstCore.text
+    expect(screen.getByRole('heading', { name: headingText })).toBeInTheDocument()
     expect(screen.getByRole('progressbar')).toBeInTheDocument()
   })
   it('offers resume when a session exists', () => {
@@ -132,9 +136,8 @@ describe('App flow', () => {
     // Build answers for all 15 active sweep qids with valid raw values
     const answers: Record<string, { qid: string; v: number; raw: number | number[] }> = {}
     for (const q of sweepQs) {
-      // belt_curve raw is number[5], slider10 raw is number
-      const raw = q.input === 'slider10' ? 5 : [5, 5, 5, 5, 5]
-      answers[q.qid] = { qid: q.qid, v: 1, raw }
+      // After cutover all sweep questions use ability_axis (raw: number 1–100)
+      answers[q.qid] = { qid: q.qid, v: 1, raw: 50 }
     }
     localStorage.setItem('skillcheck.session.v1', JSON.stringify({
       bankVersion: bank.meta.bankVersion,
@@ -157,25 +160,20 @@ describe('App flow', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
     fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
 
-    // sweepQs order: td_002(belt_curve), gt_002(belt_curve), gb_002(slider10),
-    //   cgt_002..ll_003(belt_curve), wl_003(slider10 — last)
+    // After cutover all sweep questions use ability_axis — click SVG slider.
+    // For the last question (wrist_locks) click near the left to give a low score;
+    // for others click at center-right for a high score.
     for (let i = 0; i < sweepQs.length; i++) {
-      const q = sweepQs[i]
       const isLast = i === sweepQs.length - 1
-      if (q.input === 'slider10') {
-        // Click chip "10" for high (not last), "1" for lowest (last question = wrist_locks)
-        const label = isLast ? '1' : '10'
-        fireEvent.click(screen.getByRole('button', { name: label }))
-      } else {
-        // belt_curve: click "White: 10 of 10" — high score, fires onChange immediately
-        fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
-      }
+      const svg = document.querySelector('svg[role="slider"]')!
+      // Low clientX (~10) → axis value ~1; high clientX (~350) → axis value ~90
+      fireEvent.click(svg, { clientX: isLast ? 10 : 350 })
     }
 
     // Should now be on dashboard (VizTabs tablist present)
     expectDashboard()
 
-    // wrist_locks scored 0 (slider10 raw=1) — should appear in the category rows
+    // wrist_locks scored low (clientX≈10 → axis value ~1) — should appear in the category rows
     // If Fix 1 was broken, the drill-down state wouldn't be computed for wrist_locks
     const rows = screen.getAllByTestId('category-row')
     const wristRow = rows.find(r => r.textContent?.includes('Wrist'))
@@ -207,14 +205,17 @@ describe('App flow', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
       fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
 
-      const q1Text = sweepQs[0].text
-      const q2Text = sweepQs[1].text
+      // After cutover, QuestionCard renders slots.problem (capitalized) as the h2
+      const headingOf = (q: typeof sweepQs[0]) =>
+        q.slots ? q.slots.problem.charAt(0).toUpperCase() + q.slots.problem.slice(1) : q.text
+      const q1Text = headingOf(sweepQs[0])
+      const q2Text = headingOf(sweepQs[1])
 
       // Confirm Q1 is displayed
       expect(screen.getByRole('heading', { name: q1Text })).toBeInTheDocument()
 
-      // Answer Q1 — sweepQs[0] is belt_curve type
-      fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
+      // Answer Q1 — after cutover all sweep items use ability_axis SVG slider
+      fireEvent.click(document.querySelector('svg[role="slider"]')!, { clientX: 200 })
 
       // Q1 must still be showing — the 250ms timer must NOT have fired yet
       expect(screen.getByRole('heading', { name: q1Text })).toBeInTheDocument()
@@ -236,9 +237,9 @@ describe('App flow', () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
     fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
-    // Answer Q1 and Q2 (both belt_curve in the default bank)
-    fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
-    fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
+    // Answer Q1 and Q2 — all sweep questions use ability_axis SVG slider after cutover
+    fireEvent.click(document.querySelector('svg[role="slider"]')!, { clientX: 200 })
+    fireEvent.click(document.querySelector('svg[role="slider"]')!, { clientX: 200 })
     // Bar should reflect 2 answered
     expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '2')
     expect(screen.getByText('2/15')).toBeInTheDocument()
@@ -259,8 +260,8 @@ describe('App flow', () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
     fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
-    // Answer a couple questions, then pause
-    fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
+    // Answer Q1 via ability_axis SVG click, then pause
+    fireEvent.click(document.querySelector('svg[role="slider"]')!, { clientX: 200 })
     // Pause button should be visible during sweep
     fireEvent.click(screen.getByRole('button', { name: 'Pause' }))
     // Must show resume banner without page reload
@@ -271,10 +272,13 @@ describe('App flow', () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
     fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
-    // Answer Q1 → advance to Q2
-    fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
-    // Pause on Q2
-    const q2Text = sweepQs[1].text
+    // Answer Q1 via ability_axis SVG click → advance to Q2
+    fireEvent.click(document.querySelector('svg[role="slider"]')!, { clientX: 200 })
+    // Pause on Q2 — heading is slots.problem (capitalized) for ability_axis items
+    const q2 = sweepQs[1]
+    const q2Text = q2.slots
+      ? q2.slots.problem.charAt(0).toUpperCase() + q2.slots.problem.slice(1)
+      : q2.text
     expect(screen.getByRole('heading', { name: q2Text })).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Pause' }))
     // Resume → should land back on Q2
@@ -286,13 +290,9 @@ describe('App flow', () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
     fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
-    // Complete entire sweep to reach dashboard
-    for (const q of sweepQs) {
-      if (q.input === 'slider10') {
-        fireEvent.click(screen.getByRole('button', { name: '5' }))
-      } else {
-        fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
-      }
+    // Complete entire sweep to reach dashboard — all ability_axis after cutover
+    for (let i = 0; i < sweepQs.length; i++) {
+      answerAxisQuestion()
     }
     // Should now be on dashboard screen
     expectDashboard()
@@ -323,13 +323,9 @@ describe('App flow', () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
     fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
-    // Complete sweep
-    for (const q of sweepQs) {
-      if (q.input === 'slider10') {
-        fireEvent.click(screen.getByRole('button', { name: '5' }))
-      } else {
-        fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
-      }
+    // Complete sweep — all ability_axis after cutover
+    for (let i = 0; i < sweepQs.length; i++) {
+      answerAxisQuestion()
     }
     // On dashboard → go to results via Full report
     fireEvent.click(screen.getByRole('button', { name: 'Full report' }))
@@ -345,13 +341,9 @@ describe('App flow', () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
     fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
-    // Complete sweep
-    for (const q of sweepQs) {
-      if (q.input === 'slider10') {
-        fireEvent.click(screen.getByRole('button', { name: '5' }))
-      } else {
-        fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
-      }
+    // Complete sweep — all ability_axis after cutover
+    for (let i = 0; i < sweepQs.length; i++) {
+      answerAxisQuestion()
     }
     // Go to results
     fireEvent.click(screen.getByRole('button', { name: 'Full report' }))
@@ -379,8 +371,8 @@ describe('App flow', () => {
     // Should be in drill-down screen (question visible, not dashboard)
     expect(screen.queryByRole('tablist')).not.toBeInTheDocument()
 
-    // Answer ONE question: click chip "5"
-    fireEvent.click(screen.getByRole('button', { name: '5' }))
+    // Answer ONE drilldown question via ability_axis SVG click
+    fireEvent.click(document.querySelector('svg[role="slider"]')!, { clientX: 200 })
 
     // Click "Back to your map" bar button to return to dashboard
     fireEvent.click(screen.getByRole('button', { name: 'Back to your map' }))
@@ -399,13 +391,9 @@ describe('App flow', () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
     fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
-    // Complete sweep
-    for (const q of sweepQs) {
-      if (q.input === 'slider10') {
-        fireEvent.click(screen.getByRole('button', { name: '5' }))
-      } else {
-        fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
-      }
+    // Complete sweep — all ability_axis after cutover
+    for (let i = 0; i < sweepQs.length; i++) {
+      answerAxisQuestion()
     }
     // On dashboard → go to results
     fireEvent.click(screen.getByRole('button', { name: 'Full report' }))
@@ -433,16 +421,22 @@ describe('App flow', () => {
   })
 })
 
+/**
+ * Answer the currently visible ability_axis question by clicking the SVG slider.
+ * Mouse click on the SVG commits immediately (no Confirm button needed).
+ */
+function answerAxisQuestion() {
+  const svg = document.querySelector('svg[role="slider"]')!
+  fireEvent.click(svg, { clientX: 200 })
+}
+
 /** Helper: complete the full sweep from the intro screen */
 function completeSweep() {
   fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
   fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
-  for (const q of sweepQs) {
-    if (q.input === 'slider10') {
-      fireEvent.click(screen.getByRole('button', { name: '5' }))
-    } else {
-      fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
-    }
+  // After cutover all sweep questions use ability_axis — click the SVG slider to answer each
+  for (let i = 0; i < sweepQs.length; i++) {
+    answerAxisQuestion()
   }
 }
 

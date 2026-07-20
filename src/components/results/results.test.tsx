@@ -103,13 +103,14 @@ describe('ResultsPage', () => {
       insights: [],
     }
 
-    // Session with a slider10 answer for takedowns: raw=5 → score=(5-1)/9*100≈44
+    // Session with an ability_axis answer for takedowns: raw=50 → score=50
+    // Uses td_takedown_live (the active v0.2 core for takedowns)
     const importedSession = {
       bankVersion: '1.0.0',
       startedAt: '2026-01-01T00:00:00.000Z',
       updatedAt: '2026-01-01T00:01:00.000Z',
       intake: null,
-      answers: { td_001: { qid: 'td_001', v: 1, raw: 5 } },
+      answers: { td_takedown_live: { qid: 'td_takedown_live', v: 1, raw: 50 } },
       completedCategories: [],
     }
     const exportBlob = JSON.stringify({ schemaVersion: 1, sessions: [importedSession] })

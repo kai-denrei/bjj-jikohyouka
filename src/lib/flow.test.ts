@@ -29,22 +29,29 @@ describe('flow selection', () => {
   it('drilldown excludes the core item and retired items', () => {
     const qs = drilldownQuestions(bank, 'takedowns', false)
     expect(qs.every(q => q.tier === 'drilldown' && q.status !== 'retired')).toBe(true)
-    expect(qs.length).toBeGreaterThan(3)
+    // After cutover: pilot drilldowns are active ability_axis items
+    expect(qs.length).toBeGreaterThan(0)
+    expect(qs.every(q => q.input === 'ability_axis')).toBe(true)
   })
   it('never returns retired questions in any mode', () => {
     expect(visibleQuestions(bank, true).every(q => q.status !== 'retired')).toBe(true)
   })
   it('recommends the 3 lowest categories', () => {
-    const answers = Object.fromEntries(sweepQuestions(bank, false).map((q, i) => [q.qid, { qid: q.qid, v: q.v, raw: i < 3 ? 2 : 8 }]))
+    // After cutover all sweep questions use ability_axis (raw: 1–100)
+    // Give first 3 categories low raw (20) and rest high (80) to pin 3 lowest = first 3 positional
+    const answers = Object.fromEntries(sweepQuestions(bank, false).map((q, i) => [q.qid, { qid: q.qid, v: q.v, raw: i < 3 ? 20 : 80 }]))
     const recs = recommendedDrilldowns(scoreAnswers(answers, bank), bank)
     expect(recs).toHaveLength(3)
     expect(recs).toEqual(bank.categories.slice(0, 3).map(c => c.id))
   })
 
-  it('draft mode drill-downs return only draft questions for a pilot category', () => {
+  it('draft mode drill-downs return draft questions for a pilot category', () => {
     const qs = drilldownQuestions(bank, 'takedowns', true)
     expect(qs.every(q => q.status === 'draft')).toBe(true)
-    expect(qs.length).toBeGreaterThan(0)
+    // After cutover: ability_axis pilot drilldowns are active; remaining drafts are frequency10/agree3 supplements
+    // for a non-pilot category, should still be empty
+    const mountQs = drilldownQuestions(bank, 'mount_top', true)
+    expect(mountQs).toEqual([])
   })
 
   it('draft mode drill-downs return empty array for non-pilot categories', () => {
@@ -58,8 +65,9 @@ describe('flow selection', () => {
     expect(qs.length).toBeGreaterThan(0)
   })
 
-  it('draft mode pilot questions never include v0.1 input formats (slider10 or belt_curve)', () => {
+  it('any remaining draft pilot questions never include v0.1 input formats (slider10 or belt_curve)', () => {
     const qs = drilldownQuestions(bank, 'takedowns', true)
+    // If drafts exist in pilot categories, they must not be v0.1 format
     expect(qs.every(q => q.input !== 'slider10' && q.input !== 'belt_curve')).toBe(true)
   })
 })
