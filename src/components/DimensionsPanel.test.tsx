@@ -21,7 +21,7 @@ describe('DimensionsPanel', () => {
     render(<DimensionsPanel open onClose={() => {}} />)
     expect(
       screen.getByText(
-        /Fifteen positional situations, plus the qualities that cut across all of them\./,
+        /Fifteen positional situations, three explicit meta-quality dimensions, plus the qualities that cut across all of them\./,
       ),
     ).toBeInTheDocument()
     expect(

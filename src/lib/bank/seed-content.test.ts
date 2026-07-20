@@ -10,13 +10,15 @@ describe('§9 seed drafts', () => {
     expect(drafts.every(q => q.rationale?.startsWith('PLACEHOLDER — pending Gerald review'))).toBe(true)
   })
   it('15 draft sweep rewrites, one per positional category, ability_axis, with lineage', () => {
-    const sweep = drafts.filter(q => q.tier === 'core')
+    const positionalCatIds = new Set(bank.categories.filter(c => c.axis === 'positional').map(c => c.id))
+    const sweep = drafts.filter(q => q.tier === 'core' && positionalCatIds.has(q.category))
     expect(sweep).toHaveLength(15)
     expect(new Set(sweep.map(q => q.category)).size).toBe(15)
     expect(sweep.every(q => q.input === 'ability_axis' && typeof q.replaces === 'string')).toBe(true)
   })
   it('draft sweep + meta items pass the wording linter clean', () => {
-    const strict = drafts.filter(q => q.tier === 'core' || q.category === 'meta_qualities')
+    const META_CATS = new Set(['meta_qualities', 'pressure', 'connection', 'mind_games'])
+    const strict = drafts.filter(q => q.tier === 'core' || META_CATS.has(q.category))
     for (const q of strict) expect(lintText(q.qid, q.text), q.qid).toEqual([])
   })
   it('psychological and reputation partner items never count toward skill', () => {

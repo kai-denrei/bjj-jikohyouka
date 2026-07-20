@@ -26,7 +26,7 @@ export function visibleQuestions(bank: Bank, drafts: boolean): Question[] {
 
 export function sweepQuestions(bank: Bank, drafts: boolean): Question[] {
   const result: Question[] = []
-  for (const category of bank.categories) {
+  for (const category of bank.categories.filter(c => c.axis === 'positional')) {
     // When drafts=true, a draft core replaces the active core of the same category
     if (drafts) {
       const draftCore = bank.questions.find(q => q.category === category.id && q.tier === 'core' && q.status === 'draft')

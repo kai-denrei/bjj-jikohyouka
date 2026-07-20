@@ -52,4 +52,4 @@ The first milestone for Option C is small: tag the 10 existing `meta_qualities.j
 
 ---
 
-Decision: ____
+Decision: (b) — first-class categories for pressure, connection, and mind games, per Gerald 2026-07-20 (verdict #6). Sweep inclusion (15 → 18) still open; current build keeps the sweep at 15 positional.

@@ -18,6 +18,14 @@ describe('flow selection', () => {
     expect(qs.map(q => q.category)).toEqual(positionalCategoryIds)
     expect(qs.every(q => q.tier === 'core' && q.status === 'active')).toBe(true)
   })
+  it('draft mode sweep stays positional-only at 15 despite new meta core drafts', () => {
+    const qs = sweepQuestions(bank, true)
+    expect(qs).toHaveLength(15)
+    expect(qs.every(q => {
+      const cat = bank.categories.find(c => c.id === q.category)
+      return cat?.axis === 'positional'
+    })).toBe(true)
+  })
   it('drilldown excludes the core item and retired items', () => {
     const qs = drilldownQuestions(bank, 'takedowns', false)
     expect(qs.every(q => q.tier === 'drilldown' && q.status !== 'retired')).toBe(true)

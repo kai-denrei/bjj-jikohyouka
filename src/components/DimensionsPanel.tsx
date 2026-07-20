@@ -1,12 +1,15 @@
 /**
- * DimensionsPanel.tsx — Task 4, verdict #5
+ * DimensionsPanel.tsx — Task 4, verdict #5; updated verdict #6
  *
  * Full-screen panel explaining the dimensions we measure.
  * Mirrors the InfoPanel dialog pattern.
  *
  * Positional list: derived live from the bank (axis=positional) — stays in
  * sync with categories.json automatically.
+ * Meta-quality dimensions: derived live from the bank (axis=meta) — pressure,
+ * connection, mind_games are now first-class categories.
  * Cross-cutting qualities: hardcoded labels + one-line item text.
+ * 5 cross-cutting qualities (pressure and connection are now first-class meta-quality categories)
  * Source for quality names: src/data/question-bank/questions/meta-qualities.json
  */
 import { useEffect } from 'react'
@@ -22,20 +25,18 @@ const POSITIONAL_CATEGORIES = bank.categories
   .filter(c => c.axis === 'positional')
   .map(c => ({ id: c.id, shortName: c.shortName ?? c.name, description: c.description ?? '' }))
 
+/** Meta-quality dimensions — bank-derived (axis=meta) — pressure, connection, mind_games are first-class categories */
+const META_CATEGORIES = bank.categories
+  .filter(c => c.axis === 'meta')
+  .map(c => ({ id: c.id, shortName: c.shortName ?? c.name, description: c.description ?? '' }))
+
 /**
- * 7 cross-cutting qualities — labels hardcoded; text is sourced from meta-qualities.json.
+ * 5 cross-cutting qualities — labels hardcoded; text is sourced from meta-qualities.json.
+ * Pressure and connection removed — they are now first-class meta-quality categories.
  * For Defense depth, both early (mq_defense_early) and late (mq_defense_late) stages are shown.
  * Source: src/data/question-bank/questions/meta-qualities.json
  */
 const CROSS_CUTTING_QUALITIES = [
-  {
-    label: 'Pressure',
-    text: 'My top pins — Opponents conceding position before you attack',
-  },
-  {
-    label: 'Connection',
-    text: 'In my last 10 transitions between dominant positions, my partner recovered guard before I settled the new position',
-  },
   {
     label: 'Composure',
     text: 'Their dominant position — Framing, breathing, and planning before they attack',
@@ -142,12 +143,43 @@ export function DimensionsPanel({ open, onClose }: DimensionsPanelProps) {
 
         {/* Intro */}
         <p style={{ margin: '0 0 20px', fontSize: '14px', lineHeight: '1.6', color: 'var(--ink)' }}>
-          Fifteen positional situations, plus the qualities that cut across all of them. This map is version 0.2 — it will be wrong in places, and your feedback reshapes it.
+          Fifteen positional situations, three explicit meta-quality dimensions, plus the qualities that cut across all of them. This map is version 0.2 — it will be wrong in places, and your feedback reshapes it.
         </p>
 
         {/* Positional list */}
         <div style={{ marginBottom: '24px' }}>
           {POSITIONAL_CATEGORIES.map(cat => (
+            <div
+              key={cat.id}
+              style={{
+                padding: '8px 0',
+                borderBottom: '1px solid var(--line)',
+                fontSize: '14px',
+                lineHeight: '1.5',
+              }}
+            >
+              <span style={{ fontWeight: 700 }}>{cat.shortName}</span>
+              {' — '}
+              <span style={{ color: 'var(--ink-2)' }}>{cat.description}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Meta-quality dimensions */}
+        <div style={{ marginBottom: '24px' }}>
+          <h3
+            style={{
+              margin: '0 0 12px',
+              fontSize: 12,
+              color: 'var(--ink-2)',
+              fontWeight: 500,
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+            }}
+          >
+            Meta-quality dimensions
+          </h3>
+          {META_CATEGORIES.map(cat => (
             <div
               key={cat.id}
               style={{

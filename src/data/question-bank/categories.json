@@ -129,6 +129,30 @@
       "description": "What makes someone hard to deal with, regardless of position"
     },
     {
+      "id": "pressure",
+      "name": "Pressure",
+      "shortName": "Pressure",
+      "axis": "meta",
+      "weight": 1.0,
+      "description": "Relaxed weight and control that shuts their movement down before you attack"
+    },
+    {
+      "id": "connection",
+      "name": "Connection",
+      "shortName": "Connection",
+      "axis": "meta",
+      "weight": 1.0,
+      "description": "Reading and controlling their center through the hips, shoulders, and limbs you hold"
+    },
+    {
+      "id": "mind_games",
+      "name": "Mind Games",
+      "shortName": "Mind Games",
+      "axis": "meta",
+      "weight": 1.0,
+      "description": "Forcing or predicting their next move and acting before they do"
+    },
+    {
       "id": "reputation",
       "name": "Reputation & partners",
       "shortName": "Reputation",
