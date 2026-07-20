@@ -8,7 +8,7 @@ import { IntroLanding } from './IntroLanding'
 describe('IntroLanding', () => {
   it('renders the hero line verbatim', () => {
     render(<IntroLanding onStart={() => {}} />)
-    expect(screen.getByText('Belts are a rough map. Ability is the territory.')).toBeInTheDocument()
+    expect(screen.getByText('All Models are Wrong, Some are useful, Belt Colors are only moderately so.')).toBeInTheDocument()
   })
 
   it('renders the explanation with r ≈ .29', () => {
@@ -29,7 +29,7 @@ describe('IntroLanding', () => {
     const onStart = vi.fn(), onContinue = vi.fn()
     render(<IntroLanding onStart={onStart} onContinue={onContinue} />)
     // the bell-curve hero is still present — the whole point of the fix
-    expect(screen.getByText('Belts are a rough map. Ability is the territory.')).toBeInTheDocument()
+    expect(screen.getByText('All Models are Wrong, Some are useful, Belt Colors are only moderately so.')).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Start the sweep' })).toBeNull()
     fireEvent.click(screen.getByRole('button', { name: 'Continue where you left off' }))
     expect(onContinue).toHaveBeenCalledTimes(1)
@@ -37,33 +37,44 @@ describe('IntroLanding', () => {
     expect(onStart).toHaveBeenCalledTimes(1)
   })
 
-  it('legend is an ordered list with 6 items in ability order: beginner first, competitor last', () => {
+  it('each dot [data-intro-dot] element has role="button" and a non-empty aria-label', () => {
     render(<IntroLanding onStart={() => {}} />)
-    const list = screen.getByRole('list')
-    const items = Array.from(list.querySelectorAll('li'))
-    expect(items).toHaveLength(6)
-    // first item contains "Beginner"
-    expect(items[0].textContent?.toLowerCase()).toContain('beginner')
-    // last item contains "competitor"
-    expect(items[5].textContent?.toLowerCase()).toContain('competitor')
+    const dots = document.querySelectorAll('[data-intro-dot]')
+    expect(dots).toHaveLength(6)
+    for (const dot of Array.from(dots)) {
+      expect(dot.getAttribute('role')).toBe('button')
+      const label = dot.getAttribute('aria-label')
+      expect(label).toBeTruthy()
+      expect((label ?? '').length).toBeGreaterThan(0)
+    }
   })
 
-  it('legend has brown before blue (the overlap-pair adjacency)', () => {
+  it('clicking dot 2 shows an overlay with its label; clicking elsewhere hides it', () => {
     render(<IntroLanding onStart={() => {}} />)
-    const list = screen.getByRole('list')
-    const items = Array.from(list.querySelectorAll('li'))
-    const texts = items.map(li => li.textContent?.toLowerCase() ?? '')
-    const brownIdx = texts.findIndex(t => t.includes('brown') || t.includes('out-of-shape'))
-    const blueIdx = texts.findIndex(t => t.includes('blue') || t.includes('wrestling'))
-    expect(brownIdx).toBeGreaterThanOrEqual(0)
-    expect(blueIdx).toBeGreaterThanOrEqual(0)
-    expect(brownIdx).toBeLessThan(blueIdx)
+    // Dot 2 is the brown out-of-shape grappler
+    const dot2 = document.querySelector('[data-intro-dot="2"]')!
+    expect(dot2).not.toBeNull()
+
+    // Before click: no overlay
+    expect(document.querySelector('[data-dot-overlay="2"]')).toBeNull()
+
+    // Click dot 2 — in jsdom there's no pointerType so it defaults to mouse path (show)
+    fireEvent.click(dot2)
+    const overlay = document.querySelector('[data-dot-overlay="2"]')
+    expect(overlay).not.toBeNull()
+    // Overlay should contain the dot's label text
+    expect(overlay!.textContent).toContain('Brown belt, out-of-shape')
+
+    // Click the SVG root (background) to dismiss
+    const svg = document.querySelector('svg[role="img"]')!
+    fireEvent.click(svg)
+    expect(document.querySelector('[data-dot-overlay="2"]')).toBeNull()
   })
 
   it('renders the overlap micro-label in the SVG at the bracket', () => {
     render(<IntroLanding onStart={() => {}} />)
     // Micro-label is a single SVG text element anchored to the bracket midpoint.
-    expect(screen.getByText('same ability, different belt')).toBeInTheDocument()
+    expect(screen.getByText('Similar Ability, Different Belts')).toBeInTheDocument()
   })
 
   it('chart has role="img" and an aria-label mentioning overlap', () => {
@@ -97,5 +108,15 @@ describe('IntroLanding', () => {
       const el = document.querySelector(`[data-dot-n="${n}"]`)
       expect(el).not.toBeNull()
     }
+  })
+
+  it('renders the hint line "Tap a dot to see who\'s who"', () => {
+    render(<IntroLanding onStart={() => {}} />)
+    expect(screen.getByText(/Tap a dot to see who/)).toBeInTheDocument()
+  })
+
+  it('explanation contains "Where does my game start to struggle?"', () => {
+    render(<IntroLanding onStart={() => {}} />)
+    expect(screen.getByText(/Where does my game start to struggle\?/)).toBeInTheDocument()
   })
 })

@@ -5,8 +5,8 @@ import App from './App'
 describe('App shell', () => {
   it('opens on the visual intro landing with hero line, r≈.29, and a start button', () => {
     render(<App />)
-    // Visual landing hero line (verdict #7)
-    expect(screen.getByText('Belts are a rough map. Ability is the territory.')).toBeInTheDocument()
+    // Visual landing hero line (verdict #8)
+    expect(screen.getByText('All Models are Wrong, Some are useful, Belt Colors are only moderately so.')).toBeInTheDocument()
     // Honest-framing copy including the r≈.29 figure
     expect(screen.getByText(/r ≈ \.29/)).toBeInTheDocument()
     // Start button unchanged

@@ -4,7 +4,7 @@
  * Renders an SVG bell-curve chart with the same 5 belt curves as BellCurveAxis
  * (identical gaussian params / shared function), 6 numbered example-grappler
  * dots sitting on their respective curves, an overlap bracket at x≈42 linking
- * dots 2 & 3 (brown/blue at the same ability), and an ability-ordered legend.
+ * dots 2 & 3 (brown/blue at the same ability), and interactive per-dot overlays.
  *
  * Architecture contract:
  * - Curves computed via gaussianAxisHeight from src/lib/gaussian (shared source).
@@ -31,6 +31,11 @@ const PLOT_H        = 120
 const AXIS_Y        = 138
 const LABEL_Y       = 155
 const MICRO_LABEL_Y = 171   // row below LABEL_Y for the overlap annotation
+
+// ── Overlay dimensions ────────────────────────────────────────────────────────
+const OVERLAY_W     = 140   // fixed width of the tooltip rect
+const OVERLAY_H     = 38    // fixed height (two text lines + padding)
+const OVERLAY_PAD   = 6
 
 // ── Overlap pair rendering constants ─────────────────────────────────────────
 // Dots 2 and 3 sit at x=42 and x=43 — near-coincident. Small horizontal nudges
@@ -142,6 +147,12 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
   const [curvesVisible, setCurvesVisible] = useState(reduced)
   const [bracketVisible, setBracketVisible] = useState(reduced)
 
+  // Active overlay dot (n value)
+  const [activeDot, setActiveDot] = useState<number | null>(null)
+
+  // Track the last pointer type to distinguish touch vs mouse
+  const lastPointerType = useRef<string>('mouse')
+
   const timerRefs = useRef<ReturnType<typeof setTimeout>[]>([])
 
   useEffect(() => {
@@ -182,6 +193,15 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
     d: buildGaussianPath(belt),
   }))
 
+  // Handle SVG background click (dismiss overlay)
+  function handleSvgClick(e: React.MouseEvent<SVGSVGElement>) {
+    // Only dismiss if the click target is the SVG root or a non-dot element
+    const target = e.target as Element
+    if (!target.closest('[data-intro-dot]')) {
+      setActiveDot(null)
+    }
+  }
+
   return (
     <div style={{ fontFamily: 'var(--font-body)' }}>
       {/* ── Hero headline ── */}
@@ -195,7 +215,7 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
           letterSpacing: '-0.01em',
         }}
       >
-        Belts are a rough map. Ability is the territory.
+        All Models are Wrong, Some are useful, Belt Colors are only moderately so.
       </h1>
 
       {/* ── SVG hero chart ── */}
@@ -204,11 +224,12 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
         style={{
           width: '100%',
           display: 'block',
-          marginBottom: 16,
+          marginBottom: 8,
           overflow: 'visible',
         }}
         role="img"
         aria-label="Bell curves showing the ability distribution for each belt. A blue belt with a wrestling background and a brown belt who is out of shape can have the same ability score — the overlap pair shows belt rank and ability diverge."
+        onClick={handleSvgClick}
       >
         {/* Curves — white→black paint order */}
         {curvePaths.map(({ belt, d }) => {
@@ -286,7 +307,7 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
             fill="var(--accent)"
             textAnchor="middle"
           >
-            same ability, different belt
+            Similar Ability, Different Belts
           </text>
         </g>
 
@@ -300,6 +321,7 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
           const visible = i < dotsVisible
           const belt = dot.belt as BeltName
           const pipR = isOverlap ? OVERLAP_PIP_R : 9
+          const isActive = activeDot === dot.n
 
           // Dot stroke: overlap pair gets a clear 1px --mat outline so a partly-
           // overlapping back pip still reads; others use the both-extremes rule.
@@ -309,15 +331,68 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
             : belt === 'black' ? 'var(--line-strong)'
             : 'var(--belt-white)'
 
+          // Clamp overlay x so [overlayLeft, overlayLeft+OVERLAY_W] stays within [PLOT_X0, PLOT_X1]
+          const rawLeft = cx - OVERLAY_W / 2
+          const overlayX = Math.max(PLOT_X0, Math.min(rawLeft, PLOT_X1 - OVERLAY_W))
+
+          // Position above the dot; flip below if dot is near the top
+          const overlayAbove = cy >= 50
+          const overlayY = overlayAbove ? cy - pipR - 8 - OVERLAY_H : cy + pipR + 8
+
+          function handlePointerDown(e: React.PointerEvent) {
+            lastPointerType.current = e.pointerType
+          }
+
+          function handleClick(e: React.MouseEvent) {
+            e.stopPropagation()
+            if (lastPointerType.current === 'touch') {
+              // Touch: toggle
+              setActiveDot(prev => prev === dot.n ? null : dot.n)
+            } else {
+              // Mouse click (from keyboard Enter/Space or direct click already handled by enter/leave)
+              setActiveDot(dot.n)
+            }
+          }
+
+          function handleMouseEnter() {
+            if (lastPointerType.current !== 'touch') {
+              setActiveDot(dot.n)
+            }
+          }
+
+          function handleMouseLeave() {
+            if (lastPointerType.current !== 'touch') {
+              setActiveDot(null)
+            }
+          }
+
+          function handleKeyDown(e: React.KeyboardEvent) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              setActiveDot(prev => prev === dot.n ? null : dot.n)
+            }
+          }
+
           return (
             <g
               key={dot.n}
               data-intro-dot={dot.n}
               data-dot-n={dot.n}
+              role="button"
+              tabIndex={0}
+              aria-label={`Dot ${dot.n}: ${dot.label}`}
+              aria-expanded={isActive}
               style={{
                 opacity: visible ? 1 : 0,
                 transition: reduced ? 'none' : 'opacity 0.2s ease-in',
+                cursor: 'pointer',
+                outline: 'none',
               }}
+              onPointerDown={handlePointerDown}
+              onClick={handleClick}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onKeyDown={handleKeyDown}
             >
               {/* Belt-colored circle */}
               <circle
@@ -340,59 +415,49 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
               >
                 {dot.n}
               </text>
+
+              {/* Per-dot overlay — only visible when this dot is active */}
+              {isActive && (
+                <g data-dot-overlay={dot.n}>
+                  <rect
+                    x={overlayX}
+                    y={overlayY}
+                    width={OVERLAY_W}
+                    height={OVERLAY_H}
+                    rx={4}
+                    fill="var(--mat)"
+                    stroke="var(--line)"
+                    strokeWidth={1}
+                  />
+                  <text
+                    x={overlayX + OVERLAY_PAD}
+                    y={overlayY + OVERLAY_PAD + 10}
+                    fontFamily="var(--font-body)"
+                    fontSize={10}
+                    fill="var(--ink)"
+                  >
+                    {dot.label}
+                  </text>
+                  <text
+                    x={overlayX + OVERLAY_PAD}
+                    y={overlayY + OVERLAY_PAD + 24}
+                    fontFamily="var(--font-mono)"
+                    fontSize={9}
+                    fill="var(--ink-2)"
+                  >
+                    x{dot.x}
+                  </text>
+                </g>
+              )}
             </g>
           )
         })}
       </svg>
 
-      {/* ── Ability-ordered legend ── */}
-      <ol
-        role="list"
-        style={{
-          margin: '0 0 16px',
-          padding: 0,
-          listStyle: 'none',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 6,
-        }}
-      >
-        {INTRO_DOTS.map(dot => {
-          return (
-            <li
-              key={dot.n}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                fontFamily: 'var(--font-body)',
-                fontSize: 13,
-                color: 'var(--ink)',
-              }}
-            >
-              {/* Mono number */}
-              <span
-                className="mono"
-                style={{ width: 16, flexShrink: 0, color: 'var(--ink-2)', textAlign: 'right' }}
-              >
-                {dot.n}
-              </span>
-              {/* Belt-colored pip */}
-              <span
-                className="belt-dot"
-                data-belt={dot.belt}
-                style={{ flexShrink: 0 }}
-              />
-              {/* Label */}
-              <span style={{ flex: 1 }}>{dot.label}</span>
-              {/* Ability axis figure */}
-              <span className="mono" style={{ flexShrink: 0, color: 'var(--ink-2)' }}>
-                x{dot.x}
-              </span>
-            </li>
-          )
-        })}
-      </ol>
+      {/* ── Hint line ── */}
+      <p className="mono" style={{ fontSize: 12, color: 'var(--ink-2)', margin: '0 0 12px', textAlign: 'center' }}>
+        Tap a dot to see who&apos;s who
+      </p>
 
       {/* ── Explanation ── */}
       <p
@@ -401,11 +466,18 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
           fontSize: 14,
           color: 'var(--ink-2)',
           margin: '0 0 20px',
-          lineHeight: 1.5,
+          lineHeight: 1.6,
         }}
       >
-        Belt color tracks ability loosely — and self-ratings track it even more loosely,
-        about r&nbsp;≈&nbsp;.29. This is a mirror, not a measurement.
+        Belt Color is a loose indicator of ability, and self-rating in general is even more noisy
+        (&apos;r&nbsp;≈&nbsp;.29&apos; means that self-assessment of skills typically only explains 29% of actual skill,
+        e.g. humans are notoriously bad at self-awareness). Nonetheless this self-assessment test is
+        meant to surface potential areas for work. When answering, picture the vast range of all the
+        people you&apos;ve trained with; the young prodigies, the octopus-like purple belt leg-locker addict,
+        the slow-heavy older black belt, the tiny brown belt with impeccable technique, the flow-gods,
+        the omg-so-heavy-wtf wizards able to redirect and pinpoint their weight effortlessly where it
+        stalls you the most, etc. Think &apos;Where does my game start to struggle?&apos;, answer honestly,
+        perhaps get some insights.
       </p>
 
       {/* ── Footer: resume when a session exists, else start ── */}
