@@ -198,22 +198,30 @@ describe('VizTabs', () => {
     expect(screen.queryByTestId('depth-bars')).toBeNull()
   })
 
-  it('arrow keys move tab focus', () => {
+  it('arrow keys move focus and activate the tab (automatic activation)', () => {
     render(<VizTabs categories={scored3} />)
     const tabs = screen.getAllByRole('tab')
     tabs[0].focus()
-    // ArrowRight from Spider → Depth
+    // ArrowRight from Spider → Depth: focus moves AND Depth is activated
     fireEvent.keyDown(tabs[0], { key: 'ArrowRight' })
     expect(document.activeElement).toBe(tabs[1])
-    // ArrowRight from Depth → Heat
+    expect(tabs[1]).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByTestId('depth-bars')).toBeInTheDocument()
+    // ArrowRight from Depth → Heat: focus moves AND Heat is activated
     fireEvent.keyDown(tabs[1], { key: 'ArrowRight' })
     expect(document.activeElement).toBe(tabs[2])
-    // ArrowRight from Heat → wraps to Spider
+    expect(tabs[2]).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByTestId('heat-map')).toBeInTheDocument()
+    // ArrowRight from Heat → wraps to Spider: focus moves AND Spider is activated
     fireEvent.keyDown(tabs[2], { key: 'ArrowRight' })
     expect(document.activeElement).toBe(tabs[0])
-    // ArrowLeft from Spider → Heat (wrap)
+    expect(tabs[0]).toHaveAttribute('aria-selected', 'true')
+    expect(screen.queryByTestId('depth-bars')).toBeNull()
+    // ArrowLeft from Spider → Heat (wrap): focus moves AND Heat is activated
     fireEvent.keyDown(tabs[0], { key: 'ArrowLeft' })
     expect(document.activeElement).toBe(tabs[2])
+    expect(tabs[2]).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByTestId('heat-map')).toBeInTheDocument()
   })
 
   it('persists selected tab to localStorage', () => {

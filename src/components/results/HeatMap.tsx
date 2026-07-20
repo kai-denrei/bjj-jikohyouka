@@ -40,12 +40,19 @@ function shortLabel(shortName: string | undefined, name: string): string {
 }
 
 // Hatch pattern as a CSS background (SVG data URI)
+// %2339415A equals var(--line) #39415A — CSS custom properties cannot reach inside SVG data URIs; keep in sync with tokens.css
 const HATCH_BG =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cline x1='0' y1='0' x2='0' y2='6' stroke='%2339415A' stroke-width='0.5'/%3E%3C/svg%3E\")"
 
 export function HeatMap({ categories }: HeatMapProps) {
   const positional = categories.filter(c => c.axis === 'positional')
   if (positional.length === 0) return null
+
+  // Group categories into rows of 5 for proper ARIA table > row > cell structure
+  const rows: CategoryScore[][] = []
+  for (let i = 0; i < positional.length; i += 5) {
+    rows.push(positional.slice(i, i + 5))
+  }
 
   return (
     <div
@@ -60,57 +67,61 @@ export function HeatMap({ categories }: HeatMapProps) {
         margin: '0 auto',
       }}
     >
-      {positional.map(cat => {
-        const isUnscored = cat.score === null
-        const label = shortLabel(cat.shortName, cat.name)
+      {rows.map((row, rowIdx) => (
+        <div key={`row-${rowIdx}`} role="row" style={{ display: 'contents' }}>
+          {row.map(cat => {
+            const isUnscored = cat.score === null
+            const label = shortLabel(cat.shortName, cat.name)
 
-        return (
-          <div
-            key={cat.categoryId}
-            role="cell"
-            aria-label={ariaLabel(cat.name, cat.band)}
-            style={{
-              position: 'relative',
-              height: 48,
-              borderRadius: 3,
-              border: '1px solid var(--line)',
-              background: isUnscored
-                ? `${HATCH_BG}, transparent`
-                : getCellBackground(cat.band),
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              overflow: 'hidden',
-            }}
-          >
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: 10,
-                color: isUnscored ? 'var(--ink-2)' : 'var(--ink)',
-                textAlign: 'center',
-                lineHeight: 1.2,
-                padding: '0 2px',
-                wordBreak: 'break-word',
-              }}
-            >
-              {label}
-            </span>
-            {cat.score !== null && (
-              <span
+            return (
+              <div
+                key={cat.categoryId}
+                role="cell"
+                aria-label={ariaLabel(cat.name, cat.band)}
                 style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 8,
-                  color: 'var(--ink-2)',
+                  position: 'relative',
+                  height: 48,
+                  borderRadius: 3,
+                  border: '1px solid var(--line)',
+                  background: isUnscored
+                    ? `${HATCH_BG}, transparent`
+                    : getCellBackground(cat.band),
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden',
                 }}
               >
-                {cat.score}
-              </span>
-            )}
-          </div>
-        )
-      })}
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 10,
+                    color: isUnscored ? 'var(--ink-2)' : 'var(--ink)',
+                    textAlign: 'center',
+                    lineHeight: 1.2,
+                    padding: '0 2px',
+                    wordBreak: 'break-word',
+                  }}
+                >
+                  {label}
+                </span>
+                {cat.score !== null && (
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: 8,
+                      color: 'var(--ink-2)',
+                    }}
+                  >
+                    {cat.score}
+                  </span>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      ))}
     </div>
   )
 }

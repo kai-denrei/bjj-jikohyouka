@@ -56,14 +56,18 @@ export function VizTabs({ categories }: VizTabsProps) {
   }
 
   function handleKeyDown(e: React.KeyboardEvent, idx: number) {
+    // Automatic activation: arrow keys move focus AND activate the focused tab.
+    // This follows WAI-ARIA best practices for tablist with automatic activation.
     if (e.key === 'ArrowRight') {
       e.preventDefault()
       const next = (idx + 1) % TABS.length
       tabRefs.current[next]?.focus()
+      activate(TABS[next].id)
     } else if (e.key === 'ArrowLeft') {
       e.preventDefault()
       const prev = (idx - 1 + TABS.length) % TABS.length
       tabRefs.current[prev]?.focus()
+      activate(TABS[prev].id)
     }
   }
 
