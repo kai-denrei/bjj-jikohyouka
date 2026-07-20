@@ -1,5 +1,12 @@
 # Question Bank Changelog
 
+## 1.1.0 — 2026-07-20
+
+- **Cutover v0.1→v0.2:** activated 28 ability_axis questions (15 positional sweep cores, one per positional category + 13 pilot drilldowns across takedowns/closed_guard_bottom/half_guard_bottom). Retired all 173 v0.1 questions (148 slider10 + 25 belt_curve) non-destructively — they remain in-file as status:retired.
+- Active bank shape: 28 active items, all ability_axis input. Sweep (non-draft) returns 15 ability_axis cores, one per positional category.
+- Kept draft (pending Gerald review): 3 new meta categories (pressure/connection/mind_games) with 9 ability_axis drafts + 2 flagged needs_gerald_review; 8 meta_qualities rework drafts; 8 reputation items; 6 pilot frequency10/agree3 drilldown supplements.
+- 12 non-pilot positional categories have active core but no active drilldowns (dashboard shows "Not yet written") — correct by design, no drilldowns fabricated.
+
 ## [Unreleased — drafts]
 
 - Verdict #6 dimensions decision: three new first-class meta-quality categories — `pressure`, `connection`, `mind_games` (axis: meta, weight: 1.0).
