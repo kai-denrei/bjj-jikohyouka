@@ -22,6 +22,7 @@
 import { useRef, useState, useEffect } from 'react'
 import type { Scale } from '../../lib/bank/schema'
 import '../../styles/tokens.css'
+import { gaussianAxisHeight as gaussianAxisHeightShared } from '../../lib/gaussian'
 
 export interface BellCurveAxisProps {
   scale: Scale
@@ -83,15 +84,14 @@ function axisToSvgX(v: number): number {
 }
 
 // EXPORTED — used by both path builder and dot renderer
-// Returns normalized height in PLOT_H units (same as before: 0..height)
+// Delegates to the shared lib so IntroLanding + BellCurveAxis share ONE gaussian.
 export function gaussianAxisHeight(
   axisVal: number,
   mean: number,
   sd: number,
   height: number
 ): number {
-  const exponent = -((axisVal - mean) ** 2) / (2 * sd ** 2)
-  return height * Math.exp(exponent)
+  return gaussianAxisHeightShared(axisVal, mean, sd, height)
 }
 
 /** Evaluate gaussian at SVG x for one curve — internal use for path builder */
