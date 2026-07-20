@@ -19,6 +19,10 @@ export interface DashboardProps {
   availableCategoryIds: Set<string>
   drafts: boolean
   onShowDimensions?: () => void
+  /** When true: session was finished & saved — rows become non-clickable, note shown */
+  finished?: boolean
+  /** Called when user clicks "Start new assessment" in finished mode */
+  onStartOver?: () => void
 }
 
 /** Count qids in session.answers that belong to drilldown questions for categoryId. */
@@ -44,6 +48,8 @@ interface CategoryRowProps {
   drilldownTotal: number
   drilldownAnswered: number
   onPick: (categoryId: string) => void
+  /** When true, always render as a non-clickable div regardless of isAvailable */
+  finished?: boolean
 }
 
 function CategoryRow({
@@ -55,6 +61,7 @@ function CategoryRow({
   drilldownTotal,
   drilldownAnswered,
   onPick,
+  finished = false,
 }: CategoryRowProps) {
   const rowStyle: React.CSSProperties = {
     display: 'flex',
@@ -117,7 +124,7 @@ function CategoryRow({
     </>
   )
 
-  if (isAvailable) {
+  if (isAvailable && !finished) {
     return (
       <button
         type="button"
@@ -135,7 +142,7 @@ function CategoryRow({
     <div
       data-testid="category-row"
       style={rowStyle}
-      aria-label={`${displayName} — not available`}
+      aria-label={finished ? `${displayName}` : `${displayName} — not available`}
     >
       {inner}
     </div>
@@ -150,6 +157,8 @@ export function Dashboard({
   availableCategoryIds,
   drafts,
   onShowDimensions,
+  finished = false,
+  onStartOver,
 }: DashboardProps) {
   // Completed categories come from the session
   const completedSet = new Set(session?.completedCategories ?? [])
@@ -185,6 +194,7 @@ export function Dashboard({
         drilldownTotal={drilldownTotal}
         drilldownAnswered={drilldownAnswered}
         onPick={onPick}
+        finished={finished}
       />
     )
   }
@@ -197,6 +207,20 @@ export function Dashboard({
       {/* Deep dives section */}
       <div>
         <h2 style={{ margin: '0 0 4px', fontSize: 16 }}>Deep dives</h2>
+
+        {/* Finished-mode note + start-over button */}
+        {finished && (
+          <div style={{ marginBottom: 12 }}>
+            <p style={{ margin: '0 0 8px', fontSize: 14, color: 'var(--ink-2)' }}>
+              Saved. Start a new assessment to keep filling the map.
+            </p>
+            {onStartOver && (
+              <button type="button" className="btn" onClick={onStartOver}>
+                Start new assessment
+              </button>
+            )}
+          </div>
+        )}
 
         {/* Positional rows */}
         <div style={{ marginBottom: 16 }}>

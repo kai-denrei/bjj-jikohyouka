@@ -400,3 +400,76 @@ describe('App flow', () => {
     expect(pauseBtn.style.flexShrink).toBe('0')
   })
 })
+
+/** Helper: complete the full sweep from the intro screen */
+function completeSweep() {
+  fireEvent.click(screen.getByRole('button', { name: 'Start the sweep' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Skip for now' }))
+  for (const q of sweepQs) {
+    if (q.input === 'slider10') {
+      fireEvent.click(screen.getByRole('button', { name: '5' }))
+    } else {
+      fireEvent.click(screen.getByRole('button', { name: 'White: 10 of 10' }))
+    }
+  }
+}
+
+describe('post-finish stranding fix', () => {
+  beforeEach(() => {
+    localStorage.clear()
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: { ...window.location, search: '' },
+    })
+  })
+  afterEach(() => {
+    localStorage.clear()
+  })
+
+  it('after Finish & save, bar-tap → dashboard rows are not buttons', async () => {
+    render(<App />)
+    completeSweep()
+    // On dashboard → go to results
+    fireEvent.click(screen.getByRole('button', { name: 'Full report' }))
+    // Finish & save
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Finish & save' }))
+    })
+    // Tap belt-stripe bar to go back to dashboard
+    fireEvent.click(screen.getByRole('button', { name: 'Back to your map' }))
+    // All category rows should be divs (not buttons) in finished mode
+    const rows = screen.getAllByTestId('category-row')
+    for (const row of rows) {
+      expect(row.tagName.toLowerCase()).not.toBe('button')
+    }
+  })
+
+  it('after Finish & save, bar-tap → note line visible', async () => {
+    render(<App />)
+    completeSweep()
+    fireEvent.click(screen.getByRole('button', { name: 'Full report' }))
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Finish & save' }))
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Back to your map' }))
+    expect(
+      screen.getByText('Saved. Start a new assessment to keep filling the map.'),
+    ).toBeInTheDocument()
+  })
+
+  it('after Finish & save, bar-tap → Start new assessment button works', async () => {
+    render(<App />)
+    completeSweep()
+    fireEvent.click(screen.getByRole('button', { name: 'Full report' }))
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Finish & save' }))
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Back to your map' }))
+    // The "Start new assessment" button should be present and work
+    const startNewBtn = screen.getByRole('button', { name: 'Start new assessment' })
+    expect(startNewBtn).toBeInTheDocument()
+    fireEvent.click(startNewBtn)
+    // Should navigate back to intake (or intro) — the sweep button is gone
+    expect(screen.queryByRole('tablist')).not.toBeInTheDocument()
+  })
+})

@@ -7,6 +7,7 @@ import { IntakeStep } from './components/IntakeStep'
 import { BeltStripeBar } from './components/BeltStripeBar'
 import { QuestionScreen } from './components/QuestionScreen'
 import { Dashboard } from './components/Dashboard'
+import { DimensionsPanel } from './components/DimensionsPanel'
 import { ResultsPage } from './components/results/ResultsPage'
 import type { AssessmentSession, StoredAnswer, Intake } from './lib/results/types'
 
@@ -32,6 +33,7 @@ export default function App() {
   const [resumeSession, setResumeSession] = useState<AssessmentSession | null>(null)
   const [sweepStartIndex, setSweepStartIndex] = useState(0)
   const [sessionFinished, setSessionFinished] = useState(false)
+  const [showDimensions, setShowDimensions] = useState(false)
 
   useEffect(() => {
     const saved = loadSession()
@@ -305,8 +307,12 @@ export default function App() {
           onResults={() => setScreen('results')}
           availableCategoryIds={availableCategoryIds}
           drafts={drafts}
+          onShowDimensions={() => setShowDimensions(true)}
+          finished={sessionFinished}
+          onStartOver={handleStartOver}
         />
       )}
+      {showDimensions && <DimensionsPanel open={showDimensions} onClose={() => setShowDimensions(false)} />}
 
       {screen === 'category' && session && activeCategory && (
         <QuestionScreen
