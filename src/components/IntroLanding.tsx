@@ -127,11 +127,14 @@ const BRACKET_DELAY  = CURVE_DRAW_MS + DOT_DELAY_MS * INTRO_DOTS.length + 100
 
 export interface IntroLandingProps {
   onStart: () => void
+  /** When a saved session exists, the footer offers resume instead of a bare
+   *  start — the visual landing still shows for returning visitors. */
+  onContinue?: () => void
 }
 
 // ── Component ────────────────────────────────────────────────────────────────
 
-export function IntroLanding({ onStart }: IntroLandingProps) {
+export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
   const reduced = usePrefersReducedMotion()
 
   // How many dots are "popped in" so far during animation
@@ -405,10 +408,21 @@ export function IntroLanding({ onStart }: IntroLandingProps) {
         about r&nbsp;≈&nbsp;.29. This is a mirror, not a measurement.
       </p>
 
-      {/* ── Start button ── */}
-      <button className="btn" onClick={onStart}>
-        Start the sweep
-      </button>
+      {/* ── Footer: resume when a session exists, else start ── */}
+      {onContinue ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <button className="btn" onClick={onContinue}>
+            Continue where you left off
+          </button>
+          <button className="btn-quiet" onClick={onStart}>
+            Start over
+          </button>
+        </div>
+      ) : (
+        <button className="btn" onClick={onStart}>
+          Start the sweep
+        </button>
+      )}
     </div>
   )
 }

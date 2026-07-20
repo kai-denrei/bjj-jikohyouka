@@ -269,25 +269,10 @@ export default function App() {
       )}
 
       {screen === 'intro' && (
-        <>
-          {resumeSession ? (
-            <>
-              <h1 style={{ fontFamily: 'var(--font-display)', marginBottom: 8 }}>
-                Belts are a rough map. Ability is the territory.
-              </h1>
-              <p style={{ color: 'var(--ink-2)', fontSize: 14, marginBottom: 16 }}>
-                Belt color tracks ability loosely — and self-ratings track it even more loosely,
-                about r&nbsp;≈&nbsp;.29. This is a mirror, not a measurement.
-              </p>
-              <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
-                <button className="btn" onClick={handleResume}>Continue where you left off</button>
-                <button className="btn-quiet" onClick={handleStartOver}>Start over</button>
-              </div>
-            </>
-          ) : (
-            <IntroLanding onStart={() => setScreen('intake')} />
-          )}
-        </>
+        <IntroLanding
+          onStart={resumeSession ? handleStartOver : () => setScreen('intake')}
+          onContinue={resumeSession ? handleResume : undefined}
+        />
       )}
 
       {screen === 'intake' && (

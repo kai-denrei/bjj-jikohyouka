@@ -25,6 +25,18 @@ describe('IntroLanding', () => {
     expect(fn).toHaveBeenCalledTimes(1)
   })
 
+  it('with onContinue (a saved session), keeps the visual landing and offers resume + start over', () => {
+    const onStart = vi.fn(), onContinue = vi.fn()
+    render(<IntroLanding onStart={onStart} onContinue={onContinue} />)
+    // the bell-curve hero is still present — the whole point of the fix
+    expect(screen.getByText('Belts are a rough map. Ability is the territory.')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Start the sweep' })).toBeNull()
+    fireEvent.click(screen.getByRole('button', { name: 'Continue where you left off' }))
+    expect(onContinue).toHaveBeenCalledTimes(1)
+    fireEvent.click(screen.getByRole('button', { name: 'Start over' }))
+    expect(onStart).toHaveBeenCalledTimes(1)
+  })
+
   it('legend is an ordered list with 6 items in ability order: beginner first, competitor last', () => {
     render(<IntroLanding onStart={() => {}} />)
     const list = screen.getByRole('list')
