@@ -5,13 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run bank:validate && tsc -b && vite build",
+    "build": "tsc -b && vite build",
     "bank:validate": "tsx scripts/bank/validate.ts",
     "bank:review": "tsx scripts/bank/review.ts",
     "bank:release": "tsx scripts/bank/release.ts",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "predev": "./scripts/bust.sh --quiet",
+    "prebuild": "npm run bank:validate && ./scripts/bust.sh --quiet"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "^5.2.8",
