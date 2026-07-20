@@ -8,14 +8,13 @@ const base = { qid: 'q', v: 1, status: 'draft', category: 'takedowns', axis: 'po
   tier: 'core', scoring: { weight: 1, countsToward: 'skill' }, flags: [] } as Question
 
 describe('QuestionCard', () => {
-  it('renders what heading and problem line from slots; who-chip is absent', () => {
-    render(<QuestionCard question={{ ...base, slots: { who: 'same rank', what: 'their closed guard', problem: 'Do you pass before they threaten a sweep or submission?' } }} />)
-    // who-chip must NOT be in the DOM
-    expect(screen.queryByText('vs SAME RANK')).toBeNull()
-    // what renders as heading
-    expect(screen.getByRole('heading', { name: 'Their closed guard' })).toBeInTheDocument()
-    // problem renders
-    expect(screen.getByText('Do you pass before they threaten a sweep or submission?')).toBeInTheDocument()
+  it('renders what as eyebrow and problem as the hero heading; who is gone', () => {
+    render(<QuestionCard question={{ ...base, slots: { what: 'their closed guard', problem: 'passing before they threaten a sweep or submission' } }} />)
+    // problem renders as hero heading with capitalised first letter
+    expect(screen.getByRole('heading', { name: 'Passing before they threaten a sweep or submission' })).toBeInTheDocument()
+    // what renders as eyebrow (plain text, not a heading)
+    expect(screen.getByText('their closed guard')).toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: /their closed guard/i })).toBeNull()
   })
   it('falls back to canonical text as the heading when no slots', () => {
     render(<QuestionCard question={base} />)

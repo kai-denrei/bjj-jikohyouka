@@ -14,12 +14,12 @@ export function QuestionCard({ question }: QuestionCardProps) {
 
   return (
     <div>
-      <h2 style={{ margin: '0 0 12px 0' }}>
-        {what.charAt(0).toUpperCase() + what.slice(1)}
+      <div className="mono" style={{ fontSize: 13, letterSpacing: '0.02em', color: 'var(--ink-2)', marginBottom: 12 }}>
+        {what}
+      </div>
+      <h2 style={{ margin: 0 }}>
+        {problem.charAt(0).toUpperCase() + problem.slice(1)}
       </h2>
-      <p style={{ margin: 0, lineHeight: 1.5 }}>
-        {problem}
-      </p>
     </div>
   )
 }
