@@ -3736,7 +3736,7 @@
       "category": "takedowns",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "In standing exchanges against full resistance, I complete a takedown",
+      "text": "Standing Exchanges — takedown against full resistance",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -3757,7 +3757,7 @@
       "category": "guard_top",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "When a same-rank partner plays closed or open guard, I reach a passing position before they threaten a sweep or submission",
+      "text": "Their Guard — passing before they threaten a sweep or submission",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -3778,7 +3778,7 @@
       "category": "guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "When a same-rank partner breaks my guard open, I establish a new guard before they advance to a passing position",
+      "text": "My guard — Maintaining Guard before they pass or get leverage",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -3799,7 +3799,7 @@
       "category": "closed_guard_top",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "Inside a same-rank partner's closed guard, I open their legs and reach a standing or hip-out passing position",
+      "text": "Their closed guard — Keeping posture and opening their guard before they get sub attempts or leverage",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -3820,7 +3820,7 @@
       "category": "closed_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "When a same-rank partner posts in my closed guard, my hips elevate and their posture breaks before they frame out",
+      "text": "My closed guard — Breaking their posture before and attacking before they open",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -3841,7 +3841,7 @@
       "category": "open_guard_top",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "When a same-rank partner plays butterfly guard against me, I clear their hooks and land in a passing position",
+      "text": "Their butterfly guard — Keeping posture while clearing their hooks",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -3862,7 +3862,7 @@
       "category": "open_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "When a same-rank partner stands or sits in my butterfly guard with weight forward, I complete a sweep to top",
+      "text": "My butterfly guard — Sweeping or advancing position before they clear the hooks",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -3883,7 +3883,7 @@
       "category": "half_guard_top",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "When a same-rank partner holds my leg in half guard, I clear their knee shield and advance to side control or mount",
+      "text": "Their half guard bottom — Clearing their knee shield and advancing to side control or KoB/NS",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -3904,7 +3904,7 @@
       "category": "half_guard_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "When a same-rank partner has top half guard with crossface pressure, I secure an underhook and complete a sweep",
+      "text": "My Half-Guard Bottom — Deny crossface and seize the attack tempo",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -3925,7 +3925,7 @@
       "category": "mount_top",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "When a same-rank partner is mounted and frames to escape, I maintain mount until they give up framing or I improve position",
+      "text": "My mount — Denying their mount escape attempts",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -3946,7 +3946,7 @@
       "category": "mount_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "When a same-rank partner mounts me and settles their weight, I reach half guard or full guard before they attack",
+      "text": "Their mount — Framing, Escaping, reaching half-guard before they attack",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -3967,7 +3967,7 @@
       "category": "back_mount_top",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "When I take the back of a same-rank partner with seat belt, I keep both hooks in until they give up defending or I finish",
+      "text": "My back control — Keeping control and attacking RNC or Keeping control while transitioning",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -3988,7 +3988,7 @@
       "category": "back_mount_bottom",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "When a same-rank partner has my back with seat belt and hooks in, I free a hook and turn to face them before they attack my neck",
+      "text": "Their back control — Getting my back to the ground while protecting my neck and preventing follow-up attacks",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -4009,7 +4009,7 @@
       "category": "leg_locks",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "When a same-rank partner's leg is entangled and I have heel control, I finish the straight ankle lock before they step over",
+      "text": "Leg Entanglement — Controlling ankle lock and removing slack before they step or use their secondary leg to free themselves",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -4030,7 +4030,7 @@
       "category": "wrist_locks",
       "axis": "positional",
       "input": "ability_axis",
-      "text": "When a same-rank partner's wrist is isolated at a bad angle, I apply the wrist lock before they correct the angle",
+      "text": "Wrist Locks — Finishing Wristlocks from various positions",
       "tier": "core",
       "scoring": {
         "weight": 1,
@@ -4087,7 +4087,7 @@
         "what": "standing grip exchanges",
         "problem": "Does your grip fighting create an opening for entry before they reset?"
       },
-      "text": "Against a same-rank partner standing, my grip fighting and weight shifts create openings for takedown entry",
+      "text": "Standing grip exchanges — Does your grip fighting create an opening for entry before they reset?",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
@@ -4108,7 +4108,7 @@
         "what": "a double-leg drill",
         "problem": "Do you change levels, drive through, and finish with correct head position?"
       },
-      "text": "Against a non-resisting partner, I shoot a double-leg, change levels, drive through, and finish the takedown with correct head position",
+      "text": "A double-leg drill — Do you change levels, drive through, and finish with correct head position?",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
@@ -4129,7 +4129,7 @@
         "what": "free rolling from standing",
         "problem": "Do you shoot and complete a double-leg against full resistance?"
       },
-      "text": "In free rolling against a same-rank partner, I shoot and complete a double-leg takedown",
+      "text": "Free rolling from standing — Do you shoot and complete a double-leg against full resistance?",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
@@ -4150,7 +4150,7 @@
         "what": "their takedown shot",
         "problem": "Do you sprawl or redirect and end up on top or back to neutral?"
       },
-      "text": "When a same-rank partner shoots a takedown on me, I sprawl or redirect and end up on top or back to neutral",
+      "text": "Their takedown shot — Do you sprawl or redirect and end up on top or back to neutral?",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
@@ -4171,7 +4171,7 @@
         "what": "a standing clinch",
         "problem": "Do you create a takedown entry within 10 seconds?"
       },
-      "text": "From a standing clinch with a same-rank partner, I create a takedown entry within 10 seconds",
+      "text": "A standing clinch — Do you create a takedown entry within 10 seconds?",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
@@ -4224,7 +4224,7 @@
         "what": "my closed guard after posture break",
         "problem": "Do you enter a submission they must actively defend?"
       },
-      "text": "From a broken-posture position in my closed guard, I enter a submission attempt that my partner must actively defend",
+      "text": "My closed guard after posture break — Do you enter a submission they must actively defend?",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
@@ -4245,7 +4245,7 @@
         "what": "my closed guard attacks",
         "problem": "Do you shift hips off-center before each attack to weaken their frame?"
       },
-      "text": "When attacking from closed guard, I shift my hips off-center before each attack so my partner's frame weakens",
+      "text": "My closed guard attacks — Do you shift hips off-center before each attack to weaken their frame?",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
@@ -4266,7 +4266,7 @@
         "what": "my closed guard when submissions stall",
         "problem": "Do you complete a hip-bump or scissor sweep when they shut down your attacks?"
       },
-      "text": "When a same-rank partner shuts down my submissions in closed guard, I complete a hip-bump or scissor sweep",
+      "text": "My closed guard when submissions stall — Do you complete a hip-bump or scissor sweep when they shut down your attacks?",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
@@ -4287,7 +4287,7 @@
         "what": "my closed guard when they stand",
         "problem": "Do you break their base before they begin a pass?"
       },
-      "text": "When a same-rank partner stands inside my closed guard, I break their base before they begin a pass",
+      "text": "My closed guard when they stand — Do you break their base before they begin a pass?",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
@@ -4340,7 +4340,7 @@
         "what": "my half guard under crossface",
         "problem": "Do you frame and swim to the underhook before they flatten you?"
       },
-      "text": "When a same-rank partner crossfaces me in half guard, I frame and swim to the underhook before they flatten me",
+      "text": "My half guard under crossface — Do you frame and swim to the underhook before they flatten you?",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
@@ -4363,7 +4363,7 @@
         "what": "my half guard under their pass",
         "problem": "Do you retain the leg entanglement or recover guard before they reach side control?"
       },
-      "text": "When a same-rank partner tries to pass my half guard, I retain the leg entanglement or recover guard before they reach side control",
+      "text": "My half guard under their pass — Do you retain the leg entanglement or recover guard before they reach side control?",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
@@ -4384,7 +4384,7 @@
         "what": "my deep half guard",
         "problem": "Do you sweep or return to top against their defensive base?"
       },
-      "text": "Against a same-rank partner in half guard, I enter deep half, sweep, or return to top against their defensive base",
+      "text": "My deep half guard — Do you sweep or return to top against their defensive base?",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
@@ -4407,7 +4407,7 @@
         "what": "my half guard under heavy crossface",
         "problem": "Do you frame, create space, and regain initiative within five seconds?"
       },
-      "text": "When a same-rank partner applies heavy crossface pressure in half guard, I frame, create space, and regain initiative within five seconds",
+      "text": "My half guard under heavy crossface — Do you frame, create space, and regain initiative within five seconds?",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
