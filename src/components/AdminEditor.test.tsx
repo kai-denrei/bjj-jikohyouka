@@ -13,7 +13,6 @@ const DRAFT_QUESTION_WITH_SLOTS: Question = {
   axis: 'positional',
   input: 'ability_axis',
   slots: {
-    who: 'same rank',
     what: 'standing exchanges',
     problem: 'Do you complete a takedown against full resistance?',
   },
@@ -58,12 +57,11 @@ describe('AdminEditor', () => {
   it('expands the editor on Edit click', () => {
     render(<AdminEditor question={DRAFT_QUESTION_WITH_SLOTS} onSaved={() => {}} admin={true} />)
     fireEvent.click(screen.getByRole('button', { name: /edit/i }))
-    // textarea should be visible
-    expect(screen.getByRole('textbox', { name: /text/i })).toBeInTheDocument()
-    // slot inputs visible (question has slots)
-    expect(screen.getByRole('textbox', { name: /who/i })).toBeInTheDocument()
+    // slotted question: only what and problem inputs — no text textarea, no who input
     expect(screen.getByRole('textbox', { name: /what/i })).toBeInTheDocument()
     expect(screen.getByRole('textbox', { name: /problem/i })).toBeInTheDocument()
+    expect(screen.queryByRole('textbox', { name: /text/i })).toBeNull()
+    expect(screen.queryByRole('textbox', { name: /who/i })).toBeNull()
     // note line
     expect(screen.getByText(/Edits draft questions only\. Saving reloads the page\./)).toBeInTheDocument()
   })
@@ -72,6 +70,10 @@ describe('AdminEditor', () => {
     render(<AdminEditor question={DRAFT_QUESTION_NO_SLOTS} onSaved={() => {}} admin={true} />)
     fireEvent.click(screen.getByRole('button', { name: /edit/i }))
     expect(screen.queryByRole('textbox', { name: /who/i })).toBeNull()
+    expect(screen.queryByRole('textbox', { name: /what/i })).toBeNull()
+    expect(screen.queryByRole('textbox', { name: /problem/i })).toBeNull()
+    // non-slotted question: text textarea IS present
+    expect(screen.getByRole('textbox', { name: /text/i })).toBeInTheDocument()
   })
 
   it('POSTs correct payload on Save and shows warnings', async () => {
@@ -84,9 +86,9 @@ describe('AdminEditor', () => {
     render(<AdminEditor question={DRAFT_QUESTION_WITH_SLOTS} onSaved={() => {}} admin={true} />)
     fireEvent.click(screen.getByRole('button', { name: /edit/i }))
 
-    // Change text
-    const textarea = screen.getByRole('textbox', { name: /text/i })
-    fireEvent.change(textarea, { target: { value: 'I can reliably complete takedowns' } })
+    // Change problem input (slotted question — no text textarea)
+    const problemInput = screen.getByRole('textbox', { name: /problem/i })
+    fireEvent.change(problemInput, { target: { value: 'passing reliably' } })
 
     fireEvent.click(screen.getByRole('button', { name: /save/i }))
 
@@ -100,13 +102,14 @@ describe('AdminEditor', () => {
     const body = JSON.parse(options.body as string)
     expect(body.file).toBe('positional')
     expect(body.qid).toBe('td_takedown_live')
-    expect(body.changes.text).toBe('I can reliably complete takedowns')
+    expect(body.changes.slots).toEqual({ what: 'standing exchanges', problem: 'passing reliably' })
+    expect(body.changes.text).toBeUndefined()
 
-    // warnings shown — the warning span contains 'reliably' (may also appear in textarea value)
+    // warnings shown
     await waitFor(() => {
       const matches = screen.getAllByText(/reliably/)
-      // at least one match is the warning span (not the textarea)
-      const warningSpan = matches.find(el => el.tagName !== 'TEXTAREA')
+      // at least one match is the warning span (not the input)
+      const warningSpan = matches.find(el => el.tagName !== 'INPUT')
       expect(warningSpan).toBeInTheDocument()
     })
   })

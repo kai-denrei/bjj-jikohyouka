@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { applyBankEdit } from './adminEdit'
+import { applyBankEdit, deriveText } from './adminEdit'
 
 // A minimal positional questions file with one draft and one active question
 const DRAFT_QUESTION = {
@@ -51,8 +51,8 @@ function makeFile(questions: object[]): string {
 
 describe('applyBankEdit', () => {
   it('edits a draft question text and returns updated JSON with trailing newline preserved', () => {
-    const fileContent = makeFile([DRAFT_QUESTION, ACTIVE_QUESTION])
-    const result = applyBankEdit(fileContent, 'td_test_draft', {
+    const fileContent = makeFile([DRAFT_NO_SLOTS, ACTIVE_QUESTION])
+    const result = applyBankEdit(fileContent, 'td_no_slots_draft', {
       text: 'In live sparring against full resistance, I complete a takedown',
     })
     expect(result.ok).toBe(true)
@@ -60,7 +60,7 @@ describe('applyBankEdit', () => {
 
     // Parses to valid JSON
     const parsed = JSON.parse(result.updated)
-    const updated = parsed.questions.find((q: { qid: string }) => q.qid === 'td_test_draft')
+    const updated = parsed.questions.find((q: { qid: string }) => q.qid === 'td_no_slots_draft')
     expect(updated.text).toBe('In live sparring against full resistance, I complete a takedown')
 
     // Trailing newline preserved
@@ -95,8 +95,8 @@ describe('applyBankEdit', () => {
   })
 
   it('returns linter warnings when the new text contains "reliably"', () => {
-    const fileContent = makeFile([DRAFT_QUESTION])
-    const result = applyBankEdit(fileContent, 'td_test_draft', {
+    const fileContent = makeFile([DRAFT_NO_SLOTS])
+    const result = applyBankEdit(fileContent, 'td_no_slots_draft', {
       text: 'I can reliably complete takedowns',
     })
     expect(result.ok).toBe(true)
@@ -130,6 +130,9 @@ describe('applyBankEdit', () => {
     const q = parsed.questions.find((q: { qid: string }) => q.qid === 'td_test_draft')
     expect(q.slots.what).toBe('live sparring exchanges')
     expect(q.slots.problem).toBe('Do you finish the takedown?')
+    // text must be derived from the new slots
+    expect(q.text).toBe(deriveText({ what: 'live sparring exchanges', problem: 'Do you finish the takedown?' }))
+    expect(q.text).toBe('Live sparring exchanges — Do you finish the takedown?')
   })
 
   it('returns empty warnings for clean updated text', () => {
@@ -140,6 +143,50 @@ describe('applyBankEdit', () => {
     expect(result.ok).toBe(true)
     if (!result.ok) return
     expect(result.warnings).toHaveLength(0)
+  })
+
+  it('deriveText capitalizes what and joins with em-dash', () => {
+    expect(deriveText({ what: 'standing exchanges', problem: 'takedown against full resistance' }))
+      .toBe('Standing exchanges — takedown against full resistance')
+  })
+
+  it('client text is ignored when saving a slotted record (text and slots both supplied)', () => {
+    const fileContent = makeFile([DRAFT_QUESTION])
+    const result = applyBankEdit(fileContent, 'td_test_draft', {
+      text: 'client-supplied junk',
+      slots: { what: 'standing exchanges', problem: 'Do you complete a takedown against full resistance?' },
+    })
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    const parsed = JSON.parse(result.updated)
+    const q = parsed.questions.find((q: { qid: string }) => q.qid === 'td_test_draft')
+    expect(q.text).toBe(deriveText({ what: 'standing exchanges', problem: 'Do you complete a takedown against full resistance?' }))
+    expect(q.text).not.toBe('client-supplied junk')
+  })
+
+  it('client text is ignored on a slotted record even when only text is sent', () => {
+    const fileContent = makeFile([DRAFT_QUESTION])
+    const result = applyBankEdit(fileContent, 'td_test_draft', {
+      text: 'client-supplied junk',
+    })
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    const parsed = JSON.parse(result.updated)
+    const q = parsed.questions.find((q: { qid: string }) => q.qid === 'td_test_draft')
+    // text derived from existing (unchanged) slots
+    expect(q.text).toBe(deriveText(DRAFT_QUESTION.slots))
+    expect(q.text).not.toBe('client-supplied junk')
+  })
+
+  it('lint runs on derived text — warnings fire when problem contains a lint word', () => {
+    const fileContent = makeFile([DRAFT_QUESTION])
+    const result = applyBankEdit(fileContent, 'td_test_draft', {
+      slots: { what: 'standing exchanges', problem: 'passing reliably' },
+    })
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.warnings.length).toBeGreaterThan(0)
+    expect(result.warnings[0].match).toBe('reliably')
   })
 
   it('serializes schema defaults — flags appears even when the input record lacked it', () => {

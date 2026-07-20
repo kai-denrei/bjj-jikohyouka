@@ -11,7 +11,7 @@ interface UpdateRequest {
   qid: string
   changes: {
     text?: string
-    slots?: { who: string; what: string; problem: string }
+    slots?: { what: string; problem: string }
   }
 }
 

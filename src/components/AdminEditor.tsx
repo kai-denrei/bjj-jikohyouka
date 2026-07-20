@@ -18,7 +18,6 @@ function fileForQuestion(question: Question): 'positional' | 'meta-qualities' | 
 export function AdminEditor({ question, onSaved, admin }: AdminEditorProps) {
   const [expanded, setExpanded] = useState(false)
   const [text, setText] = useState(question.text)
-  const [who, setWho] = useState(question.slots?.who ?? '')
   const [what, setWhat] = useState(question.slots?.what ?? '')
   const [problem, setProblem] = useState(question.slots?.problem ?? '')
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
@@ -47,10 +46,9 @@ export function AdminEditor({ question, onSaved, admin }: AdminEditorProps) {
     setErrorMsg(null)
     setWarnings([])
 
-    const changes: { text: string; slots?: { who: string; what: string; problem: string } } = { text }
-    if (question.slots) {
-      changes.slots = { who, what, problem }
-    }
+    const changes: { text?: string; slots?: { what: string; problem: string } } = question.slots
+      ? { slots: { what, problem } }
+      : { text }
 
     try {
       const res = await fetch('/__bank/update', {
@@ -82,53 +80,8 @@ export function AdminEditor({ question, onSaved, admin }: AdminEditorProps) {
 
   return (
     <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        <label htmlFor={`admin-text-${question.qid}`} style={{ fontSize: 12, color: 'var(--ink-2)' }}>
-          text
-        </label>
-        <textarea
-          id={`admin-text-${question.qid}`}
-          aria-label="text"
-          value={text}
-          onChange={e => setText(e.target.value)}
-          rows={3}
-          style={{
-            width: '100%',
-            fontFamily: 'var(--font-mono)',
-            fontSize: 13,
-            padding: '6px 8px',
-            border: '1px solid var(--line)',
-            borderRadius: 4,
-            background: 'var(--bg)',
-            color: 'var(--ink)',
-            resize: 'vertical',
-          }}
-        />
-      </div>
-
-      {question.slots && (
+      {question.slots ? (
         <>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <label htmlFor={`admin-who-${question.qid}`} style={{ fontSize: 12, color: 'var(--ink-2)' }}>
-              who
-            </label>
-            <input
-              id={`admin-who-${question.qid}`}
-              aria-label="who"
-              type="text"
-              value={who}
-              onChange={e => setWho(e.target.value)}
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: 13,
-                padding: '6px 8px',
-                border: '1px solid var(--line)',
-                borderRadius: 4,
-                background: 'var(--bg)',
-                color: 'var(--ink)',
-              }}
-            />
-          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             <label htmlFor={`admin-what-${question.qid}`} style={{ fontSize: 12, color: 'var(--ink-2)' }}>
               what
@@ -172,6 +125,30 @@ export function AdminEditor({ question, onSaved, admin }: AdminEditorProps) {
             />
           </div>
         </>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <label htmlFor={`admin-text-${question.qid}`} style={{ fontSize: 12, color: 'var(--ink-2)' }}>
+            text
+          </label>
+          <textarea
+            id={`admin-text-${question.qid}`}
+            aria-label="text"
+            value={text}
+            onChange={e => setText(e.target.value)}
+            rows={3}
+            style={{
+              width: '100%',
+              fontFamily: 'var(--font-mono)',
+              fontSize: 13,
+              padding: '6px 8px',
+              border: '1px solid var(--line)',
+              borderRadius: 4,
+              background: 'var(--bg)',
+              color: 'var(--ink)',
+              resize: 'vertical',
+            }}
+          />
+        </div>
       )}
 
       <button

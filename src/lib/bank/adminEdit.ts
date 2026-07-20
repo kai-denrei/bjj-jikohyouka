@@ -10,6 +10,10 @@ export interface BankEditChanges {
   slots?: { what: string; problem: string }
 }
 
+export function deriveText(slots: { what: string; problem: string }): string {
+  return `${slots.what.charAt(0).toUpperCase() + slots.what.slice(1)} — ${slots.problem}`
+}
+
 export function applyBankEdit(
   fileContent: string,
   qid: string,
@@ -34,13 +38,16 @@ export function applyBankEdit(
     return { ok: false, error: 'only draft questions are editable' }
   }
 
-  // Apply changes
+  // Apply changes — slots first, then derive text for slotted records
   const candidate = { ...existing }
-  if (changes.text !== undefined) {
-    candidate.text = changes.text
-  }
   if (changes.slots !== undefined) {
     candidate.slots = { ...changes.slots }
+  }
+  if (candidate.slots) {
+    // Slotted record: text is always derived; client-supplied text is ignored
+    candidate.text = deriveText(candidate.slots as { what: string; problem: string })
+  } else if (changes.text !== undefined) {
+    candidate.text = changes.text
   }
 
   // Re-validate against QuestionSchema
