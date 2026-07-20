@@ -19,11 +19,14 @@ body { background: var(--mat); color: var(--ink); font-family: var(--font-body);
 h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.01em; }
 button { font: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-/* Suppress :focus-visible ring after pointer taps on the axis SVG.
-   role=slider makes browsers apply :focus-visible on pointer click.
-   Keyboard state is tracked via data-kb attribute set on keydown / cleared on pointerdown. */
-.axis-svg:focus-visible { outline: none; }
-.axis-svg[data-kb]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* Axis SVG focus ring: deterministic, not dependent on the browser's
+   :focus-visible heuristic (which fires on pointer clicks for role=slider and
+   leaked the ring back on taps). The ring shows ONLY when the keyboard flag
+   (data-kb, set on keydown / cleared on pointerdown+blur) is present.
+   user-select:none stops taps from starting a text selection on the chart. */
+.axis-svg { -webkit-user-select: none; user-select: none; }
+.axis-svg:focus, .axis-svg:focus-visible { outline: none; }
+.axis-svg[data-kb]:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
 .btn { min-height: var(--tap); width: 100%; border: 0; border-radius: var(--radius); background: var(--accent); color: var(--mat); font-weight: 600; cursor: pointer; }
 .btn-quiet { min-height: var(--tap); width: 100%; border: 1px solid var(--line); border-radius: var(--radius); background: transparent; color: var(--ink); cursor: pointer; }
 .chip { min-height: var(--tap); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); cursor: pointer; padding: 8px 12px; text-align: left; }

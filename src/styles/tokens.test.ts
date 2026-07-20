@@ -59,4 +59,10 @@ describe('dark tokens (same gi, dyed deeper)', () => {
   it('no light-theme mat literal (#F4F4F1) remains in token definitions', () => {
     expect(css).not.toContain('#F4F4F1')
   })
+  it('axis SVG suppresses text selection and gates the focus ring on data-kb only', () => {
+    expect(css).toMatch(/\.axis-svg\s*\{[^}]*user-select:\s*none/)
+    // ring shows only under the keyboard flag, never on bare :focus
+    expect(css).toMatch(/\.axis-svg:focus[^{]*\{\s*outline:\s*none/)
+    expect(css).toMatch(/\.axis-svg\[data-kb\]:focus\s*\{\s*outline:\s*2px/)
+  })
 })
