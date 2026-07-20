@@ -203,24 +203,30 @@ export function Dashboard({
           {positionalBankCats.map(cat => renderCategoryRow(cat.id))}
         </div>
 
-        {/* Meta section */}
-        {metaBankCats.length > 0 && (
-          <div>
-            <p
-              style={{
-                margin: '0 0 4px',
-                fontSize: 12,
-                color: 'var(--ink-2)',
-                fontWeight: 500,
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-              }}
-            >
-              Cross-cutting
-            </p>
-            {metaBankCats.map(cat => renderCategoryRow(cat.id))}
-          </div>
-        )}
+        {/* Meta section — only rendered when at least one meta category has available drilldowns */}
+        {(() => {
+          const availableMetaCats = metaBankCats.filter(
+            cat => drilldownQuestions(bank, cat.id, drafts).length > 0,
+          )
+          if (availableMetaCats.length === 0) return null
+          return (
+            <div>
+              <p
+                style={{
+                  margin: '0 0 4px',
+                  fontSize: 12,
+                  color: 'var(--ink-2)',
+                  fontWeight: 500,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                Cross-cutting
+              </p>
+              {availableMetaCats.map(cat => renderCategoryRow(cat.id))}
+            </div>
+          )
+        })()}
       </div>
 
       {/* Footer buttons */}

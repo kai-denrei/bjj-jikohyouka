@@ -7,6 +7,8 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { Dashboard } from './Dashboard'
 import type { Report } from '../lib/results/score'
 import type { AssessmentSession } from '../lib/results/types'
+import { drilldownQuestions } from '../lib/flow'
+import { bank } from '../lib/bankInstance'
 
 // Minimal report with positional categories + meta
 const report: Report = {
@@ -117,11 +119,39 @@ describe('Dashboard', () => {
   })
 
   it('shows answered/total drill-down count when session has matching answers', () => {
-    // We need to know which qids are drilldown questions for takedowns category
-    // The dashboard counts qids in session.answers that belong to drilldown questions
-    // We inject fake answers matching known drilldown qid patterns
-    // Since we can't know the exact qids here, we test the logic differently:
-    // We render with no drilldown answers and expect "0/N" or "Not yet written"
+    // Takedowns has 12 active drilldown questions in non-draft mode.
+    // Inject one answer (td_001) so the row should show "1/12".
+    const takedownDrilldowns = drilldownQuestions(bank, 'takedowns', false)
+    expect(takedownDrilldowns.length).toBeGreaterThan(0)
+    const firstQid = takedownDrilldowns[0].qid // td_001
+    const total = takedownDrilldowns.length     // 12
+
+    const sessionWithAnswer: AssessmentSession = {
+      ...minimalSession,
+      answers: { [firstQid]: { qid: firstQid, v: 3, raw: 3 } },
+    }
+
+    render(
+      <Dashboard
+        report={report}
+        session={sessionWithAnswer}
+        onPick={() => {}}
+        onResults={() => {}}
+        availableCategoryIds={new Set(['takedowns'])}
+        drafts={false}
+      />
+    )
+
+    // The Takedowns row should show "1/<total>"
+    const rows = screen.getAllByTestId('category-row')
+    const takedownsRow = rows.find(r => r.textContent?.includes('Takedowns'))
+    expect(takedownsRow).toBeTruthy()
+    expect(takedownsRow!.textContent).toContain(`1/${total}`)
+  })
+
+  it('meta section is absent when meta_qualities has no active drilldowns (non-draft mode)', () => {
+    // In non-draft mode, meta_qualities has 0 active drilldowns (all are drafts).
+    // The "Cross-cutting" header and meta rows must not appear.
     render(
       <Dashboard
         report={report}
@@ -132,11 +162,34 @@ describe('Dashboard', () => {
         drafts={false}
       />
     )
-    // Either shows "Not yet written" or an answered/total count
-    // With empty answers and takedowns in availableCategoryIds,
-    // drilldownQuestions for takedowns might return 0 (not yet written) or N > 0
-    // We just assert the dashboard renders without error
-    expect(screen.getByRole('tablist')).toBeInTheDocument()
+    expect(screen.queryByText('Cross-cutting')).not.toBeInTheDocument()
+    // Meta row for "Meta" (shortName in report fixture) should not appear
+    const rows = screen.queryAllByTestId('category-row')
+    const metaRow = rows.find(r => r.textContent?.includes('Meta'))
+    expect(metaRow).toBeUndefined()
+  })
+
+  it('meta section is present when meta_qualities has available drilldowns (drafts mode)', () => {
+    // In draft mode, meta_qualities has 10 draft drilldown questions → section renders.
+    const metaDrilldowns = drilldownQuestions(bank, 'meta_qualities', true)
+    expect(metaDrilldowns.length).toBeGreaterThan(0)
+
+    render(
+      <Dashboard
+        report={report}
+        session={minimalSession}
+        onPick={() => {}}
+        onResults={() => {}}
+        availableCategoryIds={new Set(['takedowns', 'meta_qualities'])}
+        drafts={true}
+      />
+    )
+    expect(screen.getByText('Cross-cutting')).toBeInTheDocument()
+    // The meta row should show "0/<total>" since no answers injected
+    const rows = screen.getAllByTestId('category-row')
+    const metaRow = rows.find(r => r.textContent?.includes('Meta'))
+    expect(metaRow).toBeTruthy()
+    expect(metaRow!.textContent).toContain(`0/${metaDrilldowns.length}`)
   })
 
   it('unavailable category row is not a button', () => {
