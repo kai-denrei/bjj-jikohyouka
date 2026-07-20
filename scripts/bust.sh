@@ -37,8 +37,13 @@ done
 
 cd "$TARGET"
 
-# Fresh 32-bit token. od is POSIX, portable across BSD/GNU/macOS.
-TOKEN=$(od -An -N4 -tx1 < /dev/urandom | tr -d ' \n')
+# Token = the HEAD commit's short SHA, so any environment built from the same
+# commit (local dev, CI, prod) stamps the SAME token and favicon shape — the
+# badge becomes a real cross-environment version check ("are these the same
+# build?"). Every build/dev-start overwrites index.html's committed token with
+# the current HEAD SHA, so the two always converge on the commit's own SHA.
+# Falls back to a random 32-bit token outside a git work tree.
+TOKEN=$(git rev-parse --short=8 HEAD 2>/dev/null || od -An -N4 -tx1 < /dev/urandom | tr -d ' \n')
 
 [[ -z "$QUIET" ]] && echo "▸ bumping cache-bust token to ${TOKEN}"
 
