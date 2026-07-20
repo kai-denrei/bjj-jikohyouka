@@ -11,13 +11,13 @@
         "what": "My top pins",
         "problem": "Opponents conceding position before you attack"
       },
-      "text": "My top pins — Opponents conceding position before you attack",
+      "text": "My top pins \u2014 Opponents conceding position before you attack",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; observable-event version of 'heavy pressure' — partner concedes without requiring an attack (Appendix B 'intense relaxed pressure' note); style-aligned to Gerald's 2026-07-20 pass",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; observable-event version of 'heavy pressure' \u2014 partner concedes without requiring an attack (Appendix B 'intense relaxed pressure' note); style-aligned to Gerald's 2026-07-20 pass",
       "flags": [
         "needs_gerald_review"
       ]
@@ -35,7 +35,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; observable-event version of 'flow/connection' — partner interruption rate during transitions (Appendix B 'flow → partner doesn't recover guard mid-transition'); scored inverted — higher frequency is worse (flags: inverted)",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; observable-event version of 'flow/connection' \u2014 partner interruption rate during transitions (Appendix B 'flow \u2192 partner doesn't recover guard mid-transition'); scored inverted \u2014 higher frequency is worse (flags: inverted)",
       "flags": [
         "inverted"
       ]
@@ -51,13 +51,13 @@
         "what": "Their dominant position",
         "problem": "Framing, breathing, and planning before they attack"
       },
-      "text": "Their dominant position — Framing, breathing, and planning before they attack",
+      "text": "Their dominant position \u2014 Framing, breathing, and planning before they attack",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; composure under pressure — action-based (frame, breathe, plan) rather than felt quality; style-aligned to Gerald's 2026-07-20 pass",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; composure under pressure \u2014 action-based (frame, breathe, plan) rather than felt quality; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -71,13 +71,13 @@
         "what": "A shifted base or broken grip",
         "problem": "Entering before they reset"
       },
-      "text": "A shifted base or broken grip — Entering before they reset",
+      "text": "A shifted base or broken grip \u2014 Entering before they reset",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; timing/anticipation — entry on moment of imbalance rather than general 'good timing'; style-aligned to Gerald's 2026-07-20 pass",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; timing/anticipation \u2014 entry on moment of imbalance rather than general 'good timing'; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -91,13 +91,13 @@
         "what": "My first submission attempt",
         "problem": "Their defense feeding your next attack"
       },
-      "text": "My first submission attempt — Their defense feeding your next attack",
+      "text": "My first submission attempt \u2014 Their defense feeding your next attack",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; chaining — second attack enters from the shell of the first, observable from partner's reaction path; style-aligned to Gerald's 2026-07-20 pass",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; chaining \u2014 second attack enters from the shell of the first, observable from partner's reaction path; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -111,13 +111,13 @@
         "what": "Their submission setup",
         "problem": "Stripping the grip or framing before they reach a finish"
       },
-      "text": "Their submission setup — Stripping the grip or framing before they reach a finish",
+      "text": "Their submission setup \u2014 Stripping the grip or framing before they reach a finish",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; early-stage defense — pre-empt before danger zone (vs mid/late escape which is after the hold is set); style-aligned to Gerald's 2026-07-20 pass",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; early-stage defense \u2014 pre-empt before danger zone (vs mid/late escape which is after the hold is set); style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -131,13 +131,13 @@
         "what": "A near-finished submission",
         "problem": "Creating space or changing the angle before tapping"
       },
-      "text": "A near-finished submission — Creating space or changing the angle before tapping",
+      "text": "A near-finished submission \u2014 Creating space or changing the angle before tapping",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; late-stage escape — surviving a near-finish, distinct from early defense; style-aligned to Gerald's 2026-07-20 pass",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; late-stage escape \u2014 surviving a near-finish, distinct from early defense; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -151,13 +151,13 @@
         "what": "An unfamiliar guard style",
         "problem": "Finding a passing entry before the first minute ends"
       },
-      "text": "An unfamiliar guard style — Finding a passing entry before the first minute ends",
+      "text": "An unfamiliar guard style \u2014 Finding a passing entry before the first minute ends",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; adaptability to unfamiliar guard — time-bounded observable outcome, not 'I can handle anything'; style-aligned to Gerald's 2026-07-20 pass",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; adaptability to unfamiliar guard \u2014 time-bounded observable outcome, not 'I can handle anything'; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -171,13 +171,13 @@
         "what": "A size or reach mismatch",
         "problem": "Keeping your attack rate above zero through the first two rounds"
       },
-      "text": "A size or reach mismatch — Keeping your attack rate above zero through the first two rounds",
+      "text": "A size or reach mismatch \u2014 Keeping your attack rate above zero through the first two rounds",
       "tier": "drilldown",
       "scoring": {
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; adaptability to body type — attack-rate proxy for adaptation, concrete and measurable in memory; style-aligned to Gerald's 2026-07-20 pass",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; adaptability to body type \u2014 attack-rate proxy for adaptation, concrete and measurable in memory; style-aligned to Gerald's 2026-07-20 pass",
       "flags": []
     },
     {
@@ -193,7 +193,7 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; received-feedback version of pressure quality — external observer's report of the felt experience",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; received-feedback version of pressure quality \u2014 external observer's report of the felt experience",
       "flags": []
     },
     {
@@ -212,9 +212,11 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; from Gerald's verdict #6 stems",
-      "flags": [],
-      "text": "Top pressure — Relaxed pressure that shuts their movement down"
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; from Gerald's verdict #6 stems",
+      "flags": [
+        "needs_gerald_review"
+      ],
+      "text": "Top pressure \u2014 Relaxed pressure that shuts their movement down"
     },
     {
       "qid": "pr_weight_settle",
@@ -232,9 +234,9 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; from Gerald's verdict #6 stems",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; from Gerald's verdict #6 stems",
       "flags": [],
-      "text": "A scramble or transition — Settling your weight before they build frames"
+      "text": "A scramble or transition \u2014 Settling your weight before they build frames"
     },
     {
       "qid": "pr_pressure_no_escape",
@@ -252,9 +254,9 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; from Gerald's verdict #6 stems",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; from Gerald's verdict #6 stems",
       "flags": [],
-      "text": "A dominant pin — Staying heavy enough that they choose to bridge or tap rather than frame"
+      "text": "A dominant pin \u2014 Staying heavy enough that they choose to bridge or tap rather than frame"
     },
     {
       "qid": "cn_frames_core",
@@ -272,9 +274,9 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; from Gerald's verdict #6 stems",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; from Gerald's verdict #6 stems",
       "flags": [],
-      "text": "Their frames — Reading and controlling their center through the limbs you hold"
+      "text": "Their frames \u2014 Reading and controlling their center through the limbs you hold"
     },
     {
       "qid": "cn_hip_shoulder_read",
@@ -292,9 +294,9 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; from Gerald's verdict #6 stems",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; from Gerald's verdict #6 stems",
       "flags": [],
-      "text": "Their hip or shoulder shift — Feeling the move before they complete it"
+      "text": "Their hip or shoulder shift \u2014 Feeling the move before they complete it"
     },
     {
       "qid": "cn_transition_no_gap",
@@ -312,9 +314,9 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; from Gerald's verdict #6 stems",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; from Gerald's verdict #6 stems",
       "flags": [],
-      "text": "A position-to-position transition — Moving through without giving them a gap to reframe"
+      "text": "A position-to-position transition \u2014 Moving through without giving them a gap to reframe"
     },
     {
       "qid": "mg_exchange_core",
@@ -332,9 +334,11 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; from Gerald's verdict #6 stems",
-      "flags": [],
-      "text": "The exchange — Forcing or predicting their next move"
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; from Gerald's verdict #6 stems",
+      "flags": [
+        "needs_gerald_review"
+      ],
+      "text": "The exchange \u2014 Forcing or predicting their next move"
     },
     {
       "qid": "mg_bait_reaction",
@@ -352,9 +356,9 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; from Gerald's verdict #6 stems",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; from Gerald's verdict #6 stems",
       "flags": [],
-      "text": "A baited opening — Acting before they finish deciding"
+      "text": "A baited opening \u2014 Acting before they finish deciding"
     },
     {
       "qid": "mg_pattern_read",
@@ -372,9 +376,9 @@
         "weight": 1,
         "countsToward": "skill"
       },
-      "rationale": "PLACEHOLDER — pending Gerald review; from Gerald's verdict #6 stems",
+      "rationale": "PLACEHOLDER \u2014 pending Gerald review; from Gerald's verdict #6 stems",
       "flags": [],
-      "text": "A partner's repeated escape attempt — Predicting and cutting off the second try"
+      "text": "A partner's repeated escape attempt \u2014 Predicting and cutting off the second try"
     }
   ]
 }

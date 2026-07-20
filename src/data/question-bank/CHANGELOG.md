@@ -14,3 +14,4 @@
 ## 1.0.0 — 2026-07-18
 
 - Initial conversion of v0.1 `skill-assessment.json` (173 questions, 15 categories). All records `active`, inputs `slider10`/`belt_curve`, qids preserved from v0.1.
+- Review flags (verdict #6 review): `pr_top_pressure_core` — `what` names the dimension itself ("Top pressure — Relaxed pressure…", double-pressure circularity; consider a concrete moment like "A dominant pin"); `mg_exchange_core` — "The exchange" under-specifies the situation. Both from Gerald's stems — his wording call. The earlier `mq_pressure_weight` opponent-subject note: that item now lives in the pressure category, framing unchanged.
