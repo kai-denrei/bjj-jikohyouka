@@ -78,7 +78,7 @@ export function IntakeStep({ onSubmit }: IntakeStepProps) {
             className="mono"
             style={{ margin: 0, color: 'var(--ink-2)', fontSize: 15 }}
           >
-            ≈ {formatHours(estimateMatHours({ years: years!, sessionsPerWeek: sessionsPerWeek! }))} on the mat
+            {formatHours(estimateMatHours({ years: years!, sessionsPerWeek: sessionsPerWeek! }))} on the mat
           </p>
           <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--ink-2)' }}>
             assuming ~1.5 h a session, a few weeks off a year
