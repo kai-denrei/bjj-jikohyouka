@@ -326,7 +326,6 @@ export default function App() {
               handlePickCategory(categoryId)
             }}
             availableCategoryIds={availableCategoryIds}
-            belt={session?.intake?.belt ?? null}
             session={session}
             onFinish={() => { setSessionAndRef(null); setSessionFinished(true) }}
           />

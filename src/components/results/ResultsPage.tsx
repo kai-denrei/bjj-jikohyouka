@@ -6,28 +6,18 @@ import { bank } from '../../lib/bankInstance'
 import { BandList } from './BandList'
 import { Radar } from './Radar'
 import { InfoPanel } from '../InfoPanel'
-import type { AssessmentSession, Intake } from '../../lib/results/types'
-
-const BELT_LENS: Record<NonNullable<Intake['belt']>, string> = {
-  white:
-    'At white belt, survival and escapes are the profile that matters — low guard-passing numbers are expected, not a gap.',
-  blue: 'Blue belt is escape season — judge this profile by how rarely you stay stuck.',
-  purple: 'Purple is where guard depth typically leads the profile.',
-  brown: 'At brown, passing pressure usually carries the profile.',
-  black:
-    'At black belt the profile is refinement — spread matters more than any single axis.',
-}
+import type { AssessmentSession } from '../../lib/results/types'
+import { estimateMatHours, formatHours } from '../../lib/results/matHours'
 
 interface ResultsPageProps {
   report: Report
   onRetakeCategory: (categoryId: string) => void
   availableCategoryIds: Set<string>
-  belt?: Intake['belt'] | null
   session?: AssessmentSession | null
   onFinish?: () => void
 }
 
-export function ResultsPage({ report, onRetakeCategory, availableCategoryIds, belt, session, onFinish }: ResultsPageProps) {
+export function ResultsPage({ report, onRetakeCategory, availableCategoryIds, session, onFinish }: ResultsPageProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [historyVersion, setHistoryVersion] = useState(0)
   const [finished, setFinished] = useState(false)
@@ -84,19 +74,17 @@ export function ResultsPage({ report, onRetakeCategory, availableCategoryIds, be
     <div>
       <h2 style={{ fontFamily: 'var(--font-display)', marginBottom: 16 }}>Results</h2>
 
-      {/* Belt-stage lens */}
-      {belt && (
+      {/* Estimated hours context */}
+      {session?.intake && (
         <p
+          className="mono"
           style={{
-            fontStyle: 'italic',
             color: 'var(--ink-2)',
-            fontSize: 14,
+            fontSize: 13,
             marginBottom: 16,
-            borderLeft: '3px solid var(--line)',
-            paddingLeft: 12,
           }}
         >
-          {BELT_LENS[belt]}
+          {formatHours(estimateMatHours(session.intake))} of mat time (estimated)
         </p>
       )}
 

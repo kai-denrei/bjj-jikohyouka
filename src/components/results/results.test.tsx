@@ -269,6 +269,39 @@ describe('ResultsPage', () => {
     expect(document.body.textContent).not.toMatch(/then \d+ → now \d+/)
   })
 
+  it('shows estimated hours when intake is provided', () => {
+    const sessionWithIntake = {
+      bankVersion: '1.0.0',
+      startedAt: '2024-01-01T00:00:00.000Z',
+      updatedAt: '2024-01-01T00:00:00.000Z',
+      intake: { years: '3-6' as const, sessionsPerWeek: '3-4' as const },
+      answers: {},
+      completedCategories: [],
+    }
+    render(
+      <ResultsPage
+        report={report}
+        onRetakeCategory={() => {}}
+        availableCategoryIds={allAvailable}
+        session={sessionWithIntake}
+      />
+    )
+    // 3-6 yrs × 3-4 sessions → ~1,150 hours
+    expect(screen.getByText(/1,150 hours.*of mat time/)).toBeInTheDocument()
+  })
+
+  it('shows no hours line when intake is null', () => {
+    render(
+      <ResultsPage
+        report={report}
+        onRetakeCategory={() => {}}
+        availableCategoryIds={allAvailable}
+        session={null}
+      />
+    )
+    expect(screen.queryByText(/of mat time/)).toBeNull()
+  })
+
   // Fix B (post-finish Sharpen blank screen): Sharpen buttons disabled after Finish & save
   it('Sharpen buttons are disabled after Finish & save', async () => {
     localStorage.removeItem('skillcheck.history.v1')
