@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { Intake } from '../lib/results/types'
+import { estimateMatHours, formatHours } from '../lib/results/matHours'
 import '../styles/tokens.css'
 
 export interface IntakeStepProps {
@@ -7,42 +8,22 @@ export interface IntakeStepProps {
 }
 
 export function IntakeStep({ onSubmit }: IntakeStepProps) {
-  const [belt, setBelt] = useState<Intake['belt'] | null>(null)
   const [years, setYears] = useState<Intake['years'] | null>(null)
-  const [style, setStyle] = useState<Intake['style'] | null>(null)
   const [sessionsPerWeek, setSessionsPerWeek] = useState<Intake['sessionsPerWeek'] | null>(null)
 
-  const isComplete = belt && years && style && sessionsPerWeek
+  const isComplete = years !== null && sessionsPerWeek !== null
 
   const handleContinue = () => {
     if (isComplete) {
-      onSubmit({ belt: belt!, years: years!, style: style!, sessionsPerWeek: sessionsPerWeek! })
+      onSubmit({ years: years!, sessionsPerWeek: sessionsPerWeek! })
     }
   }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
       <p style={{ margin: 0, fontSize: 14, color: 'var(--ink-2)' }}>
-        Your belt changes what a strong profile looks like. This stays on your device.
+        A rough sense of your mat time helps frame the results. This stays on your device.
       </p>
-
-      {/* Belt */}
-      <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
-        <legend style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>Belt</legend>
-        <div className="chip-row">
-          {['White', 'Blue', 'Purple', 'Brown', 'Black'].map((label) => (
-            <button
-              key={label}
-              type="button"
-              className="chip"
-              aria-pressed={belt === label.toLowerCase() ? 'true' : 'false'}
-              onClick={() => setBelt(label.toLowerCase() as Intake['belt'])}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </fieldset>
 
       {/* Time training */}
       <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
@@ -61,28 +42,6 @@ export function IntakeStep({ onSubmit }: IntakeStepProps) {
               className="chip"
               aria-pressed={years === value ? 'true' : 'false'}
               onClick={() => setYears(value as Intake['years'])}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </fieldset>
-
-      {/* Style */}
-      <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
-        <legend style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>Style</legend>
-        <div className="chip-row">
-          {[
-            { label: 'Gi', value: 'gi' },
-            { label: 'No-gi', value: 'nogi' },
-            { label: 'Both', value: 'both' },
-          ].map(({ label, value }) => (
-            <button
-              key={value}
-              type="button"
-              className="chip"
-              aria-pressed={style === value ? 'true' : 'false'}
-              onClick={() => setStyle(value as Intake['style'])}
             >
               {label}
             </button>
@@ -111,6 +70,21 @@ export function IntakeStep({ onSubmit }: IntakeStepProps) {
           ))}
         </div>
       </fieldset>
+
+      {/* Live hours readout */}
+      {isComplete && (
+        <div>
+          <p
+            className="mono"
+            style={{ margin: 0, color: 'var(--ink-2)', fontSize: 15 }}
+          >
+            ≈ {formatHours(estimateMatHours({ years: years!, sessionsPerWeek: sessionsPerWeek! }))} on the mat
+          </p>
+          <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--ink-2)' }}>
+            assuming ~1.5 h a session, a few weeks off a year
+          </p>
+        </div>
+      )}
 
       {/* Buttons */}
       <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
