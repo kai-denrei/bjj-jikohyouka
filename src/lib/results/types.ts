@@ -5,12 +5,12 @@ export const StoredAnswerSchema = z.object({
   raw: z.union([z.number(), z.array(z.number()), z.null()]),  // null = N/A tap
 }).strict()
 
+// Back-compat: non-strict so sessions saved with legacy belt/style keys
+// silently strip those fields on parse rather than rejecting.
 export const IntakeSchema = z.object({
-  belt: z.enum(['white', 'blue', 'purple', 'brown', 'black']),
   years: z.enum(['<1', '1-3', '3-6', '6-10', '10+']),
-  style: z.enum(['gi', 'nogi', 'both']),
   sessionsPerWeek: z.enum(['1-2', '3-4', '5+']),
-}).strict()
+})
 
 export const AssessmentSessionSchema = z.object({
   bankVersion: z.string(), startedAt: z.string(), updatedAt: z.string(),
