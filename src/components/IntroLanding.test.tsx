@@ -11,9 +11,10 @@ describe('IntroLanding', () => {
     expect(screen.getByText('All Models are Wrong, Some are useful, Belt Colors are only moderately so.')).toBeInTheDocument()
   })
 
-  it('renders the explanation with r ≈ .29', () => {
+  it('renders the corrected r ≈ 0.29 explanation (weak correlation, ~8% variance)', () => {
     render(<IntroLanding onStart={() => {}} />)
-    expect(screen.getByText(/r ≈ \.29/)).toBeInTheDocument()
+    expect(screen.getByText(/r ≈ 0\.29 means a weak positive correlation/)).toBeInTheDocument()
+    expect(screen.getByText(/8%/)).toBeInTheDocument()
   })
 
   it('renders a "Start the sweep" button that calls onStart', () => {

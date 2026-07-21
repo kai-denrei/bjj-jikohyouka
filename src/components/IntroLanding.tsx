@@ -495,10 +495,11 @@ export function IntroLanding({ onStart, onContinue }: IntroLandingProps) {
           lineHeight: 1.6,
         }}
       >
-        Belt Color is a loose indicator of ability, and self-rating in general is even more noisy
-        (&apos;r&nbsp;≈&nbsp;.29&apos; means that self-assessment of skills typically only explains 29% of actual skill,
-        e.g. humans are notoriously bad at self-awareness). Nonetheless this self-assessment test is
-        meant to surface potential areas for work. When answering, picture the vast range of all the
+        r&nbsp;≈&nbsp;0.29 means a weak positive correlation. People sometimes square it
+        (r&sup2;&nbsp;≈&nbsp;0.29&sup2;&nbsp;≈&nbsp;0.084&nbsp;=&nbsp;8%) for simple linear models. For our BJJ context it just
+        means that &ldquo;self-assessment of skills is not that accurate&rdquo; — self-assessment and actual skill
+        are related, but only modestly. Why bother? To directionally identify areas to work on, and some
+        amount of introspection can&apos;t hurt. When answering, picture the vast range of all the
         people you&apos;ve trained with; the young prodigies, the octopus-like purple belt leg-locker addict,
         the slow-heavy older black belt, the tiny brown belt with impeccable technique, the flow-gods,
         the omg-so-heavy-wtf wizards able to redirect and pinpoint their weight effortlessly where it
